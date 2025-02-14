@@ -15,32 +15,35 @@
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background-color: #2563eb;
-    color: white;
+    background-color: white;
+    color: black;
     border: none;
-    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
   .dropdown-button:hover {
-    background-color: #1e40af;
+    background-color: white;
+    border: 5px 0px solid blue;
   }
   
   .dropdown-menu {
     position: absolute;
     left: 0;
-    margin-top: 8px;
-    width: 192px;
+    font-weight: 500;
+    margin-top: 2px;
+    width: 100%;
+    padding: 5px 4px;
+    text-align: left;
     background-color: white;
     border: 1px solid #e5e7eb;
-    border-radius: 6px;
+    z-index: +80;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   .dropdown-item {
     display: block;
-    padding: 8px 16px;
+    /* padding: 8px 16px; */
     color: #374151;
     text-decoration: none;
     transition: background-color 0.3s ease;
@@ -52,8 +55,7 @@
   
   .menu_wrapper {
     display: flex;
-    gap: 24px;
-    background-color: gray;
+    gap: 4px;
     padding: 16px;
     color: white;
   }

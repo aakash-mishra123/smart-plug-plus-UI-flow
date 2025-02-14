@@ -9,7 +9,8 @@ const MenuItem = ({ title, items }) => {
     return (
         <div className="dropdown">
         <button
-          onClick={() => setOpen(!open)}
+          onMouseEnter={() => setOpen(true)}
+          onMouseLeave={() => setOpen(false)}
           className="dropdown-button"
         >
           {title} <BiChevronDown size={16} />

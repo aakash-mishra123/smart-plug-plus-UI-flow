@@ -34,14 +34,13 @@ const SlidingCards = () => {
             ))}
           </div>
         </div>
-        <div className="buttons">
-          <button onClick={prevSlide} className="button">
-            <BiChevronRight size={24} />
-          </button>
-          <button onClick={nextSlide} className="button">
+          <button onClick={prevSlide} className="button left_click">
             <BiChevronLeft size={24} />
           </button>
-        </div>
+
+          <button onClick={nextSlide} className="button right_click">
+            <BiChevronRight size={24} />
+          </button>
       </div>
     )
 };

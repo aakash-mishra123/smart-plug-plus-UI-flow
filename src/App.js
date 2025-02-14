@@ -24,7 +24,7 @@ function App() {
       </header> */}
       <Navbar />
       <SlidingCards />
-      <DropdownMenu />
+
     </div>
   );
 }

@@ -1,13 +1,14 @@
 .slider-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     padding: 2.5rem 0;
+
   }
   
   .slider-wrapper {
-    position: relative;
     width: max-content;
     height: 12rem;
     overflow-x: hidden;
@@ -28,7 +29,6 @@
     font-size: 1.25rem;
     font-weight: bold;
     color: white;
-    border: 1px solid red;
     background-color: gray;
   }
   
@@ -46,6 +46,7 @@
   }
   
   .button {
+    position: absolute;
     padding: 0.5rem;
     background-color: #1f2937;
     color: white;
@@ -53,7 +54,16 @@
     cursor: pointer;
     transition: background 0.3s ease;
   }
+
+  .left_click {
+    top: 40%;
+    left: 2%;
+  }
   
+  .right_click {
+    top: 40%;
+    right: 2%;
+  }
   .button:hover {
     background-color: #4b5563;
   }
