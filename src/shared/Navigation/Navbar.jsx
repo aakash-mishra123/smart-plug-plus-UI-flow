@@ -8,16 +8,12 @@ const LogoImg = () => (
         src={TvsLogo}
         alt=""
         className='brand_logo'
-        // style={{
-        //   height: '100%',
-        //   background: '#fff',
-        // }}
       />
   )
 
 const Navbar = () => {
     return (
-        <div className="navbar">
+        <div className="navbar_temp d-flex">
             <LogoImg />
             <DropdownMenu />
         </div>

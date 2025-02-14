@@ -1,22 +1,10 @@
-.navbar {
-    display: flex;
-    gap: 24px;
-    background-color: #1a202c;
-    padding: 16px;
-    color: white;
-  }
-  
-  .dropdown {
-    position: relative;
-  }
-  
-  .dropdown-button {
+.dropdown-button {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background-color: white;
+    gap: 0px;
+    background-color: #f7fbff;
     color: black;
+    font-weight: 500;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -31,26 +19,24 @@
     position: absolute;
     left: 0;
     font-weight: 500;
-    margin-top: 2px;
     width: 100%;
-    padding: 5px 4px;
+    padding: 0px;
     text-align: left;
-    background-color: white;
-    border: 1px solid #e5e7eb;
-    z-index: +80;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f7fbff;
+    z-index: 1050 !important;
+    border:  none !important;
+    border-radius: 0px !important;
   }
   
   .dropdown-item {
-    display: block;
-    /* padding: 8px 16px; */
     color: #374151;
     text-decoration: none;
+    padding-left: 5%;
     transition: background-color 0.3s ease;
   }
   
   .dropdown-item:hover {
-    background-color: #f3f4f6;
+    background-color: #dee0e4;
   }
   
   .menu_wrapper {
@@ -58,4 +44,6 @@
     gap: 4px;
     padding: 16px;
     color: white;
+    z-index: 400;
+    margin-right: 28px;
   }

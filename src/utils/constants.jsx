@@ -1,18 +1,20 @@
+import FirstImage from '../assets/carouselImages/1.png';
+import SecondImage from '../assets/carouselImages/2.png';
+import ThirdImage from '../assets/carouselImages/3.png';
+
+
 export const cards = [
-    { id: 1, title: "Card 1", color: "bg-red-500" },
-    { id: 2, title: "Card 2", color: "bg-blue-500" },
-    { id: 3, title: "Card 3", color: "bg-green-500" },
-    { id: 4, title: "Card 4", color: "bg-yellow-500" },
-    { id: 5, title: "Card 5", color: "bg-purple-500" },
-    { id: 6, title: "Card 6", color: "bg-red-500" },
-    { id: 7, title: "Card 7", color: "bg-blue-500" },
-    { id: 8, title: "Card 8", color: "bg-green-500" },
-    { id: 9, title: "Card 9", color: "bg-yellow-500" },
-    { id: 10, title: "Card 10", color: "bg-purple-500" }
+    { id: 1, title: "Card 1", color: "bg-red-500", content: "Nulla vitae elit libero, a pharetra augue mollis interdum.", cardImage: FirstImage},
+    { id: 2, title: "Card 2", color: "bg-blue-500", content: "Nulla vitae elit libero, a pharetra augue mollis interdum.", cardImage: SecondImage },
+    { id: 3, title: "Card 3", color: "bg-green-500", content: "Nulla vitae elit libero, a pharetra augue mollis interdum.", cardImage: ThirdImage },
   ];
 
   export const menuItems = [
-    { title: "OUR PRODUCTS", items: [{ label: "Bikes", link: "#" }, { label: "Scooters", link: "#" }] },
-    { title: "OUR SERVICE", items: [{ label: "Service Centers", link: "#" }, { label: "Book Service", link: "#" }] },
+    { title: "ABOUT US", items: [{ label: "Bikes", link: "#" }, { label: "Scooters", link: "#" }, { label: "Bikes", link: "#" }, { label: "Scooters", link: "#" }, { label: "Bikes", link: "#" }, { label: "Scooters", link: "#" }] },
+    { title: "OUR PRODUCTS", items: [{ label: "Service Centers", link: "#" }, { label: "Book Service", link: "#" }] },
     { title: "INVESTORS", items: [{ label: "Reports", link: "#" }, { label: "Shareholding", link: "#" }] },
+    { title: "SUSTAINABILITY", items: [{ label: "Bikes", link: "#" }, { label: "Scooters", link: "#" }] },
+    { title: "MEDIA", items: [{ label: "Service Centers", link: "#" }, { label: "Book Service", link: "#" }] },
+    { title: "INTERNATIONAL", items: [{ label: "Reports", link: "#" }, { label: "Shareholding", link: "#" }] },
+    { title: "SHOP", items: [{ label: "Shop", link: "#"}]}
   ];
