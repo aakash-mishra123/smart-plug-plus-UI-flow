@@ -1,0 +1,33 @@
+.root {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+}
+
+.headingBox {
+    display: flex;
+    flex-direction: column;
+    gap: 2
+}   
+
+.serviceCard {
+    border-radius: 20px;
+    width: 450px;
+    margin-left: 20px;
+}
+.headingDiv {
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-active {
+    border-color: #173782 !important;
+    color: #173782 !important;
+}
+
+.btn-active:hover {
+    background-color: #173782 !important;
+    color: white !important;
+}

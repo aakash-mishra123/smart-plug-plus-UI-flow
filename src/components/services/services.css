@@ -1,0 +1,18 @@
+.servicesBox {
+    background-image: url('../../assets/Latest\ Work.jpg');
+}
+
+.activeHeading {
+    background-color: #173782;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.headingDiv {
+    border: 1px solid #173782;
+    background-color: white;
+    color:  #173782;
+    border-radius: 6px;
+    cursor: pointer;
+}

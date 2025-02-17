@@ -5,6 +5,8 @@ import { Image, Carousel} from "react-bootstrap";
 const SlidingCards = () => {
   return (
     <Carousel
+      controls={true}
+      indicators={false}
     >
       {cards.map((item) => {
         return (
@@ -14,9 +16,9 @@ const SlidingCards = () => {
             <p>{cards.content}</p>
           </Carousel.Caption>
 
-          <Image src={item.cardImage} />
-        </Carousel.Item>)
-      }
+          <Image src={item.cardImage} className="w-100"/>
+        </Carousel.Item>
+        )}
       )}
     </Carousel>
   );
