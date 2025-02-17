@@ -133,5 +133,68 @@ export const cards = [
       subtitle: "Award",
       image: statsImage,
     },
-  ]
+  ];
+
+  export const reviewsData = [
+    {
+      "title": "Reliable and Efficient Service",
+      "description": "Say goodbye to service booking woes. Enjoy the convenience of booking a service from anywhere through WhatsApp and get live status updates on-the-go.",
+      "author_name": "Anil Mishra",
+      "author_address": "New Delhi, India"
+    },
+    {
+      "title": "Reliable and Efficient Service",
+      "description": "Say goodbye to service booking woes. Enjoy the convenience of booking a service from anywhere through WhatsApp and get live status updates on-the-go.",
+      "author_name": "Anil Mishra",
+      "author_address": "New Delhi, India"
+    },
+    {
+      "title": "Reliable and Efficient Service",
+      "description": "Say goodbye to service booking woes. Enjoy the convenience of booking a service from anywhere through WhatsApp and get live status updates on-the-go.",
+      "author_name": "Anil Mishra",
+      "author_address": "New Delhi, India"
+    },
+    {
+      "title": "Reliable and Efficient Service",
+      "description": "Say goodbye to service booking woes. Enjoy the convenience of booking a service from anywhere through WhatsApp and get live status updates on-the-go. Say goodbye to service booking woes. Enjoy the convenience of booking a service from anywhere through WhatsApp and get live status updates on-the-go.",
+      "author_name": "Anil Mishra",
+      "author_address": "New Delhi, India"
+    },
+    {
+      "title": "Reliable and Efficient Service ",
+      "description": "Say goodbye to service booking woes. Enjoy the convenience of booking a service from anywhere through WhatsApp and get live status updates on-the-go.",
+      "author_name": "Anil Mishra",
+      "author_address": "New Delhi, India"
+    },
+    {
+      "title": "Reliable and Efficient Service",
+      "description": "Say goodbye to service booking woes. Enjoy the convenience of booking a service from anywhere through WhatsApp and get live status updates on-the-go.",
+      "author_name": "Anil Mishra",
+      "author_address": "New Delhi, India"
+    },
+    {
+      "title": "Reliable and Efficient Service",
+      "description": "Say goodbye to service booking woes. Enjoy the convenience of booking a service from anywhere through WhatsApp and get live status updates on-the-go.",
+      "author_name": "Anil Mishra",
+      "author_address": "New Delhi, India"
+    },
+    {
+      "title": "Reliable and Efficient Service",
+      "description": "Say goodbye to service booking woes. Enjoy the convenience of booking a service from anywhere through WhatsApp and get live status updates on-the-go.",
+      "author_name": "Anil Mishra",
+      "author_address": "New Delhi, India"
+    },
+    {
+      "title": "Reliable and Efficient Service",
+      "description": "Say goodbye to service booking woes. Enjoy the convenience of booking a service from anywhere through WhatsApp and get live status updates on-the-go. Say goodbye to service booking woes. Enjoy the convenience of booking a service from anywhere through WhatsApp and get live status updates on-the-go.",
+      "author_name": "Anil Mishra",
+      "author_address": "New Delhi, India"
+    },
+    {
+      "title": "Reliable and Efficient Service ",
+      "description": "Say goodbye to service booking woes. Enjoy the convenience of booking a service from anywhere through WhatsApp and get live status updates on-the-go.",
+      "author_name": "Anil Mishra",
+      "author_address": "New Delhi, India"
+    },
+  ];
   
