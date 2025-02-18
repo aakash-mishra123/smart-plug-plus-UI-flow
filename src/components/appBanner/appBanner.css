@@ -1,0 +1,12 @@
+.banner {
+    padding: 12px 24px;
+    background-color:#173782;
+    font-family: 'Roboto', sans-serif;
+}
+.textBox {
+    width: 480px;
+}
+.bannerImage {
+    height: 480px;
+    width: 240px;
+}

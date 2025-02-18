@@ -15,7 +15,7 @@ const Services = () => {
     }
 
   return (
-    <div className="servicesBox h-100 py-3 px-4">
+    <div className="servicesBox h-100 py-3 px-5">
       <div className="w-full d-flex gap-2 justify-content-evenly px-4 ">
         {serviceHeadings.map((item, index) => (
           <div 
@@ -41,9 +41,9 @@ const Services = () => {
             
           <div className="d-flex flex-column text-start mt-2 gap-2">
             <h2 className="fs-4 text-black">{item.title}</h2>
-            <p className="fs-6 text-black">{item.features}</p>
+            <p className="fs-6 fw-light text-black">{item.features}</p>
 
-            <ul className="">
+            <ul className="fw-light">
                 {
                     item.features.map((feature) => 
                         <li><h1 className="text-black fs-6 fw-medium">{feature}</h1></li>

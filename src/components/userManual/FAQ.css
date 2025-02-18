@@ -1,0 +1,14 @@
+.root {
+    width: 100%;
+    background-color: #f7fbff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.headingBox {
+    display: flex;
+    flex-direction: column;
+    gap: 2
+}   

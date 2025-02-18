@@ -8,14 +8,14 @@ const StatsCarousel = () => {
         <>
             <div className="root">
                 <div className="headingBox mb-4 align-items-center">
-                    <div className="d-flex flex-row gap-2 align-items-center">
-                        <GoPulse className="fw-bold fs-4" style={{ color: "#173782"}}/>
-                        <h1 className="fw-medium fs-5 fw-bold text-primary" style={{ color: "#173782"}}>STATS</h1>
+                    <div className="d-flex flex-row gap-2 align-items-center" style={{ color: "#173782"}}>
+                        <GoPulse className="fw-bold fs-6"/>
+                        <h1 className="fs-6 fw-bold">STATS</h1>
                     </div>
                     <h1 className="fw-bold fs-5 ">TVS CARE ADVANTAGES</h1>
 
                 </div>
-                    <div className="d-flex flex-row w-full justify-content-between px-4 mt-4 gap-1">
+                    <div className="d-flex flex-row w-full justify-content-between px-5 gap-4">
                         {
                             statsDummyData.map((item) => 
                                 <div className="d-flex flex-column gap-0 align-items-start">

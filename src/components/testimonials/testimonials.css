@@ -1,0 +1,36 @@
+
+.root {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.headingBox {
+    display: flex;
+    flex-direction: column;
+    gap: 2
+}   
+
+.reviewsBox {
+    display: flex;
+    flex-direction: row;
+    overflow-y: none;
+    overflow-x: scroll;
+    max-height: 320px;
+}
+
+.reviewCard {
+    border: 1px solid gray;
+    border-radius: 16px;
+    height: 300px;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.reviewCard > p {
+    font-size: 10px;
+}

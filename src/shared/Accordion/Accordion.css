@@ -1,0 +1,8 @@
+.btn-primary:active {
+    background-color: white; /* Example: Change to an orange color */
+    border-color: white;     /* Optionally, change the border color as well */  
+}
+
+.btn:hover {
+    background-color: white;
+}

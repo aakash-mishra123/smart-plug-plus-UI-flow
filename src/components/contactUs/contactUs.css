@@ -1,0 +1,14 @@
+.contactUsBanner {
+  padding: 40px 72px;
+  background-color: #173782;
+  font-family: "Roboto", sans-serif;
+  font-size: "8px";
+}
+
+.textBox {
+    width: 480px;
+}
+.contactUsCard {
+    border-radius: 16px;
+    width: 40%;
+}

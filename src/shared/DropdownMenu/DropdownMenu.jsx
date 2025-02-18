@@ -1,4 +1,4 @@
-import "./styles/DropdownMenu.css";
+import "./DropdownMenu.css";
 import { useEffect, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { menuItems } from "../../utils/constants";
@@ -10,7 +10,7 @@ const MenuItem = ({ title, items }) => {
     if(open){
       console.log(title, open);
     }
-  }, [open, title])
+  }, [open, title]);
 
   return (
     <div className="dropdown">
