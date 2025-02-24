@@ -45,6 +45,12 @@ export const chartColors = {
     fill: "fill-pink-500",
     text: "text-pink-500",
   },
+  rose_pink: {
+    bg: "#d4135a",
+    stroke: "#d4135a",
+    fill: "#d4135a",
+    text: "#d4135a",
+  },
   lime: {
     bg: "bg-lime-500",
     stroke: "stroke-lime-500",

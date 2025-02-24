@@ -10,7 +10,7 @@ const CustomLinearProgress = ({ value, buffer } : any) => {
     <Box
     sx={{ 
       p: 0.5,
-      width: "100%", 
+      width: "90%", 
       marginLeft: "10px"
       }}
     >
@@ -56,19 +56,21 @@ const CustomLinearProgress = ({ value, buffer } : any) => {
       />
     </Box>
 
-    <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%", mt: 1 }}>
-        <Box sx={{ textAlign: "left", width: `15%`, marginLeft: "2%" }}>
-
-          <Typography fontSize={14} fontWeight="bold">0 kW</Typography>
-          <Typography fontSize={12} color="gray">Inattività</Typography>
+    <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%"}}>
+        <Box sx={{ width: `15%`, marginLeft: "2%", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Typography fontSize={15} fontWeight="bold">|</Typography>
+          <Typography fontSize={12} fontWeight="bold">0 kW</Typography>
+          <Typography fontSize={12} fontWeight="medium" color="gray">Inattività</Typography>
         </Box>
-        <Box sx={{ textAlign: "center", width: `${value/100}%`}}>
-          <Typography fontSize={14} fontWeight="bold">2.5 kW</Typography>
-          <Typography fontSize={12} color="gray">Limite di utilizzo</Typography>
+        <Box sx={{ width: `${value/100}%`, display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <Typography fontSize={15} fontWeight="bold">|</Typography>
+          <Typography fontSize={12} fontWeight="bold">2.5 kW</Typography>
+          <Typography fontSize={12} fontWeight="medium" color="gray">Limite di utilizzo</Typography>
         </Box>
-        <Box sx={{ textAlign: "right", width: `${buffer/100}%`, marginRight: "18%" }}>
-          <Typography fontSize={14} fontWeight="bold">3 kW</Typography>
-          <Typography fontSize={12} color="gray">Soglia massima</Typography>
+        <Box sx={{ width: `${buffer/100}%`, marginRight: "18%", display: "flex", flexDirection: "column", alignItems: "center"}}>
+          <Typography fontSize={15} fontWeight="bold">|</Typography>
+          <Typography fontSize={12} fontWeight="bold" width="full">3 kW</Typography>
+          <Typography fontSize={12} fontWeight="medium" color="gray">Soglia massima</Typography>
         </Box>
       </Box>
 
