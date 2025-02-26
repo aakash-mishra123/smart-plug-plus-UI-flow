@@ -2,9 +2,6 @@ import { Button } from '@/components/shared/Button'
 import { Drawer, DrawerContent, DrawerTitle, DrawerHeader, DrawerDescription, DrawerBody, DrawerFooter, DrawerClose } from '../shared/Drawer';
 
 export const DrawerModal = ({ isOpen, setIsOpen, data } : any) => {
-
-    console.log('drawer data', data);
-
     return (
    <>
   <div className="flex justify-center">

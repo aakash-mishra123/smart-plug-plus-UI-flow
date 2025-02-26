@@ -61,9 +61,6 @@ const renderShape = (
   layout: string,
   customStyle ?: any,
 ) => {
-
-  console.log('/// render shape props', props );
-
   const { fillOpacity, name, payload, value } = props
   let { x, width , y, height } = props
   if (layout === "horizontal" && height < 0) {
@@ -87,8 +84,8 @@ const renderShape = (
             : 0.3
           : fillOpacity
       }
-      rx={customStyle?.roundedTop ? customStyle.roundedTop : width / 2} // Rounded top
-      ry={0}
+      // rx={customStyle?.roundedTop ? customStyle.roundedTop : width / 2} // Rounded top
+      // ry={customStyle?.roundedTop ? customStyle.roundedTop : width / 2}
     />
   )
 }
@@ -659,9 +656,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       }
       setActiveBar(undefined)
     }
-
-    console.log('props', props);
-
     return (
       <div
         ref={forwardedRef}
@@ -868,7 +862,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               />
             ) : null}
             {categories.map((category) => {
-              console.log('props before bar', props);
               return (
                 <Bar
                 className={cx(
@@ -886,11 +879,11 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 isAnimationActive={false}
                 fill=""
                 shape={(props: any) =>{
-                  console.log('props render shape', props);
                   props.width=barWidth;
                   return renderShape(props, activeBar, activeLegend, layout);
                 }
                 }
+                radius={[ 10, 10, 0, 0]}
                 onClick={onBarClick}
               />
             )}

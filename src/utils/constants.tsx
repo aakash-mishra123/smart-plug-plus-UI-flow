@@ -28,3 +28,12 @@ export const barChartData = {
     }
   }
   
+  export const dummyUserData = {
+    title: 'Luce',
+    address: 'VIA ROMA 70 - 00041 ALBANO LAZIALE RM',
+    clientNumber: '110163341',
+    pod: 'IT001E60727485',
+    activationDate: '01.02.2024',
+    offer: 'ENERGIA PURA SPECIAL',
+  };
+  

@@ -9,16 +9,13 @@ const CustomLinearProgress = ({ value, buffer } : any) => {
   return (
     <Box
     sx={{ 
-      p: 0.5,
-      width: "90%", 
-      marginLeft: "10px"
+      width: "100%", 
       }}
     >
 
     <Box 
     sx={{ 
       p: 0.5,
-      width: "95%", 
       display: "flex", 
       flexDirection: "column", 
       justifyContent: "center",
@@ -63,8 +60,8 @@ const CustomLinearProgress = ({ value, buffer } : any) => {
           <Typography fontSize={12} fontWeight="medium" color="gray">Inattività</Typography>
         </Box>
         <Box sx={{ width: `${value/100}%`, display: "flex", flexDirection: "column", alignItems: "center"}}>
-        <Typography fontSize={15} fontWeight="bold">|</Typography>
-          <Typography fontSize={12} fontWeight="bold">2.5 kW</Typography>
+        <Typography fontSize={14} fontWeight="bold">|</Typography>
+        <Typography fontSize={12} fontWeight="bold">2.5 kW</Typography>
           <Typography fontSize={12} fontWeight="medium" color="gray">Limite di utilizzo</Typography>
         </Box>
         <Box sx={{ width: `${buffer/100}%`, marginRight: "18%", display: "flex", flexDirection: "column", alignItems: "center"}}>

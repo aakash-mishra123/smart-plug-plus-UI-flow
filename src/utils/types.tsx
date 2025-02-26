@@ -3,3 +3,9 @@ export type ProgressBarProps = {
     limit: any;
     max: any;
 };
+
+export type PowerUsageProps = {
+    powerUsage : any,
+    maxPower: any,
+    limitPower: any,
+}

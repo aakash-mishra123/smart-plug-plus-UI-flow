@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss"
-
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        monteserrat: ["Monteserrat", "serif"],
+        roboto: ["Roboto", 'serif']
+      },
       keyframes: {
         slideUp: {
           "0%": { transform: "translateY(100%)", opacity: "0" },

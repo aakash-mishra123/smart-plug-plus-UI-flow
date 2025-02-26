@@ -40,23 +40,21 @@ const  BarChartLayoutExample = () => {
   const [isOpen, setIsOpen] = useState(false);
 
    const handleBarClick = (data : any) => {
-    // console.log('drawer Data', data);
     setModalData(data);
     setIsOpen(true);
-
    }
-   
 
   return (
       <>
     <BarChart
-      className="h-72 !w-[95vw]"
+      className="h-72 mt-4 mb-4 "
       data={chartdata}
       handleBarClick={handleBarClick}
       index="name"
       categories={["Number of threatened species"]}
       yAxisWidth={80}
       barWidth={12}
+      showLegend={false}
       layout="horizontal"
       customWrapperStyle={{ left: "-32px"}}
       />
