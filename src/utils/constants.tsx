@@ -1,3 +1,8 @@
+import { BsExclamationCircle } from "react-icons/bs";
+
+import { MdOutlineThumbUpAlt } from "react-icons/md";
+
+
 export const barChartData = {
     "dailyConsumption": {
       "date": "2024-01-22",
@@ -36,4 +41,104 @@ export const barChartData = {
     activationDate: '01.02.2024',
     offer: 'ENERGIA PURA SPECIAL',
   };
+  
+
+  export const dummyAlertData = [
+    {
+      type: "success",
+      message: "La tua potenza attuale è entro la soglia del tuo piano",
+      icon: <MdOutlineThumbUpAlt  className="h-12 w-12 text-3xl text-green-500" />,
+      bgColor: "bg-white",
+      textColor: "text-green-600",
+      borderColor: "border-green-500",
+    },
+    {
+      type: "warning",
+      message: "Stai raggiungendo il limite di utilizzo.",
+      icon: <BsExclamationCircle  className="h-12 w-12 text-3xl text-orange-500 bg-yellow-500" />,
+      bgColor: "bg-[#faf0e6]",
+      textColor: "text-orange-800",
+      borderColor: "border-orange-500",
+    },
+    {
+      type: "danger",
+      message: "Hai superato il limite di utilizzo.",
+      subMessage:
+        "Riduci il consumo di energia elettrica per evitare l’interruzione della fornitura.",
+      icon: <BsExclamationCircle  className="h-12 w-12 text-3xl text-orange-500 bg-yellow-500" />,
+      bgColor: "bg-[#ffe8e8]",
+      textColor: "text-red-900",
+      borderColor: "border-red-500",
+    },
+  ];
+  
+  export const plugDummyData = {
+    "status": {
+      "icon": "error",
+      "title": "Sembra che la tua presa plus non sia connessa!",
+      "description": "Il dispositivo non riesce a completare la connessione."
+    },
+    "solution": {
+      "title": "Come posso risolvere il problema?",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    "steps": [
+      {
+        "id": 1,
+        "title": "Lorem ipsum dolor sit amet",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem."
+      },
+      {
+        "id": 2,
+        "title": "Lorem ipsum dolor sit amet",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem."
+      },
+      {
+        "id": 3,
+        "title": "Lorem ipsum dolor sit amet",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem."
+      }
+    ],
+    "additional_help": {
+      "title": "Non riesci a risolvere il problema?",
+      "description": "Contatta l'assistenza cliccando sul pulsante ⓘ che si trova in alto a destra."
+    }
+  }
+  
+
+  export const timeTariffData = {
+    "title": "Come funziona la tariffa a fasce?",
+    "description": "Le tariffe di consumo a fasce si basano sulla suddivisione della giornata in diversi periodi orari, con costi variabili a seconda della fascia oraria in cui si utilizza l’energia. Ecco le principali distinzioni:",
+    "tariff_bands": [
+      {
+        "name": "Fascia F1",
+        "type": "ore di punta",
+        "schedule": "Dal lunedì al venerdì, dalle 8:00 alle 19:00.",
+        "description": "È la fascia con il costo più alto, poiché corrisponde ai momenti di maggior richiesta energetica."
+      },
+      {
+        "name": "Fascia F2",
+        "type": "ore intermedie",
+        "schedule": "Dal lunedì al venerdì, dalle 7:00 alle 8:00 e dalle 19:00 alle 23:00; il sabato dalle 7:00 alle 23:00.",
+        "description": "Tariffa intermedia, con un costo più basso rispetto alla F1 ma più alto della F3."
+      },
+      {
+        "name": "Fascia F3",
+        "type": "ore fuori punta",
+        "schedule": "Dal lunedì al sabato, dalle 23:00 alle 7:00; domenica e festivi tutto il giorno.",
+        "description": "Tariffa più economica, perché la domanda di energia è più bassa."
+      }
+    ],
+    "button": {
+      "text": "Ok, ho capito"
+    }
+  }
+
+  export const FAQData = [
+    "How do I change the Wi-Fi network to which the Plus socket is connected?",
+    "How do the consumption bands work?",
+    "What does it mean if the light does X or Y?",
+    "Lorem ipsum dolor sit amet elit?",
+    "What does it mean if the light does X or Y?"
+  ]
   

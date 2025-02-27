@@ -53,21 +53,21 @@ const CustomLinearProgress = ({ value, buffer } : any) => {
       />
     </Box>
 
-    <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%"}}>
+    <Box className="montserrat-custom" sx={{ display: "flex", justifyContent: "space-between", width: "100%"}}>
         <Box sx={{ width: `15%`, marginLeft: "2%", display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Typography fontSize={15} fontWeight="bold">|</Typography>
-          <Typography fontSize={12} fontWeight="bold">0 kW</Typography>
-          <Typography fontSize={12} fontWeight="medium" color="gray">Inattività</Typography>
+          <Typography fontSize={12} fontWeight="extrabold">0 kW</Typography>
+          <Typography fontSize={12} fontWeight="medium" color="black">Inattività</Typography>
         </Box>
         <Box sx={{ width: `${value/100}%`, display: "flex", flexDirection: "column", alignItems: "center"}}>
         <Typography fontSize={14} fontWeight="bold">|</Typography>
-        <Typography fontSize={12} fontWeight="bold">2.5 kW</Typography>
-          <Typography fontSize={12} fontWeight="medium" color="gray">Limite di utilizzo</Typography>
+        <Typography fontSize={12} fontWeight="extrabold">2.5 kW</Typography>
+          <Typography fontSize={12} fontWeight="medium" color="black">Limite di utilizzo</Typography>
         </Box>
         <Box sx={{ width: `${buffer/100}%`, marginRight: "18%", display: "flex", flexDirection: "column", alignItems: "center"}}>
           <Typography fontSize={15} fontWeight="bold">|</Typography>
-          <Typography fontSize={12} fontWeight="bold" width="full">3 kW</Typography>
-          <Typography fontSize={12} fontWeight="medium" color="gray">Soglia massima</Typography>
+          <Typography fontSize={12} fontWeight="extrabold" width="full">3 kW</Typography>
+          <Typography fontSize={12} fontWeight="medium" color="black">Soglia massima</Typography>
         </Box>
       </Box>
 

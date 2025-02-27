@@ -18,11 +18,21 @@ const InfoCard = () => {
     <div className="bg-[#C81D5E] h-fit p-4 min-w-[100vw] mb-4">
       {/* Header */}
       <Flex justifyContent="between" alignItems="center" className="mb-4">
-          <IoChevronBack onClick={() => router.back()} className="w-10 h-10 p-2 rounded-3xl bg-white text-lg text-black font-bold "/>
+          <IoChevronBack 
+            onClick={() => {
+              router.push("/");
+            }} 
+            className="w-10 h-10 p-2 rounded-3xl bg-white text-lg text-black font-bold m-2"
+            />
 
             <Title className="font-bold text-white montserrat-custom text-md">La mia presa plus</Title>
 
-          <PiGearBold onClick={() => router.push("/settings")} className="w-10 h-10 p-2 rounded-3xl bg-white text-lg text-black font-bold "/>
+          <PiGearBold 
+          onClick={() => {
+            router.push("/settings"); 
+            }} 
+          className="w-10 h-10 p-2 rounded-3xl bg-white text-lg text-black font-bold "
+          />
 
       </Flex>
 
@@ -39,7 +49,7 @@ const InfoCard = () => {
             />
         <div className="flex flex-col gap-0">
         <Flex justifyContent="start" alignItems="center" className="mt-2" >
-          <CiPlug1 className="font-bold text-lg text-green-800" />
+          <CiPlug1 className="font-bold text-xl text-green-800" />
           <div className="text-xs flex flex-col ml-2">
             <Text className="text-gray-500">Numero seriale</Text>
             <Text className="font-semibold">c2G-XXXXXXX</Text>

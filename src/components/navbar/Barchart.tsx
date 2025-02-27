@@ -47,7 +47,7 @@ const  BarChartLayoutExample = () => {
   return (
       <>
     <BarChart
-      className="h-72 mt-4 mb-4 "
+      className="h-72 pt-4 pb-4 bg-white"
       data={chartdata}
       handleBarClick={handleBarClick}
       index="name"
