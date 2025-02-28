@@ -84,8 +84,9 @@ const renderShape = (
             : 0.3
           : fillOpacity
       }
-      // rx={customStyle?.roundedTop ? customStyle.roundedTop : width / 2} // Rounded top
-      // ry={customStyle?.roundedTop ? customStyle.roundedTop : width / 2}
+      rx={customStyle?.roundedTop ? customStyle.roundedTop : width / 2} 
+      // Rounded top
+      ry={customStyle?.roundedTop ? customStyle.roundedTop : width / 2}
     />
   )
 }
@@ -677,8 +678,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             }
             margin={{
               bottom: xAxisLabel ? 30 : undefined,
-              left: yAxisLabel ? 20 : undefined,
-              right: yAxisLabel ? 5 : undefined,
+              left: yAxisLabel ? -10 : undefined,
+              right: yAxisLabel ? -10 : undefined,
               top: 5,
             }}
             stackOffset={type === "percent" ? "expand" : undefined}

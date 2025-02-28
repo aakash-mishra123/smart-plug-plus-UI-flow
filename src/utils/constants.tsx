@@ -142,3 +142,347 @@ export const barChartData = {
     "What does it mean if the light does X or Y?"
   ]
   
+  export const dummyBarChartData = [
+    {
+    monthName: "January 2025", 
+    totalConsumption: "213, 35",
+    data: [
+        {
+            "date": "01-02-2025",
+            "powerIntervals": [
+                {
+                    date : "09h-10h",
+                    "interval_one": 2,
+                    "interval_two": 4,
+                    "interval_three": 1,
+                    "interval_four": 3
+                },
+                {
+                    date : "10h-11h",
+                    "interval_one": 1,
+                    "interval_two": 2,
+                    "interval_three": 1,
+                    "interval_four": 3
+                },
+                {
+                    date : "11h-12h",
+                    "interval_one": 4,
+                    "interval_two": 1,
+                    "interval_three": 2,
+                    "interval_four": 3
+                },
+                {
+                    date : "12h-13h",
+                    "interval_one": 2,
+                    "interval_two": 4,
+                    "interval_three": 1,
+                    "interval_four": 3
+                },
+                {
+                    date : "13h-14h",
+                    "interval_one": 2,
+                    "interval_two": 4,
+                    "interval_three": 1,
+                    "interval_four": 3
+                },
+                {
+                    date : "14h-15h",
+                    "interval_one": 2,
+                    "interval_two": 4,
+                    "interval_three": 1,
+                    "interval_four": 3
+                }
+            ]
+        },
+        {
+            "date": "02-02-2025",
+            "powerIntervals": [
+                {
+                    date : "09h-10h",
+                    "interval_one": 2,
+                    "interval_two": 4,
+                    "interval_three": 1,
+                    "interval_four": 3
+                },
+                {
+                    date : "10h-11h",
+                    "interval_one": 1,
+                    "interval_two": 2,
+                    "interval_three": 1,
+                    "interval_four": 3
+                },
+                {
+                    date : "11h-12h",
+                    "interval_one": 4,
+                    "interval_two": 1,
+                    "interval_three": 2,
+                    "interval_four": 3
+                },
+                {
+                    date : "12h-13h",
+                    "interval_one": 2,
+                    "interval_two": 4,
+                    "interval_three": 1,
+                    "interval_four": 3
+                },
+                {
+                    date : "13h-14h",
+                    "interval_one": 2,
+                    "interval_two": 4,
+                    "interval_three": 1,
+                    "interval_four": 3
+                },
+                {
+                    date : "14h-15h",
+                    "interval_one": 2,
+                    "interval_two": 4,
+                    "interval_three": 1,
+                    "interval_four": 3
+                }
+            ]
+        },
+        {
+          "date": "03-02-2025",
+          "powerIntervals": [
+              {
+                  date : "09h-10h",
+                  "interval_one": 2,
+                  "interval_two": 4,
+                  "interval_three": 1,
+                  "interval_four": 3
+              },
+              {
+                  date : "10h-11h",
+                  "interval_one": 1,
+                  "interval_two": 2,
+                  "interval_three": 1,
+                  "interval_four": 3
+              },
+              {
+                  date : "11h-12h",
+                  "interval_one": 4,
+                  "interval_two": 1,
+                  "interval_three": 2,
+                  "interval_four": 3
+              },
+              {
+                  date : "12h-13h",
+                  "interval_one": 2,
+                  "interval_two": 4,
+                  "interval_three": 1,
+                  "interval_four": 3
+              },
+              {
+                  date : "13h-14h",
+                  "interval_one": 2,
+                  "interval_two": 4,
+                  "interval_three": 1,
+                  "interval_four": 3
+              },
+              {
+                  date : "14h-15h",
+                  "interval_one": 2,
+                  "interval_two": 4,
+                  "interval_three": 1,
+                  "interval_four": 3
+              }
+          ]
+        },
+        {
+          "date": "04-02-2025",
+          "powerIntervals": [
+            {
+                date : "09h-10h",
+                "interval_one": 2,
+                "interval_two": 4,
+                "interval_three": 1,
+                "interval_four": 3
+            },
+            {
+                date : "10h-11h",
+                "interval_one": 1,
+                "interval_two": 2,
+                "interval_three": 1,
+                "interval_four": 3
+            },
+            {
+                date : "11h-12h",
+                "interval_one": 4,
+                "interval_two": 1,
+                "interval_three": 2,
+                "interval_four": 3
+            },
+            {
+                date : "12h-13h",
+                "interval_one": 2,
+                "interval_two": 4,
+                "interval_three": 1,
+                "interval_four": 3
+            },
+            {
+                date : "13h-14h",
+                "interval_one": 2,
+                "interval_two": 4,
+                "interval_three": 1,
+                "interval_four": 3
+            },
+            {
+                date : "14h-15h",
+                "interval_one": 2,
+                "interval_two": 4,
+                "interval_three": 1,
+                "interval_four": 3
+            }
+          ]
+        },
+        {
+          "date": "05-02-2025",
+          "powerIntervals": [
+            {
+                date : "09h-10h",
+                "interval_one": 2,
+                "interval_two": 4,
+                "interval_three": 1,
+                "interval_four": 3
+            },
+            {
+                date : "10h-11h",
+                "interval_one": 1,
+                "interval_two": 2,
+                "interval_three": 1,
+                "interval_four": 3
+            },
+            {
+                date : "11h-12h",
+                "interval_one": 4,
+                "interval_two": 1,
+                "interval_three": 2,
+                "interval_four": 3
+            },
+            {
+                date : "12h-13h",
+                "interval_one": 2,
+                "interval_two": 4,
+                "interval_three": 1,
+                "interval_four": 3
+            },
+            {
+                date : "13h-14h",
+                "interval_one": 2,
+                "interval_two": 4,
+                "interval_three": 1,
+                "interval_four": 3
+            },
+            {
+                date : "14h-15h",
+                "interval_one": 2,
+                "interval_two": 4,
+                "interval_three": 1,
+                "interval_four": 3
+            }
+          ]
+        }
+        
+        // Repeat for each day of January 2025
+    ]
+  },
+  // {
+  //   monthName: "February 2025", 
+  //   data: [
+  //       {
+  //           "date": "01-01-2025",
+  //           "powerIntervals": [
+  //               {
+  //                   "timeInterval": "09h-10h",
+  //                   "interval_one": 2,
+  //                   "interval_two": 4,
+  //                   "interval_three": 1,
+  //                   "interval_four": 3
+  //               },
+  //               {
+  //                   "timeInterval": "10h-11h",
+  //                   "interval_one": 1,
+  //                   "interval_two": 2,
+  //                   "interval_three": 1,
+  //                   "interval_four": 3
+  //               },
+  //               {
+  //                   "timeInterval": "11h-12h",
+  //                   "interval_one": 4,
+  //                   "interval_two": 1,
+  //                   "interval_three": 2,
+  //                   "interval_four": 3
+  //               },
+  //               {
+  //                   "timeInterval": "12h-13h",
+  //                   "interval_one": 2,
+  //                   "interval_two": 4,
+  //                   "interval_three": 1,
+  //                   "interval_four": 3
+  //               },
+  //               {
+  //                   "timeInterval": "13h-14h",
+  //                   "interval_one": 2,
+  //                   "interval_two": 4,
+  //                   "interval_three": 1,
+  //                   "interval_four": 3
+  //               },
+  //               {
+  //                   "timeInterval": "14h-15h",
+  //                   "interval_one": 2,
+  //                   "interval_two": 4,
+  //                   "interval_three": 1,
+  //                   "interval_four": 3
+  //               }
+  //           ]
+  //       },
+  //       {
+  //           "date": "02-01-2025",
+  //           "powerIntervals": [
+  //               {
+  //                   "timeInterval": "09h-10h",
+  //                   "interval_one": 2,
+  //                   "interval_two": 4,
+  //                   "interval_three": 1,
+  //                   "interval_four": 3
+  //               },
+  //               {
+  //                   "timeInterval": "10h-11h",
+  //                   "interval_one": 1,
+  //                   "interval_two": 2,
+  //                   "interval_three": 1,
+  //                   "interval_four": 3
+  //               },
+  //               {
+  //                   "timeInterval": "11h-12h",
+  //                   "interval_one": 4,
+  //                   "interval_two": 1,
+  //                   "interval_three": 2,
+  //                   "interval_four": 3
+  //               },
+  //               {
+  //                   "timeInterval": "12h-13h",
+  //                   "interval_one": 2,
+  //                   "interval_two": 4,
+  //                   "interval_three": 1,
+  //                   "interval_four": 3
+  //               },
+  //               {
+  //                   "timeInterval": "13h-14h",
+  //                   "interval_one": 2,
+  //                   "interval_two": 4,
+  //                   "interval_three": 1,
+  //                   "interval_four": 3
+  //               },
+  //               {
+  //                   "timeInterval": "14h-15h",
+  //                   "interval_one": 2,
+  //                   "interval_two": 4,
+  //                   "interval_three": 1,
+  //                   "interval_four": 3
+  //               }
+  //           ]
+  //       }
+  //   ]
+  // }
+]

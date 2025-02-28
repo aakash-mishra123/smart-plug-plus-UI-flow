@@ -7,6 +7,9 @@ import BarChartHero from "../../components/navbar/Barchart"
 import InfoCard from "@/components/shared/InfoCard";
 import ConsumptionCard from "@/components/progressBar/ConsumptionCard";
 
+import ComparisonBarChart from "@/components/progressBar/ComparisionBarChart";
+
+
 const dummyData = {
     powerUsage: 4,
     maxPower: 3,
@@ -31,13 +34,14 @@ const Temp = () => {
             in={show} 
             timeout={{ appear: 0, enter: 100, exit: 100 }}
             >
-        <div className="bg-[#edf1f5]" onClick={handleBack}>
+        <div className="bg-[#edf1f5]">
             <InfoCard />
             <ConsumptionCard 
                 powerUsage={dummyData.powerUsage}
                 maxPower={dummyData.maxPower}
                 limitPower={dummyData.limitPower}
             />
+            <ComparisonBarChart />
         </div>
         </Transitions>
     );
