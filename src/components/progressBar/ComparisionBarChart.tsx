@@ -4,7 +4,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { BarChart } from "@/components/shared/BarChart";
 import { dummyBarChartData } from "@/utils/constants";
-import { Button } from "@tremor/react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import MonthSwitcher from "../calendar/MonthSwitcher";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar"
@@ -13,6 +12,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs, { Dayjs } from 'dayjs';
 import { Badge } from "lucide-react";
 import { motion } from "framer-motion";
+import Button from '@mui/material/Button';
+
 
 const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
     const startHourStr = dateStr.split("h")[0]; // "09"
@@ -68,47 +69,71 @@ const CustomTooltip = ({
 };
 
 const ComparisonBarChart = () => {
-    const [currentDate, setCurrentDate] = useState<Date>(new Date());
+    const [currentDate, setCurrentDate] = useState<any>(new Date());
     const activeMonth: any = dummyBarChartData[0];
     const currentDayData: any = activeMonth.data[0];
     const [showDatePicker, setShowDatePicker] = useState<Boolean>(false);
+
+    useEffect(() => {
+
+        console.log('selected date', currentDate);
+
+        //console.log(' prev date format', new Date());
+
+    }, [currentDate]);
+
+    const handleCalendarDateClick = (value: any) => {
+        const formattedNewValue = dayjs(value?.$d).format("YYYY-MM-DD");
+        setCurrentDate(formattedNewValue);
+        setShowDatePicker(false);
+    }
+
+
     return (
         <>
-            <div className="p-2 bg-white">
+            <div className="p-2 bg-white mt-2 ">
                 <div className="flex flex-col gap-1 ml-8">
                     <MonthSwitcher
                         currentDate={currentDate}
                         setCurrentDate={setCurrentDate}
                     />
-                    <div className="flex flex-row justify-between">
-                        <div className="flex flex-row flex-reverse z-50">
-
-                            <Badge onClick={() => setShowDatePicker((prev) => !prev)} />
-
-                            {showDatePicker &&
-                                <motion.div
-                                    key={dayjs(currentDate).format("YYYY-MM-DD")} // Re-trigger animation when date changes
-                                    initial={{ opacity: 0, y: -20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 20 }}
-                                    transition={{ duration: 0.3 }}
-
-                                >
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <DateCalendar
-                                            value={dayjs(currentDate)}
-                                            onChange={(newValue) => setCurrentDate(newValue)}
-                                        />
-                                    </LocalizationProvider >
-                                </motion.div>
-                            }
-                        </div>
-
+                    <div className="flex flex-row justify-between relative">
                         <div className="flex flex-row gap-1 items-end monteserrat-custom">
 
                             <p className="mt-4 text-2xl font-medium text-black">{activeMonth.totalConsumption}</p>
                             <p className="text-xl font-medium">kWh</p>
                         </div>
+
+                        <div className="flex flex-row z-50 relative gap-2 mr-2">
+                            {showDatePicker &&
+                                <motion.div
+                                    key={dayjs(currentDate).format("YYYY-MM-DD")} // Re-trigger animation when date changes
+                                    initial={{ opacity: 0, x: "-90%", y: -20 }}
+                                    animate={{ opacity: 1, x: "-90%", y: 0 }}
+                                    exit={{ opacity: 0, x: "-90%", y: 20 }}
+                                    transition={{ duration: 0.5, ease: "backIn" }}
+                                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  z-[9999] bg-white shadow-lg"
+                                >
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DateCalendar
+                                            value={dayjs(currentDate)}
+                                            onChange={handleCalendarDateClick}
+                                        // open={showDatePicker}
+                                        />
+                                    </LocalizationProvider >
+                                </motion.div>
+                            }
+                            <Button 
+                                variant="contained" 
+                                className="py-0 bg-[#e60058] text-white rounded-md">Month</Button>
+                            <Button variant="outlined" 
+                            className="py-0 text-[#e60058] border-[#e60058] rounded-lg font-semibold"
+                            onClick={() => setShowDatePicker((prev) => !prev)}
+                            >Day</Button>
+
+                            
+                        </div>
+
                     </div>
                 </div>
 

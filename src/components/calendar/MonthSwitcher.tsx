@@ -2,39 +2,57 @@
  
 import React, { useState } from "react";
 import { Button, Flex, Text } from "@tremor/react";
-import { format, addMonths, subMonths } from "date-fns";
+import { format, addMonths, subMonths, startOfMonth } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import dayjs from 'dayjs';
 
 interface MonthSwitcherProps {
     currentDate: Date;
     setCurrentDate: React.Dispatch<React.SetStateAction<Date>>;
+    closeCalendar?: () => void;
 }
  
 export default function MonthSwitcher({
     currentDate,
     setCurrentDate,
+    closeCalendar,
 }: MonthSwitcherProps) {
-
  
     const handlePrevMonth = () => {
-        setCurrentDate((prev : any) => subMonths(prev, 1));
+        //additional logic to edit bar graph data,
+        setCurrentDate((prev : any) => startOfMonth(subMonths(prev, 1)));
     };
  
     const handleNextMonth = () => {
-        setCurrentDate((prev) => addMonths(prev, 1));
+        setCurrentDate((prev) => startOfMonth(addMonths(prev, 1)));
+        console.log('next', currentDate);
     };
+
+    const formattedDate = dayjs(currentDate).format('MMMM YYYY');
  
     return (
         <div className="flex items-center gap-1">
  
-            <Button variant="light" color="gray" onClick={handlePrevMonth}>
-                <ChevronLeftIcon className="h-8 w-8 text-pink-500" />
+            <Button 
+             variant="light" 
+             color="gray" 
+             onClick={handlePrevMonth} 
+             disabled={dayjs(currentDate).month() === 0} 
+             className={dayjs(currentDate).month() === 0 ? "opacity-50 cursor-not-allowed text-gray-500" : "text-pink-500"}
+             >
+                <ChevronLeftIcon className="h-8 w-8 " />
             </Button>
             <Text className="text-lg font-medium">
-                {format(currentDate, "MMMM yyyy")}
+                {formattedDate}
             </Text>
-            <Button variant="light" color="gray" onClick={handleNextMonth}>
-                <ChevronRightIcon className="h-8 w-8 text-pink-500" />
+            <Button 
+               variant="light" 
+               color="gray" 
+               onClick={handleNextMonth} 
+               disabled={dayjs(currentDate).month() === 11} 
+               className={dayjs(currentDate).month() === 11 ? "opacity-50 cursor-not-allowed text-gray-500" : "text-pink-500"}
+            >
+                <ChevronRightIcon className="h-8 w-8" />
             </Button>
         </div>
     );

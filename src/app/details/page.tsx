@@ -6,7 +6,6 @@ import Transitions from "@/components/animations/Transition";
 import BarChartHero from "../../components/navbar/Barchart"
 import InfoCard from "@/components/shared/InfoCard";
 import ConsumptionCard from "@/components/progressBar/ConsumptionCard";
-
 import ComparisonBarChart from "@/components/progressBar/ComparisionBarChart";
 
 
