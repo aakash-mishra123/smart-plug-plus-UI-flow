@@ -3,21 +3,18 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Transitions from "@/components/animations/Transition";
-import BarChartHero from "../../components/navbar/Barchart"
 import InfoCard from "@/components/shared/InfoCard";
 import ConsumptionCard from "@/components/progressBar/ConsumptionCard";
-import ComparisonBarChart from "@/components/progressBar/ComparisionBarChart";
+// import ComparisonBarChart from "@/components/progressBar/ComparisionBarChart";
 
 
-const dummyData = {
-    powerUsage: 4,
-    maxPower: 3,
-    limitPower: 2.5,
-  };
+import { barChartData } from "@/utils/constants";
 
 const Temp = () => {
     const router = useRouter();
     const [show, setShow] = useState(true);
+
+    const dummyData = barChartData[1].data;
 
     const handleBack = () => {
         setShow(false); // Start exit transition
@@ -35,12 +32,12 @@ const Temp = () => {
             >
         <div className="bg-[#edf1f5]">
             <InfoCard />
-            <ConsumptionCard 
+            <ConsumptionCard
                 powerUsage={dummyData.powerUsage}
                 maxPower={dummyData.maxPower}
                 limitPower={dummyData.limitPower}
             />
-            <ComparisonBarChart />
+            {/* <ComparisonBarChart /> */}
         </div>
         </Transitions>
     );

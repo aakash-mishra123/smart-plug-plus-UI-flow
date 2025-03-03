@@ -32,7 +32,6 @@ export default function MonthSwitcher({
  
     return (
         <div className="flex items-center gap-1">
- 
             <Button 
              variant="light" 
              color="gray" 
@@ -40,7 +39,7 @@ export default function MonthSwitcher({
              disabled={dayjs(currentDate).month() === 0} 
              className={dayjs(currentDate).month() === 0 ? "opacity-50 cursor-not-allowed text-gray-500" : "text-pink-500"}
              >
-                <ChevronLeftIcon className="h-8 w-8 " />
+                <ChevronLeftIcon className="h-10 w-6" />
             </Button>
             <Text className="text-lg font-medium">
                 {formattedDate}
@@ -52,7 +51,7 @@ export default function MonthSwitcher({
                disabled={dayjs(currentDate).month() === 11} 
                className={dayjs(currentDate).month() === 11 ? "opacity-50 cursor-not-allowed text-gray-500" : "text-pink-500"}
             >
-                <ChevronRightIcon className="h-8 w-8" />
+                <ChevronRightIcon className="h-10 w-6" />
             </Button>
         </div>
     );

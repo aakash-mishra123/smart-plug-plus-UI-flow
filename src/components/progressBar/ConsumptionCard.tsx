@@ -3,6 +3,7 @@ import { Card, Badge, Text, Metric } from "@tremor/react";
 import OverlappingProgressBar from "../progressBar/progressBar";
 
 import { dummyAlertData } from "@/utils/constants";
+import WarningCard from "../elements/WarningCard";
 
 const ConsumptionCard = ({
   powerUsage,
@@ -41,29 +42,17 @@ const ConsumptionCard = ({
           <p className="text-xl font-bold">kW</p>
         </div>
 
-        <OverlappingProgressBar value={45} buffer={65} />
+        <OverlappingProgressBar value={powerUsage} buffer={65} />
 
         <hr className="mt-4"/>
 
         <div className="space-y-4 mt-4">
           {dummyAlertData.map((alert, index) => {
-            const AlertIcon = alert.icon;
-            
             return (
-            <Card
-              key={index}
-              className={`border border-2 rounded-xl ${alert.borderColor} ${alert.bgColor} p-4 flex items-center space-x-3 `}
-            >
-              {AlertIcon}
-              <div>
-                <p className={`text-xs font-semibold ${alert.textColor}`}>
-                  {alert.message}
-                </p>
-                {alert.subMessage && (
-                  <p className={`text-xs ${alert.textColor}`}>{alert.subMessage}</p>
-                )}
-              </div>
-            </Card>
+              <WarningCard 
+                alert={alert}
+                index={index}
+                />
           )})}
         </div>
       </Card>
