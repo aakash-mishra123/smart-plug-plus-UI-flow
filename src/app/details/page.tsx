@@ -24,10 +24,10 @@ const Temp = () => {
     };
 
     return (
-        <Transitions 
-            type="slide" 
-            direction="left" 
-            in={show} 
+        <Transitions
+            type="slide"
+            direction="left"
+            in={show}
             timeout={{ appear: 0, enter: 100, exit: 100 }}
             >
         <div className="bg-[#edf1f5]">

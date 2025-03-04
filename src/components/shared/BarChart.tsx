@@ -27,6 +27,7 @@ import {
 } from "@/lib/chartUtils"
 import { useOnWindowResize } from "@/lib/useOnWindowResize"
 import { cx } from "@/lib/utils"
+import { motion } from "framer-motion";
 
 //#region Shape
 
@@ -59,37 +60,39 @@ const renderShape = (
   activeBar: any | undefined,
   activeLegend: string | undefined,
   layout: string,
-  customStyle ?: any,
+  customStyle?: any
 ) => {
-  const { fillOpacity, name, payload, value } = props
-  let { x, width , y, height } = props
+  const { fillOpacity, name, payload, value } = props;
+  let { x, width, y, height } = props;
+
+  // Ensure positive dimensions for animation
   if (layout === "horizontal" && height < 0) {
-    y += height
-    height = Math.abs(height) // height must be a positive number
+    y += height;
+    height = Math.abs(height);
   } else if (layout === "vertical" && width < 0) {
-    x += width
-    width = Math.abs(width) // width must be a positive number
+    x += width;
+    width = Math.abs(width);
   }
 
+  const computedOpacity =
+    activeBar || (activeLegend && activeLegend !== name)
+      ? deepEqual(activeBar, { ...payload, value })
+        ? fillOpacity
+        : 0.3
+      : fillOpacity;
+
   return (
-    <rect
+    <motion.rect
       x={x}
-      y={y}
       width={width}
-      height={height}
-      opacity={
-        activeBar || (activeLegend && activeLegend !== name)
-          ? deepEqual(activeBar, { ...payload, value })
-            ? fillOpacity
-            : 0.3
-          : fillOpacity
-      }
-      rx={customStyle?.roundedTop ? customStyle.roundedTop : width / 2} 
-      // Rounded top
+      initial={{ height: 0, y: y + height }}
+      animate={{ height: height, y: y }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      fillOpacity={computedOpacity}
       ry={customStyle?.roundedTop ? customStyle.roundedTop : width / 2}
     />
-  )
-}
+  );
+};
 
 //#region Legend
 
@@ -136,7 +139,7 @@ const LegendItem = ({
           // text color
           "text-gray-700 dark:text-gray-300",
           hasOnValueChange &&
-            "group-hover:text-gray-900 dark:group-hover:text-gray-50",
+          "group-hover:text-gray-900 dark:group-hover:text-gray-50",
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
         )}
       >
@@ -558,10 +561,11 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   legendPosition?: "left" | "center" | "right"
   tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
   customTooltip?: React.ComponentType<TooltipProps>
-  customWrapperStyle ?: CSSProperties
-  barWidth ?: number
-  x ?: number
-
+  customWrapperStyle?: CSSProperties
+  barWidth?: number
+  x?: number
+  enableAnimation?: boolean;
+  animationDuration?: number;
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
@@ -599,6 +603,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       customTooltip,
       customWrapperStyle,
       barWidth,
+      enableAnimation,
+      animationDuration,
       ...other
     } = props
     const CustomTooltip = customTooltip
@@ -623,7 +629,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
 
     function onBarClick(data: any, _: any, event: React.MouseEvent) {
       event.stopPropagation();
-      if(handleBarClick) handleBarClick(data);
+      if (handleBarClick) handleBarClick(data);
       if (!onValueChange) return
       if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
         setActiveLegend(undefined)
@@ -670,10 +676,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             onClick={
               hasOnValueChange && (activeLegend || activeBar)
                 ? () => {
-                    setActiveBar(undefined)
-                    setActiveLegend(undefined)
-                    onValueChange?.(null)
-                  }
+                  setActiveBar(undefined)
+                  setActiveLegend(undefined)
+                  onValueChange?.(null)
+                }
                 : undefined
             }
             margin={{
@@ -713,23 +719,23 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               minTickGap={tickGap}
               {...(layout !== "vertical"
                 ? {
-                    padding: {
-                      left: paddingValue,
-                      right: paddingValue,
-                    },
-                    dataKey: index,
-                    interval: startEndOnly ? "preserveStartEnd" : intervalType,
-                    ticks: startEndOnly
-                      ? [data[0][index], data[data.length - 1][index]]
-                      : undefined,
-                  }
+                  padding: {
+                    left: paddingValue,
+                    right: paddingValue,
+                  },
+                  dataKey: index,
+                  interval: startEndOnly ? "preserveStartEnd" : intervalType,
+                  ticks: startEndOnly
+                    ? [data[0][index], data[data.length - 1][index]]
+                    : undefined,
+                }
                 : {
-                    type: "number",
-                    domain: yAxisDomain as AxisDomain,
-                    tickFormatter:
-                      type === "percent" ? valueToPercent : valueFormatter,
-                    allowDecimals: allowDecimals,
-                  })}
+                  type: "number",
+                  domain: yAxisDomain as AxisDomain,
+                  tickFormatter:
+                    type === "percent" ? valueToPercent : valueFormatter,
+                  allowDecimals: allowDecimals,
+                })}
             >
               {xAxisLabel && (
                 <Label
@@ -762,20 +768,20 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               }}
               {...(layout !== "vertical"
                 ? {
-                    type: "number",
-                    domain: yAxisDomain as AxisDomain,
-                    tickFormatter:
-                      type === "percent" ? valueToPercent : valueFormatter,
-                    allowDecimals: allowDecimals,
-                  }
+                  type: "number",
+                  domain: yAxisDomain as AxisDomain,
+                  tickFormatter:
+                    type === "percent" ? valueToPercent : valueFormatter,
+                  allowDecimals: allowDecimals,
+                }
                 : {
-                    dataKey: index,
-                    ticks: startEndOnly
-                      ? [data[0][index], data[data.length - 1][index]]
-                      : undefined,
-                    type: "category",
-                    interval: "equidistantPreserveStart",
-                  })}
+                  dataKey: index,
+                  ticks: startEndOnly
+                    ? [data[0][index], data[data.length - 1][index]]
+                    : undefined,
+                  type: "category",
+                  interval: "equidistantPreserveStart",
+                })}
             >
               {yAxisLabel && (
                 <Label
@@ -802,15 +808,15 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               content={({ active, payload, label }) => {
                 const cleanPayload: TooltipProps["payload"] = payload
                   ? payload.map((item: any) => ({
-                      category: item.dataKey,
-                      value: item.value,
-                      index: item.payload[index],
-                      color: categoryColors.get(
-                        item.dataKey,
-                      ) as AvailableChartColorsKeys,
-                      type: item.type,
-                      payload: item.payload,
-                    }))
+                    category: item.dataKey,
+                    value: item.value,
+                    index: item.payload[index],
+                    color: categoryColors.get(
+                      item.dataKey,
+                    ) as AvailableChartColorsKeys,
+                    type: item.type,
+                    payload: item.payload,
+                  }))
                   : []
 
                 if (
@@ -853,7 +859,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                     activeLegend,
                     hasOnValueChange
                       ? (clickedLegendItem: string) =>
-                          onCategoryClick(clickedLegendItem)
+                        onCategoryClick(clickedLegendItem)
                       : undefined,
                     enableLegendSlider,
                     legendPosition,
@@ -865,29 +871,33 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             {categories.map((category) => {
               return (
                 <Bar
-                className={cx(
-                  getColorClassName(
-                    categoryColors.get(category) as AvailableChartColorsKeys,
-                    "fill",
-                  ),
-                  onValueChange ? "cursor-pointer" : "",
-                )}
-                key={category}
-                name={category}
-                type="linear"
-                dataKey={category}
-                stackId={stacked ? "stack" : undefined}
-                isAnimationActive={false}
-                fill=""
-                shape={(props: any) =>{
-                  props.width=barWidth;
-                  return renderShape(props, activeBar, activeLegend, layout);
-                }
-                }
-                radius={[ 10, 10, 0, 0]}
-                onClick={onBarClick}
-              />
-            )}
+                  className={cx(
+                    getColorClassName(
+                      categoryColors.get(category) as AvailableChartColorsKeys,
+                      "fill",
+                    ),
+                    onValueChange ? "cursor-pointer" : "",
+                  )}
+                  key={category}
+                  name={category}
+                  type="linear"
+                  dataKey={category}
+                  stackId={stacked ? "stack" : undefined}
+                  isAnimationActive={enableAnimation}
+                  animationBegin={200}
+                  animationDuration={animationDuration}
+                  animationEasing="ease-out"
+                  fill=""
+                  shape={(props: any) => {
+                    props.width = barWidth;
+                    return renderShape(props, activeBar, activeLegend, layout);
+                  }
+                  }
+                  radius={[10, 10, 0, 0]}
+                  onClick={onBarClick}
+                />
+              )
+            }
             )}
           </RechartsBarChart>
         </ResponsiveContainer>
