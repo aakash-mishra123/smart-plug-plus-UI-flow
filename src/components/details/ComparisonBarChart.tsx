@@ -169,8 +169,6 @@ export const ComparisonBarChart = () => {
                         startEndOnly={false}
                         showYAxis={false}
                         showGridLines={false}
-                        enableAnimation={true}
-                        animationDuration={1000}
                     />
                 </div>
             </div>

@@ -27,6 +27,7 @@ import {
 } from "@/lib/chartUtils"
 import { useOnWindowResize } from "@/lib/useOnWindowResize"
 import { cx } from "@/lib/utils"
+import { motion } from "framer-motion";
 
 //#region Shape
 
@@ -59,37 +60,39 @@ const renderShape = (
   activeBar: any | undefined,
   activeLegend: string | undefined,
   layout: string,
-  customStyle?: any,
+  customStyle?: any
 ) => {
-  const { fillOpacity, name, payload, value } = props
-  let { x, width, y, height } = props
+  const { fillOpacity, name, payload, value } = props;
+  let { x, width, y, height } = props;
+
+  // Ensure positive dimensions for animation
   if (layout === "horizontal" && height < 0) {
-    y += height
-    height = Math.abs(height) // height must be a positive number
+    y += height;
+    height = Math.abs(height);
   } else if (layout === "vertical" && width < 0) {
-    x += width
-    width = Math.abs(width) // width must be a positive number
+    x += width;
+    width = Math.abs(width);
   }
 
+  const computedOpacity =
+    activeBar || (activeLegend && activeLegend !== name)
+      ? deepEqual(activeBar, { ...payload, value })
+        ? fillOpacity
+        : 0.3
+      : fillOpacity;
+
   return (
-    <rect
+    <motion.rect
       x={x}
-      y={y}
       width={width}
-      height={height}
-      opacity={
-        activeBar || (activeLegend && activeLegend !== name)
-          ? deepEqual(activeBar, { ...payload, value })
-            ? fillOpacity
-            : 0.3
-          : fillOpacity
-      }
-      rx={customStyle?.roundedTop ? customStyle.roundedTop : width / 2}
-      // Rounded top
+      initial={{ height: 0, y: y + height }}
+      animate={{ height: height, y: y }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      fillOpacity={computedOpacity}
       ry={customStyle?.roundedTop ? customStyle.roundedTop : width / 2}
     />
-  )
-}
+  );
+};
 
 //#region Legend
 
@@ -561,10 +564,8 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   customWrapperStyle?: CSSProperties
   barWidth?: number
   x?: number
-
   enableAnimation?: boolean;
   animationDuration?: number;
-
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
