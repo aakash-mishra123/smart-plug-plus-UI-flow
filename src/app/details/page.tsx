@@ -14,7 +14,7 @@ const Temp = () => {
     const router = useRouter();
     const [show, setShow] = useState(true);
 
-    const dummyData = barChartData[1].data;
+    const dummyData = barChartData[0].data;
 
     const handleBack = () => {
         setShow(false); // Start exit transition
@@ -31,7 +31,9 @@ const Temp = () => {
             timeout={{ appear: 0, enter: 100, exit: 100 }}
             >
         <div className="bg-[#edf1f5]">
-            <InfoCard />
+            <InfoCard 
+                handleBack={handleBack}
+            />
             <ConsumptionCard
                 powerUsage={dummyData.powerUsage}
                 maxPower={dummyData.maxPower}

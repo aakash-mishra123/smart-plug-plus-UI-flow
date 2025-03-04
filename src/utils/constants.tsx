@@ -8,7 +8,7 @@ export const barChartData = [
     id: 0,
     data: { //red prog bar
       "date": "2024-01-22",
-      powerUsage: 84,
+      powerUsage: 58,
       maxPower: 3,
       limitPower: 2.5,
       "totalConsumption": 26.155,
