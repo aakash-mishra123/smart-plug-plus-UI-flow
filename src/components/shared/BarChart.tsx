@@ -64,7 +64,7 @@ const renderShape = (
 ) => {
   const { fillOpacity, name, payload, value } = props;
   let { x, width, y, height } = props;
-
+  
   // Ensure positive dimensions for animation
   if (layout === "horizontal" && height < 0) {
     y += height;

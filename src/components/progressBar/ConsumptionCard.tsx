@@ -20,7 +20,7 @@ const ConsumptionCard = ({
             <Text className="text-lg font-semibold">Consumo istantaneo</Text>
             <Badge
               color="green"
-              className="text-green-[#4bbf52] font-medium font-medium bg-green-100"
+              className="text-green-[#4bbf52] font-medium bg-green-100"
             >
               TEMPO REALE
             </Badge>
