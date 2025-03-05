@@ -1,20 +1,8 @@
-"use client";
-import React from "react";
-
-import { useEffect, useState } from "react";
-import { BarChart } from "@/components/shared/BarChart";
-import { dummyBarChartData } from "@/utils/constants";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import MonthSwitcher from "../calendar/MonthSwitcher";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar"
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import dayjs, { Dayjs } from 'dayjs';
-import { Badge } from "lucide-react";
-import { motion } from "framer-motion";
-import Button from '@mui/material/Button';
-
-
+"use client"
+ 
+import { BarChart } from "@/components/shared/BarChart"
+import React, { useRef, useLayoutEffect, useState } from "react";
+ 
 const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
     const startHourStr = dateStr.split("h")[0]; // "09"
     const startHour = parseInt(startHourStr, 10);
@@ -40,17 +28,9 @@ const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
     const endTime = `${pad(startHour)}:${pad(offset + 15)}`;
     return `${startTime}-${endTime}`;
 };
-
+ 
 // Custom tooltip
-const CustomTooltip = ({
-    active,
-    payload,
-    label,
-}: {
-    active: any;
-    payload: any;
-    label: any;
-}) => {
+const CustomTooltip = ({ active, payload, label }: { active: any, payload: any, label: any }) => {
     if (!active || !payload || payload.length === 0) return null;
     return (
         <div className="p-2 bg-white border rounded shadow">
@@ -67,103 +47,133 @@ const CustomTooltip = ({
         </div>
     );
 };
-
+ 
+const chartdata = [
+    {
+        date: "09h-10h",
+        "interval_one": 2,
+        "interval_two": 4,
+        "interval_three": 1,
+        "interval_four": 3,
+    },
+    {
+        date: "10h-11h",
+        "interval_one": 1,
+        "interval_two": 2,
+        "interval_three": 1,
+        "interval_four": 3,
+    },
+    {
+        date: "11h-12h",
+        "interval_one": 4,
+        "interval_two": 1,
+        "interval_three": 2,
+        "interval_four": 3,
+    },
+    {
+        date: "12h-13h",
+        "interval_one": 2,
+        "interval_two": 4,
+        "interval_three": 1,
+        "interval_four": 3,
+    },
+    {
+        date: "13h-14h",
+        "interval_one": 2,
+        "interval_two": 4,
+        "interval_three": 1,
+        "interval_four": 3,
+    },
+    {
+        date: "14h-15h",
+        "interval_one": 2,
+        "interval_two": 4,
+        "interval_three": 1,
+        "interval_four": 3,
+    },
+]
+ 
 const ComparisonBarChart = () => {
-    const [currentDate, setCurrentDate] = useState<any>(new Date());
-    const activeMonth: any = dummyBarChartData[0];
-    const currentDayData: any = activeMonth.data[0];
-    const [showDatePicker, setShowDatePicker] = useState<Boolean>(false);
-
-    useEffect(() => {
-
-        console.log('selected date', currentDate);
-
-        //console.log(' prev date format', new Date());
-
-    }, [currentDate]);
-
-    const handleCalendarDateClick = (value: any) => {
-        const formattedNewValue = dayjs(value?.$d).format("YYYY-MM-DD");
-        setCurrentDate(formattedNewValue);
-        setShowDatePicker(false);
-    }
-
-
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [yAxisWidth, setYAxisWidth] = useState(80);
+    const [chartWidth, setChartWidth] = useState(0);
+ 
+    // Calculate fixed dimensions
+    const barWidth = 12;
+    const barGap = 10; // Gap between different date groups
+    const barCategoryGap = 8; // Gap between same category bars
+ 
+    // Calculate total chart width based on data length
+    const calculateChartWidth = () => {
+        const dateGroups = chartdata.length;
+        const categoriesPerGroup = 4; // interval_one to interval_four
+        return dateGroups * (categoriesPerGroup * (barWidth + barCategoryGap)) +
+            (dateGroups - 1) * barGap;
+    };
+ 
+    useLayoutEffect(() => {
+        if (containerRef.current) {
+            // Reserve space for Y-axis labels
+            const yAxisPadding = 30;
+            setChartWidth(calculateChartWidth());
+            setYAxisWidth(containerRef.current.offsetHeight > 300 ? 80 : 60);
+        }
+    }, []);
+ 
+ 
     return (
-        <>
-            <div className="p-2 bg-white mt-2 ">
-                <div className="flex flex-col gap-1 ml-8">
-                    <MonthSwitcher
-                        currentDate={currentDate}
-                        setCurrentDate={setCurrentDate}
-                    />
-                    <div className="flex flex-row justify-between relative">
-                        <div className="flex flex-row gap-1 items-end monteserrat-custom">
-
-                            <p className="mt-4 text-2xl font-medium text-black">{activeMonth.totalConsumption}</p>
-                            <p className="text-xl font-medium">kWh</p>
-                        </div>
-
-                        <div className="flex flex-row z-50 relative gap-2 mr-2">
-                            {showDatePicker &&
-                                <motion.div
-                                    key={dayjs(currentDate).format("YYYY-MM-DD")} // Re-trigger animation when date changes
-                                    initial={{ opacity: 0, x: "-90%", y: -20 }}
-                                    animate={{ opacity: 1, x: "-90%", y: 0 }}
-                                    exit={{ opacity: 0, x: "-90%", y: 20 }}
-                                    transition={{ duration: 0.5, ease: "backIn" }}
-                                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  z-[9999] bg-white shadow-lg"
-                                >
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <DateCalendar
-                                            value={dayjs(currentDate)}
-                                            onChange={handleCalendarDateClick}
-                                        // open={showDatePicker}
-                                        />
-                                    </LocalizationProvider >
-                                </motion.div>
-                            }
-                            <Button 
-                                variant="contained" 
-                                className="py-0 bg-[#e60058] text-white rounded-md">Month</Button>
-                            <Button variant="outlined" 
-                            className="py-0 text-[#e60058] border-[#e60058] rounded-lg font-semibold"
-                            onClick={() => setShowDatePicker((prev) => !prev)}
-                            >Day</Button>
-
-                            
-                        </div>
-
-                    </div>
-                </div>
-
-                <div className="mt-12">
+        <div className="relative  mt-4 mb-4">
+            {/* Fixed Y-axis */}
+            <div className="absolute left-0 top-0 h-full z-10 w-[4rem] bg-white">
+                <BarChart
+                    data={chartdata}
+                    index="date"
+                    categories={["interval_one", "interval_two", "interval_three", "interval_four"]}
+                    showXAxis={false}
+                    showLegend={false}
+                    layout="horizontal"
+                    colors={["blue", "blue", "blue", "blue"]}
+                    customWrapperStyle={{
+                        borderRadius: "0.5rem 0.5rem 0 0",
+                        marginRight: "-4px",
+                    }}
+                    barCategoryGap={barCategoryGap}
+                    tickGap={barGap}
+                    startEndOnly={false}
+                    showGridLines={false}
+                />
+            </div>
+ 
+            {/* Scrollable chart area */}
+            <div
+                ref={containerRef}
+                className="overflow-x-auto h-full ml-14"
+                style={{ scrollbarWidth: 'thin' }}
+            >
+                <div style={{ width: `${chartWidth}px`, minWidth: '100%' }}>
                     <BarChart
-                        className="h-80 pt-4 pb-4 bg-white"
-                        data={currentDayData?.powerIntervals}
+                        data={chartdata}
                         index="date"
-                        categories={[
-                            "interval_one",
-                            "interval_two",
-                            "interval_three",
-                            "interval_four",
-                        ]}
-                        yAxisWidth={80}
-                        barWidth={12}
+                        categories={["interval_one", "interval_two", "interval_three", "interval_four"]}
+                        barWidth={barWidth}
                         showLegend={false}
                         layout="horizontal"
-                        colors={["blue", "blue"]}
+                        colors={["blue", "blue", "blue", "blue"]}
                         customWrapperStyle={{
                             borderRadius: "0.5rem 0.5rem 0 0",
                             marginRight: "-4px",
-                            left: "10px",
                         }}
                         customTooltip={CustomTooltip}
+                        barCategoryGap={barCategoryGap}
+                        tickGap={barGap}
+                        startEndOnly={false}
+                        showYAxis={false}
+                        showGridLines={false}
                     />
                 </div>
             </div>
-        </>
-    );
+        </div>
+    )
 };
 
 export default ComparisonBarChart;

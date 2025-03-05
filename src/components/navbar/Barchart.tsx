@@ -60,10 +60,10 @@ const  BarChartLayoutExample = () => {
       />
       {/* Drawer modal open */}
       <DrawerModal isOpen={isOpen} setIsOpen={setIsOpen} data={modalData} />
-
+{/* 
       <ConsumptionStats 
         data={barChartData}
-      />
+      /> */}
   </>
   )
 }
