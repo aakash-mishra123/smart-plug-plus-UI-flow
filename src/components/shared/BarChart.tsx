@@ -3,7 +3,8 @@
 
 "use client"
 
-import React, { CSSProperties } from "react"
+import React, { CSSProperties } from "react";
+import { useState, useEffect } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
 import {
   Bar,
@@ -64,7 +65,7 @@ const renderShape = (
 ) => {
   const { fillOpacity, name, payload, value } = props;
   let { x, width, y, height } = props;
-  
+  let {barWidth, barColor} = props;
   // Ensure positive dimensions for animation
   if (layout === "horizontal" && height < 0) {
     y += height;
@@ -81,15 +82,28 @@ const renderShape = (
         : 0.3
       : fillOpacity;
 
+      const topRadius = customStyle?.roundedTop ? customStyle.roundedTop : width / 2;
+
+      const path = `
+      M${x},${y + height} 
+      L${x},${y + topRadius} 
+      Q${x},${y} ${x + topRadius},${y} 
+      L${x + width - topRadius},${y} 
+      Q${x + width},${y} ${x + width},${y + topRadius} 
+      L${x + width},${y + height} 
+      Z
+    `;
+
   return (
-    <motion.rect
-      x={x}
-      width={width}
-      initial={{ height: 0, y: y + height }}
-      animate={{ height: height, y: y }}
+    <motion.path
+      d={path}
+      initial={{ d: `M${x},${y + height} L${x + width},${y + height} Z` }} // Initial state (collapsed)
+      animate={{ d: path }} // Expands to the rounded top shape
       transition={{ duration: 0.5, ease: "easeOut" }}
       fillOpacity={computedOpacity}
-      ry={customStyle?.roundedTop ? customStyle.roundedTop : width / 2}
+      fill={barColor}
+      whileTap={{ scale: 0.95 }} // Small tap animation
+      style={{ cursor: "pointer" }} // Indicate interactivity
     />
   );
 };
@@ -550,6 +564,7 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   maxValue?: number
   allowDecimals?: boolean
   handleBarClick?: (data: any) => void
+  barColor?: string
   onValueChange?: (value: BarChartEventProps) => void
   enableLegendSlider?: boolean
   tickGap?: number
@@ -603,6 +618,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       customTooltip,
       customWrapperStyle,
       barWidth,
+      barColor,
       enableAnimation,
       animationDuration,
       ...other
@@ -610,7 +626,9 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
     const CustomTooltip = customTooltip
     const paddingValue =
       (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20
-    const [legendHeight, setLegendHeight] = React.useState(60)
+    const [legendHeight, setLegendHeight] = React.useState(60);
+    const [selectedBar, setSelectedBar] = React.useState<any>(-1);
+
     const [activeLegend, setActiveLegend] = React.useState<string | undefined>(
       undefined,
     )
@@ -623,30 +641,43 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
     const prevActiveRef = React.useRef<boolean | undefined>(undefined)
     const prevLabelRef = React.useRef<string | undefined>(undefined)
 
+
+    // useEffect(() => {
+
+    //   console.log('selectedBar', selectedBar);
+
+    // }, [selectedBar])
+
     function valueToPercent(value: number) {
       return `${(value * 100).toFixed(0)}%`
     }
 
     function onBarClick(data: any, _: any, event: React.MouseEvent) {
       event.stopPropagation();
-      if (handleBarClick) handleBarClick(data);
-      if (!onValueChange) return
-      if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
-        setActiveLegend(undefined)
-        setActiveBar(undefined)
-        onValueChange?.(null)
-      } else {
-        setActiveLegend(data.tooltipPayload?.[0]?.dataKey)
-        setActiveBar({
-          ...data.payload,
-          value: data.value,
-        })
-        onValueChange?.({
-          eventType: "bar",
-          categoryClicked: data.tooltipPayload?.[0]?.dataKey,
-          ...data.payload,
-        })
-      }
+  
+    //console.log('data', data);
+  // setSelectedDate((prev) => data.date);
+  
+  setSelectedBar(data.date);
+  if (!onValueChange) return;
+  if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
+    setActiveLegend(undefined);
+    setActiveBar(undefined);
+    setSelectedBar(null); // Reset selected bar color
+    onValueChange?.(null);
+  } else {
+    setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
+    setActiveBar({
+      ...data.payload,
+      value: data.value,
+    });
+    setSelectedBar(data.date); // Track the selected bar
+    onValueChange?.({
+      eventType: "bar",
+      categoryClicked: data.tooltipPayload?.[0]?.dataKey,
+      ...data.payload,
+    });
+  }
     }
 
     function onCategoryClick(dataKey: string) {
@@ -868,7 +899,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 }
               />
             ) : null}
-            {categories.map((category) => {
+            {categories.map((category, index) => {
               return (
                 <Bar
                   className={cx(
@@ -890,9 +921,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                   fill=""
                   shape={(props: any) => {
                     props.width = barWidth;
+                    props.barColor = selectedBar === props.date ? "black" : barColor;
                     return renderShape(props, activeBar, activeLegend, layout);
-                  }
-                  }
+                  }}
+                  color="#c71c5d"
                   radius={[10, 10, 0, 0]}
                   onClick={onBarClick}
                 />

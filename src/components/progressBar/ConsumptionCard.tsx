@@ -14,7 +14,7 @@ const ConsumptionCard = ({
 
   return (
     <div className="mx-4">
-      <Card className="bg-white p-4 montserrat-custom rounded-sm">
+      <Card className="bg-white p-2  montserrat-custom rounded-sm">
         <div className="flex flex-col p-2 justify-between">
           <div className="flex justify-between">
             <Text className="text-lg font-semibold">Consumo istantaneo</Text>
@@ -46,7 +46,10 @@ const ConsumptionCard = ({
 
         <hr className="mt-4"/>
 
-        <div className="space-y-4 mt-4">
+        {/* <div 
+          key={0}
+          className="space-y-4 mt-4"
+        > */}
           {dummyAlertData.map((alert, index) => {
             return (
               <WarningCard 
@@ -54,7 +57,7 @@ const ConsumptionCard = ({
                 index={index}
                 />
           )})}
-        </div>
+        {/* </div> */}
       </Card>
     </div>
   );

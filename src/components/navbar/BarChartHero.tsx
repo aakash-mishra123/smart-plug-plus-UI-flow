@@ -2,6 +2,8 @@
 
 import { BarChart } from "@/components/shared/BarChart"
 import React, { useRef, useLayoutEffect, useState } from "react";
+import { DrawerModal } from "../drawer/DrawerModal";
+
 
 const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
     const startHourStr = dateStr.split("h")[0]; // "09"
@@ -57,6 +59,15 @@ export const BarChartHero = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [yAxisWidth, setYAxisWidth] = useState(80);
     const [chartWidth, setChartWidth] = useState(0);
+    const [modalData, setModalData] = useState<any>();
+  const [isOpen, setIsOpen] = useState(false);
+
+   const handleBarClick = (data : any) => {
+    setModalData(data);
+    setIsOpen(true);
+    console.log('data', data);
+
+   }
 
     // Calculate fixed dimensions
     const barWidth = 7;
@@ -84,13 +95,14 @@ export const BarChartHero = () => {
     return (
         <div className="relative  mt-4 mb-4">
             {/* Fixed Y-axis */}
-            <div className="absolute left-0 top-0 h-full z-10 w-[3rem] bg-transparent ml-[-10px]">
+            <div className="absolute left-0 top-0 h-full z-10 w-[3rem] ml-[-10px]">
                 <BarChart
                     data={chartdata}
                     index="date"
                     categories={["usage"]}
                     showXAxis={false}
                     showLegend={false}
+                    
                     layout="horizontal"
                     colors={["blue", "blue", "blue", "blue"]}
                     customWrapperStyle={{
@@ -115,6 +127,8 @@ export const BarChartHero = () => {
                         categories={["usage"]}
                         barWidth={barWidth}
                         showLegend={false}
+                        barColor={"#c71c5d"}
+                        handleBarClick={handleBarClick}
                         layout="horizontal"
                         colors={["blue", "blue", "blue", "blue"]}
                         customWrapperStyle={{
@@ -127,6 +141,7 @@ export const BarChartHero = () => {
                         showYAxis={false}
                         showGridLines={false}
                     />
+                    <DrawerModal isOpen={isOpen} setIsOpen={setIsOpen} data={modalData} />
                 </div>
             </div>
         </div>
