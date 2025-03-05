@@ -53,7 +53,7 @@ const chartdata = Array.from({ length: 24 }, (_, i) => ({
     usage: Math.floor(Math.random() * 10 + 1),
 }));
 
-export const ComparisonBarChart = () => {
+export const BarChartHero = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [yAxisWidth, setYAxisWidth] = useState(80);
     const [chartWidth, setChartWidth] = useState(0);

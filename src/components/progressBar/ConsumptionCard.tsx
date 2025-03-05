@@ -42,7 +42,7 @@ const ConsumptionCard = ({
           <p className="text-xl font-bold">kW</p>
         </div>
 
-        <OverlappingProgressBar value={powerUsage} buffer={65} />
+        <OverlappingProgressBar value={powerUsage}/>
 
         <hr className="mt-4"/>
 

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Transitions from "@/components/animations/Transition";
 import InfoCard from "@/components/shared/InfoCard";
 import ConsumptionCard from "@/components/progressBar/ConsumptionCard";
-import {ComparisonBarChart} from "@/components/details/ComparisonBarChart";
+import { BarChartHero } from "@/components/navbar/barChartHero";
 
 import { barChartData } from "@/utils/constants";
 
@@ -28,16 +28,16 @@ const Temp = () => {
             direction="left"
             in={show}
             timeout={{ appear: 0, enter: 100, exit: 100 }}
-            >
-        <div className="bg-[#edf1f5]">
-            <InfoCard />
-            <ConsumptionCard
-                powerUsage={dummyData.powerUsage}
-                maxPower={dummyData.maxPower}
-                limitPower={dummyData.limitPower}
-            />
-            <ComparisonBarChart />
-        </div>
+        >
+            <div className="bg-[#edf1f5]">
+                <InfoCard />
+                <ConsumptionCard
+                    powerUsage={dummyData.powerUsage}
+                    maxPower={dummyData.maxPower}
+                    limitPower={dummyData.limitPower}
+                />
+                <BarChartHero />
+            </div>
         </Transitions>
     );
 };

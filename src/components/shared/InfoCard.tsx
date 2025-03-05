@@ -9,8 +9,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import meterIcon from "../../../public/assets/meter_Icon.png";
 
-
-const InfoCard = () => {
+const InfoCard = ({ handleBack } : any ) => {
   const router = useRouter();
 
   return (

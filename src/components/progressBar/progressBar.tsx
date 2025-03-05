@@ -5,69 +5,127 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { Box, Typography } from "@mui/material";
 
 
-const CustomLinearProgress = ({ value, buffer } : any) => {
+const CustomLinearProgress = ({ value }: any) => {
+  //const barWidth = {value/3} * 100;
+
+  let bkgColor = value < 84 ? (value < 38 ? "#37785a" : "#f5b800") : "#ed0528";
+
   return (
     <Box
-    sx={{ 
-      width: "100%", 
+      sx={{
+        width: "100%",
+        position: "relative" 
       }}
     >
-
-    <Box 
-    sx={{ 
-      p: 0.5,
-      display: "flex", 
-      flexDirection: "column", 
-      justifyContent: "center",
-      height: "fit-content",
-      borderRadius: 16,
-      backgroundColor: '#c1cede'
-
-      }}
-    >
-      <LinearProgress
-        variant="buffer"
-        value={value}
-        valueBuffer={buffer}
+      <Box
         sx={{
-          height: 25,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          height: "fit-content",
           borderRadius: 16,
-          margin: 0,
-          "& .MuiBoxRoot": {
-            height: 50,
-          },
-          "& .MuiLinearProgress-bar": {
-            backgroundColor: "#1976D2", // Value bar color (Primary)
-          },
-          "& .MuiLinearProgress-bar1": {
-            backgroundColor: "red", // Value bar color (Primary)
-            borderRadius: 16,
-          },
-          "& .MuiLinearProgress-dashed": {
-            backgroundColor: "#edf1f5", // Dashed buffer color (Red)
-          },
-          "& .MuiLinearProgress-bar2Buffer": {
-            backgroundColor: "#c1cede", // Buffer bar color (Amber)
-          },
+          backgroundColor: '#c1cede'
         }}
-      />
-    </Box>
+      >
+        <LinearProgress
+          variant="buffer"
+          value={value}
+          valueBuffer={80}
+          sx={{
+            height: 25,
+            borderRadius: 16,
+            "& .MuiBoxRoot": {
+              height: 50,
+            },
+            "& .MuiLinearProgress-bar": {
+              backgroundColor: "#1976D2", // Value bar color (Primary)
+              marginLeft: "4px",
 
-    <Box className="montserrat-custom" sx={{ display: "flex", justifyContent: "space-between", width: "100%"}}>
-        <Box sx={{ width: `15%`, marginLeft: "2%", display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <Typography fontSize={15} fontWeight="bold">|</Typography>
-          <Typography fontSize={12} fontWeight="extrabold">0 kW</Typography>
+            },
+            "& .MuiLinearProgress-bar1": {
+              backgroundColor: bkgColor, // Value bar color (Primary)
+              borderRadius: 16,
+              position: "absolute",
+              left: "4lpx",
+              marginY: "4px",
+              transform: "translateX(-2%) !important",
+              maxWidth: "98%",
+              width: `${value}%`
+            },
+            "& .MuiLinearProgress-dashed": {
+              backgroundColor: "#edf1f5", // Dashed buffer color (Red)
+            },
+            "& .MuiLinearProgress-bar2Buffer": {
+              backgroundColor: "#c1cede", // Buffer bar color (Amber)
+            },
+          }}
+        />
+
+      <Box
+          sx={{
+            position: "absolute",
+            top: "9%",
+            width: "95%",
+            display: "flex",
+            justifyContent: "space-between",
+            transform: "translateY(+40%)",
+            px: "2%",
+          }}
+        >
+          {/* First Dot - 0 kW */}
+          <Box
+            sx={{
+              width: 6,
+              height: 6,
+              backgroundColor: "white",
+              borderRadius: "50%",
+              position: "absolute",
+              left: "4%"
+            }}
+          />
+
+          {/* Second Dot - 2.5 kW (83.33% position) */}
+          <Box
+            sx={{
+              width: 6,
+              height: 6,
+              backgroundColor: value < 83 ? "black" : "white",
+              borderRadius: "50%",
+              position: "absolute",
+              left: "75%",
+            }}
+          />
+
+          {/* Third Dot - 3 kW (100% position) */}
+          <Box
+            sx={{
+              width: 6,
+              height: 6,
+              backgroundColor: value < 98 ? "black" : "white",
+              borderRadius: "50%",
+              position: "absolute",
+              right: "-1%",
+            }}
+          />
+        </Box>
+
+      </Box>
+
+      <Box className="montserrat-custom" sx={{ display: "flex", justifyContent: "space-between", width: "100%", position: "relative" }}>
+        <Box sx={{ width: `15%`, marginLeft: "3%", display: "flex", flexDirection: "column", alignItems: "start" }}>
+          <Typography fontSize={15} fontWeight="bold">|</Typography>
+          <Typography fontSize={13} fontWeight="bold">0 kW</Typography>
           <Typography fontSize={12} fontWeight="medium" color="black">Inattività</Typography>
         </Box>
-        <Box sx={{ width: `${value/100}%`, display: "flex", flexDirection: "column", alignItems: "center"}}>
-        <Typography fontSize={14} fontWeight="bold">|</Typography>
-        <Typography fontSize={12} fontWeight="extrabold">2.5 kW</Typography>
-          <Typography fontSize={12} fontWeight="medium" color="black">Limite di utilizzo</Typography>
+        <Box sx={{ position: "absolute", right: "20%", display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Typography fontSize={14} fontWeight="bold">|</Typography>
+          <Typography fontSize={13} fontWeight="bold">2.5 kW</Typography>
+          <Typography fontSize={12} fontWeight="bold" color="black">Limite </Typography><Typography fontSize={12} fontWeight="bold" color="black" > di utilizzo</Typography>
         </Box>
-        <Box sx={{ width: `${buffer/100}%`, marginRight: "18%", display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <Box sx={{ marginRight: "4%", display: "flex", flexDirection: "column", alignItems: "end" }}>
           <Typography fontSize={15} fontWeight="bold">|</Typography>
-          <Typography fontSize={12} fontWeight="extrabold" width="full">3 kW</Typography>
-          <Typography fontSize={12} fontWeight="medium" color="black">Soglia massima</Typography>
+          <Typography fontSize={13} fontWeight="bold" width="full">3 kW</Typography>
+          <Typography fontSize={12} fontWeight="medium" color="black">Soglia </Typography><Typography fontSize={12} fontWeight="medium" color="black">massima</Typography>
         </Box>
       </Box>
 
