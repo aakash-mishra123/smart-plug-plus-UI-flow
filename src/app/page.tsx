@@ -1,7 +1,6 @@
 import BarChartHero from "../components/navbar/Barchart";
 import PowerUsageCard from "../components/powerUsageCard/powerUsageCard";
 import UserInfoCard from "@/components/powerUsageCard/userInfoCard";
-import ComparisonBarChart from "@/components/progressBar/ComparisionBarChart";
 import { barChartData } from "@/utils/constants";
 // const dummyData = {
 //   powerUsage: 4,
@@ -21,8 +20,8 @@ export default function Home() {
         maxPower={dummyData.maxPower}
         limitPower={dummyData.limitPower}
       />
-      {/* <BarChartHero /> */}
-      <ComparisonBarChart />
+      <BarChartHero />
+
     </div>
   );
 }

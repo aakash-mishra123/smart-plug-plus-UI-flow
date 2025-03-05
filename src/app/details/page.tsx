@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Transitions from "@/components/animations/Transition";
 import InfoCard from "@/components/shared/InfoCard";
 import ConsumptionCard from "@/components/progressBar/ConsumptionCard";
-// import ComparisonBarChart from "@/components/progressBar/ComparisionBarChart";
+import ComparisonBarChart from "@/components/progressBar/ComparisionBarChart";
 
 
 import { barChartData } from "@/utils/constants";
@@ -39,7 +39,7 @@ const Temp = () => {
                 maxPower={dummyData.maxPower}
                 limitPower={dummyData.limitPower}
             />
-            {/* <ComparisonBarChart /> */}
+            <ComparisonBarChart />
         </div>
         </Transitions>
     );
