@@ -112,12 +112,16 @@ export const getYAxisDomain = (
 }
 
 // Tremor hasOnlyOneValueForKey [v0.1.0]
+interface ChartItemData {
+  data: string,
+  val: number,
+}
 
 export function hasOnlyOneValueForKey(
-  array: any[],
+  array: ChartItemData[],
   keyToCheck: string,
 ): boolean {
-  const val: any[] = []
+  const val: string[] = [];
 
   for (const obj of array) {
     if (Object.prototype.hasOwnProperty.call(obj, keyToCheck)) {

@@ -1,8 +1,8 @@
 "use client";
  
-import React, { useState } from "react";
-import { Button, Flex, Text } from "@tremor/react";
-import { format, addMonths, subMonths, startOfMonth } from "date-fns";
+import React from "react";
+import { Button, Text } from "@tremor/react";
+import { addMonths, subMonths, startOfMonth } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import dayjs from 'dayjs';
 
@@ -15,12 +15,11 @@ interface MonthSwitcherProps {
 export default function MonthSwitcher({
     currentDate,
     setCurrentDate,
-    closeCalendar,
 }: MonthSwitcherProps) {
  
     const handlePrevMonth = () => {
         //additional logic to edit bar graph data,
-        setCurrentDate((prev : any) => startOfMonth(subMonths(prev, 1)));
+        setCurrentDate((prev : Date) => startOfMonth(subMonths(prev, 1)));
     };
  
     const handleNextMonth = () => {

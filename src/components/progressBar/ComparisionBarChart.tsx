@@ -39,7 +39,7 @@ const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
     const endTime = `${pad(startHour)}:${pad(offset + 15)}`;
     return `${startTime}-${endTime}`;
 };
- 
+
 // Custom tooltip
 const CustomTooltip = ({ active, payload, label }: { active: any, payload: any, label: any }) => {
     if (!active || !payload || payload.length === 0) return null;
@@ -58,7 +58,7 @@ const CustomTooltip = ({ active, payload, label }: { active: any, payload: any, 
         </div>
     );
 };
- 
+
 const chartdata = [
     {
         date: "09h-10h",
@@ -103,7 +103,7 @@ const chartdata = [
         // "interval_four": 3,
     },
 ]
- 
+
 const ComparisonBarChart = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [yAxisWidth, setYAxisWidth] = useState(80);
@@ -126,7 +126,7 @@ const ComparisonBarChart = () => {
         return dateGroups * (categoriesPerGroup * (barWidth + barCategoryGap)) +
             (dateGroups - 1) * barGap;
     };
- 
+
     useLayoutEffect(() => {
         if (containerRef.current) {
             // Reserve space for Y-axis labels
@@ -135,8 +135,8 @@ const ComparisonBarChart = () => {
             setYAxisWidth(containerRef.current.offsetHeight > 300 ? 80 : 60);
         }
     }, []);
- 
- 
+
+
     return (
         <div className="relative  mt-4 mb-4">
 
@@ -197,7 +197,7 @@ const ComparisonBarChart = () => {
                     showGridLines={false}
                 />
             </div>
- 
+
             {/* Scrollable chart area */}
             <div
                 ref={containerRef}

@@ -1,4 +1,4 @@
-export default function ConsumptionStats({ data} : any) {
+export default function ConsumptionStats({ data } : any) {
     
     return (
       <div className="bg-white w-full max-w-md montserrat-custom font-bold mb-20 ">

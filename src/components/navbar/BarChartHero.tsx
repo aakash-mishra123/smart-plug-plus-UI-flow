@@ -6,7 +6,7 @@ import { DrawerModal } from "../drawer/DrawerModal";
 
 
 const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
-    const startHourStr = dateStr.split("h")[0]; // "09"
+    const startHourStr = dateStr.split("h")[0]; 
     const startHour = parseInt(startHourStr, 10);
     let offset = 0;
     switch (dataKey) {
@@ -138,9 +138,8 @@ export const BarChartHero = () => {
                         tickGap={0}
                         startEndOnly={false}
                         showYAxis={false}
-                        showGridLines={false}
                     />
-                    <DrawerModal isOpen={isOpen} setIsOpen={setIsOpen} data={modalData} />
+                    {/* <DrawerModal isOpen={isOpen} setIsOpen={setIsOpen} data={modalData} /> */}
                 </div>
             </div>
         </div>
