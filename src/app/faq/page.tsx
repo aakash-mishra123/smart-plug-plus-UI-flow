@@ -1,7 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { RiArrowDownLine, RiArrowRightSLine } from "@remixicon/react";
+import { RiArrowRightSLine } from "@remixicon/react";
 
 const data = [
     {
@@ -23,7 +22,6 @@ const data = [
 ]
 
 export default function FAQ() {
-    const router = useRouter();
 
     return (
         <section className="p-4 space-y-4 h-full">
@@ -33,7 +31,10 @@ export default function FAQ() {
             <div className="flex flex-col flex-grow justify-between">
                 {/* Card #1 */}
                 {data?.map((item, index) => (
-                    <div className="flex items-center justify-between p-4  group cursor-pointer hover:bg-gray-50">
+                    <div 
+                        className="flex items-center justify-between p-4  group cursor-pointer hover:bg-gray-50"
+                        key={index}
+                        >
                         <div>
                             <p className="text-sm text-gray-600">
                                 {item.content}

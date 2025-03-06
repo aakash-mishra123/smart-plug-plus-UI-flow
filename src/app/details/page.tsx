@@ -1,26 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Transitions from "@/components/animations/Transition";
 import InfoCard from "@/components/shared/InfoCard";
 import ConsumptionCard from "@/components/progressBar/ConsumptionCard";
-import { BarChartHero } from "@/components/navbar/barChartHero";
+import { BarChartHero } from "@/components/navbar/BarChartHero";
 
 import { barChartData } from "@/utils/constants";
 
 const Temp = () => {
     const router = useRouter();
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState<Boolean>(true);
 
     const dummyData = barChartData[1].data;
-
-    const handleBack = () => {
-        setShow(false); // Start exit transition
-        setTimeout(() => {
-            router.back(); // Navigate after transition ends
-        }, 50); // Ensure this matches the exit timeout
-    };
 
     return (
         <Transitions

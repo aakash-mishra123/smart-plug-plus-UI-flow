@@ -1,4 +1,3 @@
-import BarChartHero from "../components/navbar/Barchart";
 import PowerUsageCard from "../components/powerUsageCard/powerUsageCard";
 import UserInfoCard from "@/components/powerUsageCard/userInfoCard";
 import ComparisonBarChart from "@/components/progressBar/ComparisionBarChart";

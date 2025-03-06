@@ -1,7 +1,12 @@
 import { Button } from '@/components/shared/Button'
 import { Drawer, DrawerContent, DrawerTitle, DrawerHeader, DrawerDescription, DrawerBody, DrawerFooter, DrawerClose } from '../shared/Drawer';
 
-export const DrawerModal = ({ isOpen, setIsOpen, data } : any) => {
+interface DrawerModalProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+}
+
+export const DrawerModal = ({ isOpen, setIsOpen } : DrawerModalProps) => {
     return (
    <>
   <div className="flex justify-center">
