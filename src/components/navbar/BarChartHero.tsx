@@ -4,7 +4,7 @@ import { BarChart } from "@/components/shared/BarChart"
 import React, { useRef, useLayoutEffect, useState } from "react";
 
 const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
-    const startHourStr = dateStr.split("h")[0]; // "09"
+    const startHourStr = dateStr.split("h")[0]; 
     const startHour = parseInt(startHourStr, 10);
     let offset = 0;
     switch (dataKey) {
@@ -32,6 +32,7 @@ const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
 // Custom tooltip
 const CustomTooltip = ({ active, payload, label }: { active: any, payload: any, label: any }) => {
     if (!active || !payload || payload.length === 0) return null;
+
     return (
         <div className="p-2 bg-white border rounded shadow">
             <p className="font-bold mb-1">{label}</p>
@@ -73,7 +74,6 @@ export const BarChartHero = () => {
 
     useLayoutEffect(() => {
         if (containerRef.current) {
-            // Reserve space for Y-axis labels
             const yAxisPadding = 30;
             setChartWidth(calculateChartWidth());
             setYAxisWidth(containerRef.current.offsetHeight > 300 ? 80 : 60);
@@ -125,7 +125,6 @@ export const BarChartHero = () => {
                         tickGap={0}
                         startEndOnly={false}
                         showYAxis={false}
-                        showGridLines={false}
                     />
                 </div>
             </div>
