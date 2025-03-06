@@ -63,7 +63,12 @@ const renderShape = (
   customStyle?: any
 ) => {
   const { fillOpacity, name, payload, value } = props;
-  let { x, width, y, height } = props;
+  let { x, width, y, height, barColor, barWidth } = props;
+
+  width = width ?? 0;
+  height = height ?? 0;
+  x = x ?? 0;
+  y = y ?? 0;
 
   // Ensure positive dimensions for animation
   if (layout === "horizontal" && height < 0) {
@@ -81,15 +86,34 @@ const renderShape = (
         : 0.3
       : fillOpacity;
 
+      const topRadius = Math.min(customStyle?.roundedTop ?? width / 2, width / 2);
+
+      const path = `
+      M${x},${y + height} 
+      L${x},${y + topRadius} 
+      Q${x},${y} ${x + topRadius},${y} 
+      L${x + width - topRadius},${y} 
+      Q${x + width},${y} ${x + width},${y + topRadius} 
+      L${x + width},${y + height} 
+      Z
+    `;
+
+    if(isNaN(x) || isNaN(y) || isNaN(width) || isNaN(height) || isNaN(topRadius)){
+      console.error("Invalid SVG values: ", { x, y, width, height, topRadius });
+    }
+
   return (
-    <motion.rect
-      x={x}
-      width={width}
-      initial={{ height: 0, y: y + height }}
-      animate={{ height: height, y: y }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      fillOpacity={computedOpacity}
-      ry={customStyle?.roundedTop ? customStyle.roundedTop : width / 2}
+    <motion.path
+    d={path}
+    initial={{
+      d: `M${x},${y + height} L${x + width},${y + height} Z`,
+    }} // Initial state (collapsed)
+    animate={{ d: path }} // Expands to the rounded top shape
+    transition={{ duration: 0.5, ease: "easeOut" }}
+    fillOpacity={computedOpacity}
+    fill={barColor}
+    whileTap={{ scale: 0.95 }} // Small tap animation
+    style={{ cursor: "pointer" }} // Indicate interactivity
     />
   );
 };
