@@ -50,7 +50,8 @@ const CustomLinearProgress = ({ value }: any) => {
               marginY: "4px",
               transform: "translateX(-2%) !important",
               maxWidth: "98%",
-              width: `${value}%`
+              width: `${value}%`,
+              marginLeft: "7px"
             },
             "& .MuiLinearProgress-dashed": {
               backgroundColor: "#edf1f5", // Dashed buffer color (Red)

@@ -1,6 +1,5 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Transitions from "@/components/animations/Transition";
 import InfoCard from "@/components/shared/InfoCard";
@@ -8,12 +7,13 @@ import ConsumptionCard from "@/components/progressBar/ConsumptionCard";
 import { BarChartHero } from "@/components/navbar/BarChartHero";
 
 import { barChartData } from "@/utils/constants";
+import BarListHero from "@/components/BarList/BarListHero";
 
 const Temp = () => {
     const router = useRouter();
-    const [show, setShow] = useState<Boolean>(true);
+    const [show, setShow] = useState<Boolean | undefined>(true);
 
-    const dummyData = barChartData[1].data;
+    const dummyData = barChartData[0].data;
 
     return (
         <Transitions
@@ -30,6 +30,7 @@ const Temp = () => {
                     limitPower={dummyData.limitPower}
                 />
                 <BarChartHero />
+                <BarListHero />
             </div>
         </Transitions>
     );
