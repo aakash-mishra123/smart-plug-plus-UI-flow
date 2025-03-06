@@ -21,7 +21,7 @@ type TransitionProps = {
     type?: TransitionType;
     position?: PositionType;
     direction?: DirectionType;
-    in?: boolean;
+    in?: boolean | undefined;
     timeout?:
     | number
     | { appear?: number; enter?: number; exit?: number };
