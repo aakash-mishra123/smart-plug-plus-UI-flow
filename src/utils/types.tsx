@@ -5,7 +5,7 @@ export type ProgressBarProps = {
 };
 
 export type PowerUsageProps = {
-    powerUsage: number | undefined,
+    powerUsage: number,
     maxPower: number | undefined,
     limitPower: number | undefined,
 }
@@ -23,14 +23,15 @@ export type CustomTooltipProps = {
 
 
 interface PowerData {
-    date: string;
-    powerUsage: number;
-    maxPower: number;
-    limitPower: number;
-    totalConsumption: number;
-    averageConsumption: number;
-    peakConsumption: number;
-    peakTime: string;
+    date?: string;
+    powerUsage?: number;
+    maxPower?: number;
+    limitPower?: number;
+    dailyConsumption?: number;
+    totalConsumption?: number;
+    averageConsumption?: number;
+    peakConsumption?: number;
+    peakTime?: string;
 }
 
 interface QuarterlyData {
@@ -48,4 +49,13 @@ export interface PowerUsageRecord {
     id: number;
     data: PowerData;
     detailedConsumption: DetailedConsumption;
+}
+
+export interface AlertDataType {
+    type?: "success" | "error" | "warning" | "info"; // Extend if needed
+    message?: string;
+    bgColor?: string;
+    textColor?: string;
+    borderColor?: string;
+    subMessage?: string;
 }

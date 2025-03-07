@@ -1,6 +1,5 @@
 // Tremor BarChart [v0.2.1]
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 "use client"
 
 import React, { CSSProperties } from "react";

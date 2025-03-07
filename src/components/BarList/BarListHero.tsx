@@ -22,7 +22,7 @@ const BarListHero = () => {
       </div>
       <BarList
         data={data}
-        averageData={average}
+        averagedata={average}
         className="bg-white px-4 py-2"
       />
     </div>

@@ -18,7 +18,7 @@ interface BarListProps<T = unknown>
   showAnimation?: boolean,
   onValueChange?: (payload: Bar<T>) => void
   sortOrder?: "ascending" | "descending" | "none",
-  averageData?: number,
+  averagedata?: number,
 }
 
 function BarListInner<T>(

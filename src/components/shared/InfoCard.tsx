@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Text, Title, Badge, Flex, Icon } from "@tremor/react";
+import { Card, Text, Title, Flex } from "@tremor/react";
 import { GoCheckCircle } from "react-icons/go";
 import { IoChevronBack } from "react-icons/io5";
 import { PiGearBold } from "react-icons/pi";
@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import meterIcon from "../../../public/assets/meter_Icon.png";
 
-const InfoCard = ({ handleBack } : any ) => {
+const InfoCard = () => {
   const router = useRouter();
 
   return (

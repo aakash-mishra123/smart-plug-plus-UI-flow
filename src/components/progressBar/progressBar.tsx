@@ -4,11 +4,12 @@ import React from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 import { Box, Typography } from "@mui/material";
 
+type CustomProgressProps = {
+  value : number ;
+}
 
-const CustomLinearProgress = ({ value }: any) => {
-  //const barWidth = {value/3} * 100;
-
-  let bkgColor = value < 84 ? (value < 38 ? "#37785a" : "#f5b800") : "#ed0528";
+const CustomLinearProgress = ({value } : CustomProgressProps) => {
+  const bkgColor = value < 84 ? (value < 38 ? "#37785a" : "#f5b800") : "#ed0528";
 
   return (
     <Box

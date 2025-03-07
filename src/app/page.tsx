@@ -1,3 +1,4 @@
+import ConsumptionCard from "@/components/progressBar/ConsumptionCard";
 import PowerUsageCard from "../components/powerUsageCard/powerUsageCard";
 import UserInfoCard from "@/components/powerUsageCard/userInfoCard";
 export default function Home() {
@@ -6,6 +7,11 @@ export default function Home() {
       <UserInfoCard />
       <PowerUsageCard />
       {/* <BarChartHero /> */}
+      <ConsumptionCard 
+        powerUsage={98}
+        maxPower={3}
+        limitPower={80}
+      />
     </div>
   );
 }
