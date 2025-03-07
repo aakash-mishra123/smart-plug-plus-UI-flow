@@ -4,7 +4,6 @@
 "use client"
 
 import React, { CSSProperties } from "react";
-import { useState, useEffect } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
 import {
   Bar,
@@ -65,7 +64,8 @@ const renderShape = (
 ) => {
   const { fillOpacity, name, payload, value } = props;
   let { x, width, y, height } = props;
-  let {barWidth, barColor} = props;
+  const { barColor } = props;
+
   // Ensure positive dimensions for animation
   if (layout === "horizontal" && height < 0) {
     y += height;
@@ -654,11 +654,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
 
     function onBarClick(data: any, _: any, event: React.MouseEvent) {
       event.stopPropagation();
-  
-    //console.log('data', data);
-  // setSelectedDate((prev) => data.date);
-  
-  setSelectedBar(data.date);
+      setSelectedBar(data.date);
+      if (handleBarClick) handleBarClick(data);
   if (!onValueChange) return;
   if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
     setActiveLegend(undefined);
@@ -899,7 +896,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 }
               />
             ) : null}
-            {categories.map((category, index) => {
+            {categories.map((category) => {
               return (
                 <Bar
                   className={cx(

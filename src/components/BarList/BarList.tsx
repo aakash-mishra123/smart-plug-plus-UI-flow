@@ -28,7 +28,6 @@ function BarListInner<T>(
     showAnimation = false,
     onValueChange,
     sortOrder = "descending",
-    averageData = 0.0,
     className,
     ...props
   }: BarListProps<T>,

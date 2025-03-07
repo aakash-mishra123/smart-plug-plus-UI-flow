@@ -8,9 +8,7 @@ import WarningCard from "../elements/WarningCard";
 const ConsumptionCard = ({
   powerUsage,
   maxPower,
-  limitPower,
 }: PowerUsageProps) => {
-  const isOverLimit = powerUsage > limitPower;
 
   return (
     <div className="mx-4">
@@ -32,9 +30,7 @@ const ConsumptionCard = ({
         <hr />
         <div className="flex flex-row gap-2 items-end mt-4 mb-2">
           <Metric
-            className={`${
-              isOverLimit ? "text-3xl   text-red-600" : "text-green-600 font"
-            } pl-3 font-bold`}
+            className={"text-3xl text-green-600 fontfont-bold"}
           >
             {2}, {3}{" "}
           </Metric>
@@ -46,18 +42,15 @@ const ConsumptionCard = ({
 
         <hr className="mt-4"/>
 
-        {/* <div 
-          key={0}
-          className="space-y-4 mt-4"
-        > */}
           {dummyAlertData.map((alert, index) => {
             return (
               <WarningCard 
+                key={index}
                 alert={alert}
                 index={index}
                 />
-          )})}
-        {/* </div> */}
+            )
+          })}
       </Card>
     </div>
   );

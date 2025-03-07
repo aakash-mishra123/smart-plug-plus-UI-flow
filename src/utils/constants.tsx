@@ -75,18 +75,6 @@ export const barChartData = [
   }
 ];
 
-const generateDummyData = () => {
-  return [
-    { name: "09:00–09:15", value: (Math.random() * (5 - 3) + 3).toFixed(1) },
-    { name: "09:15–09:30", value: (Math.random() * (5 - 3) + 3).toFixed(1) },
-    { name: "09:15–09:30 (Picco di consumo ⚡)", value: (Math.random() * (5 - 3) + 3).toFixed(1) },
-    { name: "09:45–10:00", value: (Math.random() * (5 - 3) + 3).toFixed(1) },
-  ];
-};
-
-const data = generateDummyData();
-
-
 export const dummyUserData = {
   title: 'Luce',
   address: 'VIA ROMA 70 - 00041 ALBANO LAZIALE RM',

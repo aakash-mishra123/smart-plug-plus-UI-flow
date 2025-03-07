@@ -1,18 +1,12 @@
 "use client";
 
-import { Card, Metric, Text, Badge } from "@tremor/react";
-import { CheckCircle, Plug, ArrowRight, AlertCircle, Maximize2, Minimize2 } from "lucide-react";
+import { Card, Text } from "@tremor/react";
+import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { PowerUsageProps } from "@/utils/types";
 import Image from "next/image";
 import VoltageIcon from "../../../public/assets/voltage_icon.png";
 
-export default function PowerUsageCard(
-  {
-    powerUsage, maxPower, limitPower
-  }
- : PowerUsageProps ) {
-  const isOverLimit = powerUsage > limitPower;
+export default function PowerUsageCard() {
   // const [openScreen, setOpenScreen] = useState(false);
   const router = useRouter();
 
@@ -43,9 +37,6 @@ export default function PowerUsageCard(
         </div>
         
       </Card>
-
-      {/* Power Usage Card */}
-     
     </div>
   );
 }

@@ -1,6 +1,6 @@
-import { Card, Badge, Text, Metric } from "@tremor/react";
+import { Card } from "@tremor/react";
 
-const WarningCard = ({alert, index} : any) => {
+const WarningCard = ({ alert, index }: any) => {
   const AlertIcon = alert.icon;
             console.log()
   return (

@@ -1,9 +1,9 @@
  "use client"
  import { useState } from "react";
 import { BarChart } from "../shared/BarChart";
-import ConsumptionStats from "../drawer/Statistics";
-import {barChartData} from "../../utils/constants";
+// import {barChartData} from "../../utils/constants";
 import { DrawerModal } from "../drawer/DrawerModal";
+import { PowerUsageProps } from "@/utils/types";
 
 const chartdata = [
   {
@@ -65,10 +65,10 @@ const chartdata = [
 ]
 
 const  BarChartLayoutExample = () => {
-  const [modalData, setModalData] = useState<any>();
+  const [modalData, setModalData] = useState<PowerUsageProps>();
   const [isOpen, setIsOpen] = useState(false);
 
-   const handleBarClick = (data : any) => {
+  const handleBarClick = (data: PowerUsageProps) => {
     setModalData(data);
     setIsOpen(true);
    }
@@ -77,7 +77,7 @@ const  BarChartLayoutExample = () => {
       <>
     <BarChart
       className="h-72 pt-4 pb-4 bg-white"
-      data={chartdata}
+        data={chartdata}
       handleBarClick={handleBarClick}
       index="name"
       categories={["Number of threatened species"]}

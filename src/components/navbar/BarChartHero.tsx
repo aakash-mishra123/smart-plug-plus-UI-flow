@@ -1,54 +1,55 @@
 "use client"
 
 import { BarChart } from "@/components/shared/BarChart"
-import React, { useRef, useLayoutEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { DrawerModal } from "../drawer/DrawerModal";
+import { PowerUsageProps } from "@/utils/types";
 
-
-const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
-    const startHourStr = dateStr.split("h")[0]; 
-    const startHour = parseInt(startHourStr, 10);
-    let offset = 0;
-    switch (dataKey) {
-        case "interval_one":
-            offset = 0;
-            break;
-        case "interval_two":
-            offset = 15;
-            break;
-        case "interval_three":
-            offset = 30;
-            break;
-        case "interval_four":
-            offset = 45;
-            break;
-        default:
-            offset = 0;
-    }
-    const pad = (num: Number) => num.toString().padStart(2, "0");
-    const startTime = `${pad(startHour)}:${pad(offset)}`;
-    const endTime = `${pad(startHour)}:${pad(offset + 15)}`;
-    return `${startTime}-${endTime}`;
-};
+// const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
+//     const startHourStr = dateStr.split("h")[0];
+//     const startHour = parseInt(startHourStr, 10);
+//     let offset = 0;
+//     switch (dataKey) {
+//         case "interval_one":
+//             offset = 0;
+//             break;
+//         case "interval_two":
+//             offset = 15;
+//             break;
+//         case "interval_three":
+//             offset = 30;
+//             break;
+//         case "interval_four":
+//             offset = 45;
+//             break;
+//         default:
+//             offset = 0;
+//     }
+//     const pad = (num: number) => num.toString().padStart(2, "0");
+//     const startTime = `${pad(startHour)}:${pad(offset)}`;
+//     const endTime = `${pad(startHour)}:${pad(offset + 15)}`;
+//     return `${startTime}-${endTime}`;
+// };
 
 // Custom tooltip
-const CustomTooltip = ({ active, payload, label }: { active: any, payload: any, label: any }) => {
-    if (!active || !payload || payload.length === 0) return null;
-    return (
-        <div className="p-2 bg-white border rounded shadow">
-            <p className="font-bold mb-1">{label}</p>
-            {payload.map((item: any, index: number) => {
-                const customLabel = getSubIntervalLabel(label, item.dataKey);
-                return (
-                    <div key={index} className="flex justify-between text-sm gap-4">
-                        <span>{customLabel}</span>
-                        <span>{item.value}</span>
-                    </div>
-                );
-            })}
-        </div>
-    );
-};
+// const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
+//     if (!active || !payload || payload.length === 0) return null;
+
+//     return (
+//         <div className="p-2 bg-white border rounded shadow">
+//             <p className="font-bold mb-1">{label}</p>
+//             {payload.map((item, index) => {
+//                 const customLabel = getSubIntervalLabel(String(label), String(item.dataKey));
+//                 return (
+//                     <div key={index} className="flex justify-between text-sm gap-4">
+//                         <span>{customLabel}</span>
+//                         <span>{item.value}</span>
+//                     </div>
+//                 );
+//             })}
+//         </div>
+//     );
+// };
 
 const chartdata = Array.from({ length: 24 }, (_, i) => ({
     date: `${String(i).padStart(2)}`,
@@ -57,39 +58,13 @@ const chartdata = Array.from({ length: 24 }, (_, i) => ({
 
 export const BarChartHero = () => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [yAxisWidth, setYAxisWidth] = useState(80);
-    const [chartWidth, setChartWidth] = useState(0);
-    const [modalData, setModalData] = useState<any>();
-  const [isOpen, setIsOpen] = useState(false);
+    const [modalData, setModalData] = useState<PowerUsageProps>();
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
-   const handleBarClick = (data : any) => {
+    const handleBarClick = (data: PowerUsageProps) => {
     setModalData(data);
-    setIsOpen(true);
-    console.log('data', data);
-   }
-
-    // Calculate fixed dimensions
-    const barWidth = 7;
-    const barGap = 1; // Gap between different date groups
-    const barCategoryGap = 2; // Gap between same category bars
-
-    // Calculate total chart width based on data length
-    const calculateChartWidth = () => {
-        const dateGroups = chartdata.length;
-        const categoriesPerGroup = 4; // interval_one to interval_four
-        return dateGroups * (categoriesPerGroup * (barWidth + barCategoryGap)) +
-            (dateGroups - 1) * barGap;
-    };
-
-    useLayoutEffect(() => {
-        if (containerRef.current) {
-            // Reserve space for Y-axis labels
-            const yAxisPadding = 30;
-            setChartWidth(calculateChartWidth());
-            setYAxisWidth(containerRef.current.offsetHeight > 300 ? 80 : 60);
-        }
-    }, []);
-
+        setIsOpen(true);
+    }
 
     return (
         <div className="relative  mt-4 mb-4">
@@ -124,7 +99,6 @@ export const BarChartHero = () => {
                         data={chartdata}
                         index="date"
                         categories={["usage"]}
-                        barWidth={barWidth}
                         showLegend={false}
                         barColor={"#c71c5d"}
                         handleBarClick={handleBarClick}
@@ -134,12 +108,11 @@ export const BarChartHero = () => {
                             borderRadius: "0.5rem 0.5rem 0 0",
                             marginRight: "-4px",
                         }}
-                        customTooltip={CustomTooltip}
                         tickGap={0}
                         startEndOnly={false}
                         showYAxis={false}
                     />
-                    {/* <DrawerModal isOpen={isOpen} setIsOpen={setIsOpen} data={modalData} /> */}
+                    <DrawerModal isOpen={isOpen} setIsOpen={setIsOpen} data={modalData} />
                 </div>
             </div>
         </div>

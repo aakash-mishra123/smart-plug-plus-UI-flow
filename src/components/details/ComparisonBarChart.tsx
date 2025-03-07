@@ -1,63 +1,69 @@
 "use client"
 
 import { BarChart } from "@/components/shared/BarChart"
-import React, { useRef, useLayoutEffect, useState } from "react";
+import React, { useRef } from "react";
 
-interface TooltipPayloadItem {
-    dataKey: string;
-    value: number | string;
-}
+// interface TooltipPayloadItem {
+//     dataKey: string;
+//     label?: string;
+//     value?: number | string;
+//     category?: string
+//     index?: string
+//     color?: AvailableChartColorsKeys
+//     type?: string
+// }
 
-interface CustomTooltipProps {
-    payload: TooltipPayloadItem[];
-    label: string;
-}
+// interface CustomTooltipProps {
+//     payload?: TooltipPayloadItem[];
+//     label?: string;
+//     active?: boolean | undefined;
+// }
 
 
-const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
-    const startHourStr = dateStr.split("h")[0]; // "09"
-    const startHour = parseInt(startHourStr, 10);
-    let offset = 0;
-    switch (dataKey) {
-        case "interval_one":
-            offset = 0;
-            break;
-        case "interval_two":
-            offset = 15;
-            break;
-        case "interval_three":
-            offset = 30;
-            break;
-        case "interval_four":
-            offset = 45;
-            break;
-        default:
-            offset = 0;
-    }
-    const pad = (num: Number) => num.toString().padStart(2, "0");
-    const startTime = `${pad(startHour)}:${pad(offset)}`;
-    const endTime = `${pad(startHour)}:${pad(offset + 15)}`;
-    return `${startTime}-${endTime}`;
-};
+// const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
+//     const startHourStr = dateStr.split("h")[0]; // "09"
+//     const startHour = parseInt(startHourStr, 10);
+//     let offset = 0;
+//     switch (dataKey) {
+//         case "interval_one":
+//             offset = 0;
+//             break;
+//         case "interval_two":
+//             offset = 15;
+//             break;
+//         case "interval_three":
+//             offset = 30;
+//             break;
+//         case "interval_four":
+//             offset = 45;
+//             break;
+//         default:
+//             offset = 0;
+//     }
+//     const pad = (num: number) => num.toString().padStart(2, "0");
+//     const startTime = `${pad(startHour)}:${pad(offset)}`;
+//     const endTime = `${pad(startHour)}:${pad(offset + 15)}`;
+//     return `${startTime}-${endTime}`;
+// };
 
 // Custom tooltip
-const CustomTooltip = ({ payload, label }: { payload: any, label: string }) => {
-    if (!payload || payload.length === 0) return null;
-    return (
-        <div className="p-2 bg-white border rounded shadow">
-            <p className="font-bold mb-1">{label}</p>
-            {payload.map((item: any, index: number) => {
-                const customLabel = getSubIntervalLabel(label, item.dataKey);
-                return (
-                    <div key={index} className="flex justify-between text-sm gap-4">
-                        <span>{customLabel}</span>
-                        <span>{item.value}</span>
-                    </div>
-                );
-            })}
-        </div>
-    );
-};
+// const CustomTooltip = ({ payload, label }: CustomTooltipProps) => {
+//     if (!payload || payload.length === 0) return null;
+//     return (
+//         <div className="p-2 bg-white border rounded shadow">
+//             <p className="font-bold mb-1">{label}</p>
+//             {payload.map((item, index) => {
+//                 const customLabel = getSubIntervalLabel(String(label), String(item.dataKey));
+//                 return (
+//                     <div key={index} className="flex justify-between text-sm gap-4">
+//                         <span>{customLabel}</span>
+//                         <span>{item.value}</span>
+//                     </div>
+//                 );
+//             })}
+//         </div>
+//     );
+// };
 
 const chartdata = Array.from({ length: 24 }, (_, i) => ({
     date: `${String(i).padStart(2)}`,
@@ -66,31 +72,8 @@ const chartdata = Array.from({ length: 24 }, (_, i) => ({
 
 export const ComparisonBarChart = () => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [yAxisWidth, setYAxisWidth] = useState(80);
-    const [chartWidth, setChartWidth] = useState(0);
-
     // Calculate fixed dimensions
     const barWidth = 7;
-    const barGap = 1; // Gap between different date groups
-    const barCategoryGap = 2; // Gap between same category bars
-
-    // Calculate total chart width based on data length
-    const calculateChartWidth = () => {
-        const dateGroups = chartdata.length;
-        const categoriesPerGroup = 4; // interval_one to interval_four
-        return dateGroups * (categoriesPerGroup * (barWidth + barCategoryGap)) +
-            (dateGroups - 1) * barGap;
-    };
-
-    useLayoutEffect(() => {
-        if (containerRef.current) {
-            // Reserve space for Y-axis labels
-            const yAxisPadding = 30;
-            setChartWidth(calculateChartWidth());
-            setYAxisWidth(containerRef.current.offsetHeight > 300 ? 80 : 60);
-        }
-    }, []);
-
 
     return (
         <div className="relative  mt-4 mb-4">
@@ -107,6 +90,7 @@ export const ComparisonBarChart = () => {
                     customWrapperStyle={{
                         borderRadius: "0.5rem 0.5rem 0 0",
                     }}
+                    // customTooltip={React.ComponentType<CustomTooltipProps>(CustomTooltip)}
                     tickGap={0}
                     startEndOnly={false}
                     showGridLines={false}
@@ -132,7 +116,6 @@ export const ComparisonBarChart = () => {
                             borderRadius: "0.5rem 0.5rem 0 0",
                             marginRight: "-4px",
                         }}
-                        customTooltip={CustomTooltip}
                         tickGap={0}
                         startEndOnly={false}
                         showYAxis={false}

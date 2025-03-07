@@ -1,9 +1,11 @@
 import { Button } from '@/components/shared/Button'
 import { Drawer, DrawerContent, DrawerTitle, DrawerHeader, DrawerDescription, DrawerBody, DrawerFooter, DrawerClose } from '../shared/Drawer';
+import { PowerUsageProps } from '@/utils/types';
 
 interface DrawerModalProps {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
+  data?: PowerUsageProps;
 }
 
 export const DrawerModal = ({ isOpen, setIsOpen } : DrawerModalProps) => {
