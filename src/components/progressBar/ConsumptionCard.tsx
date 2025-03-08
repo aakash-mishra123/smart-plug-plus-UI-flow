@@ -14,7 +14,10 @@ const ConsumptionCard = ({
 
   return (
     <div className="mx-4">
-      <Card className="bg-white p-2  montserrat-custom rounded-sm">
+      <Card
+        key={0}
+        className="bg-white p-2  montserrat-custom rounded-sm"
+      >
         <div className="flex flex-col p-2 justify-between">
           <div className="flex justify-between">
             <Text className="text-lg font-semibold">Consumo istantaneo</Text>
@@ -32,9 +35,8 @@ const ConsumptionCard = ({
         <hr />
         <div className="flex flex-row gap-2 items-end mt-4 mb-2">
           <Metric
-            className={`${
-              isOverLimit ? "text-3xl   text-red-600" : "text-green-600 font"
-            } pl-3 font-bold`}
+            className={`${isOverLimit ? "text-3xl   text-red-600" : "text-green-600 font"
+              } pl-3 font-bold`}
           >
             {2}, {3}{" "}
           </Metric>
@@ -42,21 +44,23 @@ const ConsumptionCard = ({
           <p className="text-xl font-bold">kW</p>
         </div>
 
-        <OverlappingProgressBar value={powerUsage}/>
+        <OverlappingProgressBar value={powerUsage} />
 
-        <hr className="mt-4"/>
+        <hr className="mt-4" />
 
         {/* <div 
           key={0}
           className="space-y-4 mt-4"
         > */}
-          {dummyAlertData.map((alert, index) => {
-            return (
-              <WarningCard 
-                alert={alert}
-                index={index}
-                />
-          )})}
+        {dummyAlertData.map((alert, index) => {
+          return (
+            <WarningCard
+              key={index}
+              alert={alert}
+              index={index}
+            />
+          )
+        })}
         {/* </div> */}
       </Card>
     </div>

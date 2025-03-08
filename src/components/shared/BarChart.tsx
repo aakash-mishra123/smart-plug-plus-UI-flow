@@ -4,8 +4,7 @@
 "use client"
 
 import React, { CSSProperties } from "react";
-import { useState, useEffect } from "react";
-import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
+import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
 import {
   Bar,
   CartesianGrid,
@@ -65,7 +64,7 @@ const renderShape = (
 ) => {
   const { fillOpacity, name, payload, value } = props;
   let { x, width, y, height } = props;
-  let {barWidth, barColor} = props;
+  const { barColor } = props;
   // Ensure positive dimensions for animation
   if (layout === "horizontal" && height < 0) {
     y += height;
@@ -82,9 +81,9 @@ const renderShape = (
         : 0.3
       : fillOpacity;
 
-      const topRadius = customStyle?.roundedTop ? customStyle.roundedTop : width / 2;
+  const topRadius = customStyle?.roundedTop ? customStyle.roundedTop : width / 2;
 
-      const path = `
+  const path = `
       M${x},${y + height} 
       L${x},${y + topRadius} 
       Q${x},${y} ${x + topRadius},${y} 
@@ -654,30 +653,28 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
 
     function onBarClick(data: any, _: any, event: React.MouseEvent) {
       event.stopPropagation();
-  
-    //console.log('data', data);
-  // setSelectedDate((prev) => data.date);
-  
-  setSelectedBar(data.date);
-  if (!onValueChange) return;
-  if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
-    setActiveLegend(undefined);
-    setActiveBar(undefined);
-    setSelectedBar(null); // Reset selected bar color
-    onValueChange?.(null);
-  } else {
-    setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
-    setActiveBar({
-      ...data.payload,
-      value: data.value,
-    });
-    setSelectedBar(data.date); // Track the selected bar
-    onValueChange?.({
-      eventType: "bar",
-      categoryClicked: data.tooltipPayload?.[0]?.dataKey,
-      ...data.payload,
-    });
-  }
+      setSelectedBar(data.date);
+
+      if (handleBarClick) handleBarClick(data);
+      if (!onValueChange) return;
+      if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
+        setActiveLegend(undefined);
+        setActiveBar(undefined);
+        setSelectedBar(null); // Reset selected bar color
+        onValueChange?.(null);
+      } else {
+        setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
+        setActiveBar({
+          ...data.payload,
+          value: data.value,
+        });
+        setSelectedBar(data.date); // Track the selected bar
+        onValueChange?.({
+          eventType: "bar",
+          categoryClicked: data.tooltipPayload?.[0]?.dataKey,
+          ...data.payload,
+        });
+      }
     }
 
     function onCategoryClick(dataKey: string) {
@@ -899,7 +896,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 }
               />
             ) : null}
-            {categories.map((category, index) => {
+            {categories.map((category) => {
               return (
                 <Bar
                   className={cx(
