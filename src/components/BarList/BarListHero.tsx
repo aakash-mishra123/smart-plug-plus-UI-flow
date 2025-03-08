@@ -17,8 +17,8 @@ const BarListHero = () => {
     <div className="flex flex-col gap-0 bg-white">
       <div className="flex flex-row rounded-md items-center justify-between monteserrat-custom mx-2 my-2 px-2 py-2 mt-2 bg-[#edf1f5]" >
 
-      <p className="text-lg ml-2 font-medium font-thin text-black">Average Data </p>
-      <p className="text-3xl ml-2 font-semibold text-black">{average} kWh</p>
+        <p className="text-lg ml-2 font-medium text-black">Average Data </p>
+        <p className="text-3xl ml-2 font-semibold text-black">{average} kWh</p>
       </div>
       <BarList
         data={data}

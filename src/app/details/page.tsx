@@ -14,7 +14,6 @@ const Temp = () => {
         >
             <div className="bg-[#edf1f5]">
                 <InfoCard />
-
                 <BarChartHero />
                 <BarListHero />
             </div>

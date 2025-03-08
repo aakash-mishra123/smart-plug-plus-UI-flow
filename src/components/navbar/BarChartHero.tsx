@@ -3,53 +3,6 @@
 import { BarChart } from "@/components/shared/BarChart"
 import React, { useRef, useState } from "react";
 import { DrawerModal } from "../drawer/DrawerModal";
-import { PowerUsageProps } from "@/utils/types";
-
-// const getSubIntervalLabel = (dateStr: string, dataKey: string) => {
-//     const startHourStr = dateStr.split("h")[0];
-//     const startHour = parseInt(startHourStr, 10);
-//     let offset = 0;
-//     switch (dataKey) {
-//         case "interval_one":
-//             offset = 0;
-//             break;
-//         case "interval_two":
-//             offset = 15;
-//             break;
-//         case "interval_three":
-//             offset = 30;
-//             break;
-//         case "interval_four":
-//             offset = 45;
-//             break;
-//         default:
-//             offset = 0;
-//     }
-//     const pad = (num: number) => num.toString().padStart(2, "0");
-//     const startTime = `${pad(startHour)}:${pad(offset)}`;
-//     const endTime = `${pad(startHour)}:${pad(offset + 15)}`;
-//     return `${startTime}-${endTime}`;
-// };
-
-// Custom tooltip
-// const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
-//     if (!active || !payload || payload.length === 0) return null;
-
-//     return (
-//         <div className="p-2 bg-white border rounded shadow">
-//             <p className="font-bold mb-1">{label}</p>
-//             {payload.map((item, index) => {
-//                 const customLabel = getSubIntervalLabel(String(label), String(item.dataKey));
-//                 return (
-//                     <div key={index} className="flex justify-between text-sm gap-4">
-//                         <span>{customLabel}</span>
-//                         <span>{item.value}</span>
-//                     </div>
-//                 );
-//             })}
-//         </div>
-//     );
-// };
 
 const chartdata = Array.from({ length: 24 }, (_, i) => ({
     date: `${String(i).padStart(2)}`,
@@ -58,14 +11,10 @@ const chartdata = Array.from({ length: 24 }, (_, i) => ({
 
 export const BarChartHero = () => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [modalData, setModalData] = useState<PowerUsageProps>();
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-
-    const handleBarClick = (data: PowerUsageProps) => {
-    setModalData(data);
-        setIsOpen(true);
-    }
-
+    const [isOpen, setIsOpen] = useState(false);
+    const handleBarClick = () => setIsOpen(true);
+    const barWidth = 7;         // Calculate fixed dimensions
+    // Calculate total chart width based on data length
     return (
         <div className="relative  mt-4 mb-4">
             {/* Fixed Y-axis */}
@@ -76,7 +25,7 @@ export const BarChartHero = () => {
                     categories={["usage"]}
                     showXAxis={false}
                     showLegend={false}
-                    
+
                     layout="horizontal"
                     colors={["blue", "blue", "blue", "blue"]}
                     customWrapperStyle={{
@@ -99,6 +48,7 @@ export const BarChartHero = () => {
                         data={chartdata}
                         index="date"
                         categories={["usage"]}
+                        barWidth={barWidth}
                         showLegend={false}
                         barColor={"#c71c5d"}
                         handleBarClick={handleBarClick}
@@ -112,7 +62,7 @@ export const BarChartHero = () => {
                         startEndOnly={false}
                         showYAxis={false}
                     />
-                    <DrawerModal isOpen={isOpen} setIsOpen={setIsOpen} data={modalData} />
+                    <DrawerModal isOpen={isOpen} setIsOpen={setIsOpen} />
                 </div>
             </div>
         </div>

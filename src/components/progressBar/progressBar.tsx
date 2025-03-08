@@ -5,17 +5,17 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { Box, Typography } from "@mui/material";
 
 type CustomProgressProps = {
-  value : number ;
+  value: number;
 }
 
-const CustomLinearProgress = ({value } : CustomProgressProps) => {
+const CustomLinearProgress = ({ value }: CustomProgressProps) => {
   const bkgColor = value < 84 ? (value < 38 ? "#37785a" : "#f5b800") : "#ed0528";
 
   return (
     <Box
       sx={{
         width: "100%",
-        position: "relative" 
+        position: "relative"
       }}
     >
       <Box
@@ -63,7 +63,7 @@ const CustomLinearProgress = ({value } : CustomProgressProps) => {
           }}
         />
 
-      <Box
+        <Box
           sx={{
             position: "absolute",
             top: "9%",
