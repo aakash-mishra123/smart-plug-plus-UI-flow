@@ -64,7 +64,6 @@ const renderShape = (
   const { fillOpacity, name, payload, value } = props;
   let { x, width, y, height } = props;
   const { barColor } = props;
-
   // Ensure positive dimensions for animation
   if (layout === "horizontal" && height < 0) {
     y += height;
@@ -81,9 +80,9 @@ const renderShape = (
         : 0.3
       : fillOpacity;
 
-      const topRadius = customStyle?.roundedTop ? customStyle.roundedTop : width / 2;
+  const topRadius = customStyle?.roundedTop ? customStyle.roundedTop : width / 2;
 
-      const path = `
+  const path = `
       M${x},${y + height} 
       L${x},${y + topRadius} 
       Q${x},${y} ${x + topRadius},${y} 
@@ -655,25 +654,25 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       event.stopPropagation();
       setSelectedBar(data.date);
       if (handleBarClick) handleBarClick(data);
-  if (!onValueChange) return;
-  if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
-    setActiveLegend(undefined);
-    setActiveBar(undefined);
-    setSelectedBar(null); // Reset selected bar color
-    onValueChange?.(null);
-  } else {
-    setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
-    setActiveBar({
-      ...data.payload,
-      value: data.value,
-    });
-    setSelectedBar(data.date); // Track the selected bar
-    onValueChange?.({
-      eventType: "bar",
-      categoryClicked: data.tooltipPayload?.[0]?.dataKey,
-      ...data.payload,
-    });
-  }
+      if (!onValueChange) return;
+      if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
+        setActiveLegend(undefined);
+        setActiveBar(undefined);
+        setSelectedBar(null); // Reset selected bar color
+        onValueChange?.(null);
+      } else {
+        setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
+        setActiveBar({
+          ...data.payload,
+          value: data.value,
+        });
+        setSelectedBar(data.date); // Track the selected bar
+        onValueChange?.({
+          eventType: "bar",
+          categoryClicked: data.tooltipPayload?.[0]?.dataKey,
+          ...data.payload,
+        });
+      }
     }
 
     function onCategoryClick(dataKey: string) {

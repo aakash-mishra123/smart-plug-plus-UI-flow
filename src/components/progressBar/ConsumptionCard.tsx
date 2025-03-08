@@ -16,8 +16,11 @@ const ConsumptionCard = ({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
-    <div className="mx-2 mt-2 rounded-sm w-[90%]">
-      <Card className="bg-white p-2 montserrat-custom rounded-sm">
+    <div className="mx-4">
+      <Card
+        key={0}
+        className="bg-white p-2  montserrat-custom rounded-sm"
+      >
         <div className="flex flex-col p-2 justify-between">
           <div className="flex justify-between">
             <Text className="text-lg font-semibold">Consumo istantaneo</Text>
@@ -30,11 +33,11 @@ const ConsumptionCard = ({
           </div>
           <div className="flex flex-row justify-between pt-1">
 
-          <Text className="text-xs text-black mt-2">
-            Mercoledì 22 gennaio 2025, ore 09:30 - <strong>Fascia F1</strong>
-          </Text>
+            <Text className="text-xs text-black mt-2">
+              Mercoledì 22 gennaio 2025, ore 09:30 - <strong>Fascia F1</strong>
+            </Text>
 
-          <InfoIcon className="font-semibold text-pink-800 text-md " onClick={() => setIsModalOpen(() => true)}/>
+            <InfoIcon className="font-semibold text-pink-800 text-md " onClick={() => setIsModalOpen(() => true)} />
           </div>
         </div>
         <hr />
@@ -48,11 +51,11 @@ const ConsumptionCard = ({
           <p className="text-xl font-bold">kW</p>
         </div>
 
-        <CustomLinearProgress value={powerUsage}/>
+        <CustomLinearProgress value={powerUsage} />
 
-        <hr className="mt-4"/>
+        <hr className="mt-4" />
 
-          {/* {dummyAlertData.map((alert, index) => {
+        {/* {dummyAlertData.map((alert, index) => {
             return (
               <WarningCard 
                 key={index}
