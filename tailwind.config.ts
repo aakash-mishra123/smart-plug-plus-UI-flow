@@ -1,4 +1,4 @@
-import type { Config } from "./.next/node_modules/tailwindcss/types"
+import type { Config } from "tailwindcss/types"
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",

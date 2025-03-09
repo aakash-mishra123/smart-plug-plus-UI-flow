@@ -1,7 +1,5 @@
-//@ts-nocheck
-
-import PowerUsageCard from "../components/powerUsageCard/PowerUsageCard";
-import UserInfoCard from "@/components/powerUsageCard/UserInfoCard";
+import PowerUsageCard from "../components/cards/PowerUsageCard";
+import UserInfoCard from "@/components/cards/UserInfoCard";
 
 export default function Home() {
 

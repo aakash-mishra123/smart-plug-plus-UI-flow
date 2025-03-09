@@ -1,7 +1,6 @@
 "use client";
 import Transitions from "@/components/animations/Transition";
 import InfoCard from "@/components/shared/InfoCard";
-import { BarChartHero } from "@/components/navbar/BarChartHero";
 import BarListHero from "@/components/BarList/BarListHero";
 import ConsumptionCard from "@/components/progressBar/ConsumptionCard";
 
@@ -20,6 +19,7 @@ const Temp = () => {
                     maxPower={90}
                     limitPower={3}
                 />
+                <BarListHero />
             </div>
 
         </Transitions>

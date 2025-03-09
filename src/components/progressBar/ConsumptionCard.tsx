@@ -6,27 +6,16 @@ import { Card, Badge, Text, Metric } from "@tremor/react/dist";
 import CustomLinearProgress from "../progressBar/progressBar";
 import { InfoIcon } from "lucide-react";
 import { DrawerModal } from "../drawer/DrawerModal";
-//import client from "@/utils/client";
-
+import useMqttClient from "../hooks/useMqttClient";
 const ConsumptionCard = ({
   powerUsage,
   maxPower,
 }: PowerUsageProps) => {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  //const [messages, setMessages] = useState<>([]);
-  // useEffect(() => {
+  const { client, isConnected } = useMqttClient();
 
-  //   const handleMessage = (topic: any, message: any) => {
-  //     const msg = message.toString();
-
-  //     console.log("messages", messages)
-
-  //     setMessages((prev) => [...prev, { topic, msg }]);
-  //   };
-  // }, [messages]);
-
-
+  console.log('mqtt client & isConnected', client, isConnected);
   return (
     <div className="">
       <Card
