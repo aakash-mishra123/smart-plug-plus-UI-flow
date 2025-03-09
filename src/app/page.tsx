@@ -1,6 +1,7 @@
+//@ts-nocheck
+
 import PowerUsageCard from "../components/powerUsageCard/PowerUsageCard";
 import UserInfoCard from "@/components/powerUsageCard/UserInfoCard";
-import ComparisonCard from "@/components/progressBar/ConsumptionCard";
 
 export default function Home() {
 
@@ -9,11 +10,6 @@ export default function Home() {
       <UserInfoCard />
       <PowerUsageCard />
       {/* <BarChartHero /> */}
-      <ComparisonCard
-        powerUsage={2.5}
-        maxPower={90}
-        limitPower={3}
-      />
     </div>
   );
 }

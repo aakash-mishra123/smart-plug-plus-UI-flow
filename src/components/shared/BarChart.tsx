@@ -3,6 +3,8 @@
 
 import React, { CSSProperties } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
+
 import {
   Bar,
   CartesianGrid,
@@ -13,7 +15,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from "recharts"
+} from "recharts/types"
 import { AxisDomain } from "recharts/types/util/types"
 
 import {
@@ -55,6 +57,13 @@ const renderShape = (
   const { fillOpacity, name, payload, value } = props;
   let { x, width, y, height } = props;
   const { barColor } = props;
+
+  // Ensure all key dimensions are numbers and fallback if not
+  x = typeof x === "number" ? x : 0;
+  y = typeof y === "number" ? y : 0;
+  width = typeof width === "number" ? width : 0;
+  height = typeof height === "number" ? height : 0;
+
   // Ensure positive dimensions for animation
   if (layout === "horizontal" && height < 0) {
     y += height;
@@ -72,13 +81,14 @@ const renderShape = (
       : fillOpacity;
 
   const topRadius = customStyle?.roundedTop ? customStyle.roundedTop : width / 2;
+  const safeTopRadius = Math.min(topRadius, width / 2, height);
 
   const path = `
       M${x},${y + height} 
-      L${x},${y + topRadius} 
-      Q${x},${y} ${x + topRadius},${y} 
-      L${x + width - topRadius},${y} 
-      Q${x + width},${y} ${x + width},${y + topRadius} 
+      L${x},${y + safeTopRadius} 
+      Q${x},${y} ${x + safeTopRadius},${y} 
+      L${x + width - safeTopRadius},${y} 
+      Q${x + width},${y} ${x + width},${y + safeTopRadius} 
       L${x + width},${y + height} 
       Z
     `;
@@ -570,6 +580,7 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   x?: number
   enableAnimation?: boolean;
   animationDuration?: number;
+  allowClickableTransitions?: boolean;
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
@@ -610,17 +621,16 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       barColor,
       enableAnimation,
       animationDuration,
+      allowClickableTransitions,
       ...other
     } = props
     const CustomTooltip = customTooltip
     const paddingValue =
       (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20
     const [legendHeight, setLegendHeight] = React.useState(60);
-    const [selectedBar, setSelectedBar] = React.useState<any>(-1);
+    const [selectedBar, setSelectedBar] = React.useState<string>('-1');
 
-    const [activeLegend, setActiveLegend] = React.useState<string | undefined>(
-      undefined,
-    )
+    const [activeLegend, setActiveLegend] = React.useState<string | undefined>(undefined)
     const categoryColors = constructCategoryColors(categories, colors)
     const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined)
     const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
@@ -629,14 +639,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
 
     const prevActiveRef = React.useRef<boolean | undefined>(undefined)
     const prevLabelRef = React.useRef<string | undefined>(undefined)
-
-
-    // useEffect(() => {
-
-    //   console.log('selectedBar', selectedBar);
-
-    // }, [selectedBar])
-
     function valueToPercent(value: number) {
       return `${(value * 100).toFixed(0)}%`
     }
@@ -649,7 +651,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
         setActiveLegend(undefined);
         setActiveBar(undefined);
-        setSelectedBar(null); // Reset selected bar color
+        setSelectedBar(""); // Reset selected bar color
         onValueChange?.(null);
       } else {
         setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
@@ -711,7 +713,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
           >
             {showGridLines ? (
               <CartesianGrid
-                className={cx("stroke-gray-200 stroke-1 dark:stroke-gray-800")}
+                className={cx("stroke-gray-200 stroke-1 dark:stroke-gray-400")}
                 horizontal={layout !== "vertical"}
                 vertical={layout === "vertical"}
               />
@@ -919,6 +921,24 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             )}
           </RechartsBarChart>
         </ResponsiveContainer>
+        {
+          allowClickableTransitions ? (
+            <div className="h-fit rounded-lg flex w-full flex-row justify-between mr-4 pr-4 items-end">
+              <div className="flex flex-col gap-0 montserrat-custom">
+
+                <p className="text-sm text-gray-500"> Ora della giornata</p>
+                <p className="text-md text-gray-900 font-semibold">Dalle ore 12:00 alle ore 13:00</p>
+              </div>
+
+
+              <div className="flex flex-row gap-4 mb-2 ">
+                <FaChevronLeft onClick={() => setSelectedBar((prev) => String(Number(prev) - 1))} className="text-pink-800 font-bold text-lg h-6 w-8" />
+                <FaChevronRight onClick={() => setSelectedBar((prev) => String(Number(prev) + 1))} className="text-pink-800 font-bold text-lg h-6 w-8" />
+              </div>
+            </div>
+          ) : null
+        }
+
       </div>
     )
   },

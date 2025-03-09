@@ -1,9 +1,7 @@
 "use client"
 
 import { BarChart } from "@/components/shared/BarChart"
-import React, { useRef, useState } from "react";
-import { DrawerModal } from "../drawer/DrawerModal";
-
+import React, { useRef } from "react";
 const chartdata = Array.from({ length: 24 }, (_, i) => ({
     date: `${String(i).padStart(2)}`,
     usage: Math.floor(Math.random() * 10 + 1),
@@ -11,14 +9,15 @@ const chartdata = Array.from({ length: 24 }, (_, i) => ({
 
 export const BarChartHero = () => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [isOpen, setIsOpen] = useState(false);
-    const handleBarClick = () => setIsOpen(true);
+    const handleBarClick = () => {
+        console.log('edit barlist');
+    }
     const barWidth = 7;         // Calculate fixed dimensions
     // Calculate total chart width based on data length
     return (
-        <div className="relative  mt-4 mb-4">
+        <div className="relative">
             {/* Fixed Y-axis */}
-            <div className="absolute left-0 top-0 h-full z-10 w-[3rem] ml-[-10px]">
+            <div className="absolute left-0 -top-2 h-full z-10 w-[3rem] ml-[-10px]">
                 <BarChart
                     data={chartdata}
                     index="date"
@@ -31,25 +30,28 @@ export const BarChartHero = () => {
                     customWrapperStyle={{
                         borderRadius: "0.5rem 0.5rem 0 0",
                     }}
+                    showTooltip={false}
                     tickGap={0}
                     startEndOnly={false}
                     showGridLines={false}
+                    allowClickableTransitions={false}
                 />
             </div>
 
             {/* Scrollable chart area */}
             <div
                 ref={containerRef}
-                className="overflow-x-auto h-full ml-10"
+                className="overflow-x-auto h-full ml-8 mt-4"
                 style={{ scrollbarWidth: 'thin' }}
             >
-                <div style={{ width: `300px`, minWidth: '100%' }}>
+                <div style={{ width: `300px`, minWidth: '100%', height: '380px' }}>
                     <BarChart
                         data={chartdata}
                         index="date"
                         categories={["usage"]}
                         barWidth={barWidth}
                         showLegend={false}
+                        showTooltip={false}
                         barColor={"#c71c5d"}
                         handleBarClick={handleBarClick}
                         layout="horizontal"
@@ -61,8 +63,8 @@ export const BarChartHero = () => {
                         tickGap={0}
                         startEndOnly={false}
                         showYAxis={false}
+                        allowClickableTransitions={true}
                     />
-                    <DrawerModal isOpen={isOpen} setIsOpen={setIsOpen} />
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import { AlertDataType } from "@/utils/types";
-import { Card } from "@tremor/react";
+import { Card } from "@tremor/react/dist";
 
  type WarningCardProps  = {
   alert: AlertDataType,

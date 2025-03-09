@@ -3,6 +3,7 @@ import Transitions from "@/components/animations/Transition";
 import InfoCard from "@/components/shared/InfoCard";
 import { BarChartHero } from "@/components/navbar/BarChartHero";
 import BarListHero from "@/components/BarList/BarListHero";
+import ConsumptionCard from "@/components/progressBar/ConsumptionCard";
 
 const Temp = () => {
     return (
@@ -14,9 +15,13 @@ const Temp = () => {
         >
             <div className="bg-[#edf1f5]">
                 <InfoCard />
-                <BarChartHero />
-                <BarListHero />
+                <ConsumptionCard
+                    powerUsage={75}
+                    maxPower={90}
+                    limitPower={3}
+                />
             </div>
+
         </Transitions>
     );
 };

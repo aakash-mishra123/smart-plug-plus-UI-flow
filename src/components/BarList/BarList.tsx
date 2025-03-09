@@ -16,6 +16,7 @@ interface BarListProps<T = unknown>
   data: Bar<T>[]
   valueFormatter?: (value: number) => string,
   showAnimation?: boolean,
+  rowHeight?: string,
   onValueChange?: (payload: Bar<T>) => void
   sortOrder?: "ascending" | "descending" | "none",
   averagedata?: number,
@@ -29,6 +30,7 @@ function BarListInner<T>(
     onValueChange,
     sortOrder = "descending",
     className,
+    rowHeight,
     ...props
   }: BarListProps<T>,
   forwardedRef: React.ForwardedRef<HTMLDivElement>,
@@ -50,7 +52,6 @@ function BarListInner<T>(
     )
   }, [sortedData])
 
-  const rowHeight = "h-8"
 
   return (
     <div
@@ -87,7 +88,7 @@ function BarListInner<T>(
                 "flex items-center rounded transition-all",
                 rowHeight,
                 // background color
-                "bg-blue-200 dark:bg-blue-900",
+                "bg-pink-200 dark:bg-pink-200 text-black",
                 onValueChange
                   ? "group-hover:bg-blue-300 group-hover:dark:bg-blue-800"
                   : "",
@@ -107,7 +108,7 @@ function BarListInner<T>(
                       // base
                       "truncate whitespace-nowrap rounded text-sm",
                       // text color
-                      "text-gray-900 dark:text-gray-50",
+                      "text-gray-900 dark:text-gray-800",
                       // hover
                       "hover:underline hover:underline-offset-2",
                       // focus
@@ -123,9 +124,9 @@ function BarListInner<T>(
                   <p
                     className={cx(
                       // base
-                      "truncate whitespace-nowrap text-sm",
+                      "truncate whitespace-nowrap text-md font-medium",
                       // text color
-                      "text-gray-900 dark:text-gray-50",
+                      "text-gray-900 dark:text-black",
                     )}
                   >
                     {item.name}
@@ -137,12 +138,11 @@ function BarListInner<T>(
         ))}
       </div>
       <div className="flex flex-col gap-1">
-
         {sortedData.map((item, index) => (
           <div
-            key={item.key ?? item.name}
+            key={index}
             className={cx(
-              "flex items-center justify-end",
+              "flex items-center justify-between text-gray-800 font-bold",
               rowHeight,
               index === sortedData.length - 1 ? "mb-0" : "mb-1.5",
             )}
@@ -152,10 +152,10 @@ function BarListInner<T>(
                 // base
                 "truncate whitespace-nowrap text-sm leading-none",
                 // text color
-                "text-gray-900 dark:text-gray-50",
+                "text-gray-900 dark:text-gray-800 mb-1",
               )}
             >
-              {valueFormatter(item.value)}
+              {`${valueFormatter(item.value)} kWh`}
             </p>
           </div>
         ))}

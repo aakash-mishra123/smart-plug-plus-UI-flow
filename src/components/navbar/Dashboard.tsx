@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Title, Text, Grid, Col, LineChart } from "@tremor/react";
+import { Card, Title, Text, Grid, Col, LineChart } from "@tremor/react/dist";
 
 const chartData = [
   { date: "Jan", sales: 1000, profit: 300 },

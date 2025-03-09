@@ -75,7 +75,7 @@ const DrawerContent = React.forwardRef<
           id="drawer_content"
            ref={forwardedRef}
            className={cx(
-             "fixed bottom-0 z-50 !w-[100vw] max-w-lg max-h-[65vh] h-fit overflow-y-auto rounded-t-lg border border-gray-200 bg-white p-6 shadow-lg dark:border-gray-900 dark:bg-[#090E1A]",
+             "fixed bottom-0 z-50 !w-[100vw] max-w-lg max-h-[70vh] h-fit overflow-y-auto rounded-t-xl border border-gray-200 bg-white py-6 px-4 shadow-lg",
              "data-[state=closed]:animate-slideDown data-[state=open]:animate-slideUp",
              focusRing,
              className
@@ -96,7 +96,7 @@ const DrawerHeader = React.forwardRef<
   return (
     <div
       ref={ref}
-      className="flex items-start justify-between gap-x-4 border-b border-gray-200 pb-4 dark:border-gray-900"
+      className="flex items-start justify-between gap-x-4 border-b border-gray-200 pb-2"
       {...props}
     >
       <div className={cx("mt-1 flex flex-col gap-y-1", className)}>
@@ -105,9 +105,9 @@ const DrawerHeader = React.forwardRef<
       <DrawerPrimitives.Close asChild>
         <Button
           variant="ghost"
-          className="aspect-square p-1 hover:bg-gray-100 hover:dark:bg-gray-400/10"
+          className="aspect-square p-1 border border-white hover:bg-gray-200 "
         >
-          <RiCloseLine className="size-6" aria-hidden="true" />
+          <RiCloseLine className="size-6 text-black" aria-hidden="true" />
         </Button>
       </DrawerPrimitives.Close>
     </div>
@@ -126,7 +126,7 @@ const DrawerTitle = React.forwardRef<
       // base
       "text-base font-semibold",
       // text color
-      "text-gray-900 dark:text-gray-50",
+      "text-gray-900 ",
       className,
     )}
     {...props}
@@ -150,7 +150,7 @@ const DrawerDescription = React.forwardRef<
   return (
     <DrawerPrimitives.Description
       ref={forwardedRef}
-      className={cx("text-gray-500 dark:text-gray-500", className)}
+      className={cx("text-gray-500 ", className)}
       {...props}
     />
   )
@@ -165,7 +165,7 @@ const DrawerFooter = ({
   return (
     <div
       className={cx(
-        "flex flex-col-reverse border-t border-gray-200 pt-4 sm:flex-row sm:justify-end sm:space-x-2 dark:border-gray-900",
+        "flex flex-col-reverse border-t border-gray-200 pt-4 sm:flex-row sm:justify-end sm:space-x-2",
         className,
       )}
       {...props}

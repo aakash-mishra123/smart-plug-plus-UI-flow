@@ -114,18 +114,18 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
       </Box>
 
       <Box className="montserrat-custom" sx={{ display: "flex", justifyContent: "space-between", width: "100%", position: "relative" }}>
-        <Box sx={{ width: `15%`, marginLeft: "3%", display: "flex", flexDirection: "column", alignItems: "start" }}>
+        <Box sx={{ width: `15%`, color: "black", marginLeft: "3%", display: "flex", flexDirection: "column", alignItems: "start" }}>
           <Typography fontSize={15} fontWeight="bold">|</Typography>
           <Typography fontSize={13} fontWeight="bold">0 kW</Typography>
           <Typography fontSize={12} fontWeight="medium" color="black">Inattività</Typography>
         </Box>
-        <Box sx={{ position: "absolute", right: "20%", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Box sx={{ position: "absolute", color: "black", right: "20%", display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Typography fontSize={14} fontWeight="bold">|</Typography>
           <Typography fontSize={13} fontWeight="bold">2.5 kW</Typography>
           <Typography fontSize={12} fontWeight="bold" color="black">Limite </Typography><Typography fontSize={12} fontWeight="bold" color="black" > di utilizzo</Typography>
         </Box>
-        <Box sx={{ marginRight: "4%", display: "flex", flexDirection: "column", alignItems: "end" }}>
-          <Typography fontSize={15} fontWeight="bold">|</Typography>
+        <Box sx={{ color: "black", marginRight: "3%", display: "flex", flexDirection: "column", alignItems: "end" }}>
+          <Typography fontSize={15} fontWeight="bold" marginRight="3%">|</Typography>
           <Typography fontSize={13} fontWeight="bold" width="full">3 kW</Typography>
           <Typography fontSize={12} fontWeight="medium" color="black">Soglia </Typography><Typography fontSize={12} fontWeight="medium" color="black">massima</Typography>
         </Box>
@@ -136,4 +136,3 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
 };
 
 export default CustomLinearProgress;
-

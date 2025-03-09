@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Tab, TabGroup, TabList, Text, Title } from '@tremor/react';
+import { Card, Tab, TabGroup, TabList, Text, Title } from '@tremor/react/dist';
 import { dummyUserData } from '@/utils/constants';
 import { IoChevronBack } from "react-icons/io5";
 import { BiPencil } from "react-icons/bi";

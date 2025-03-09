@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Text, Title, Flex, } from "@tremor/react";
+import { Card, Text, Title, Flex, } from "@tremor/react/dist";
 import { GoCheckCircle } from "react-icons/go";
 import { IoChevronBack } from "react-icons/io5";
 import { PiGearBold } from "react-icons/pi";
@@ -27,9 +27,7 @@ const InfoCard = () => {
           <Title className="font-bold text-white montserrat-custom text-md">La mia presa plus</Title>
 
           <PiGearBold
-            onClick={() => {
-              router.push("/settings");
-            }}
+            onClick={() => { console.log('settings page'); }}
             className="w-10 h-10 p-2 rounded-3xl bg-white text-lg text-black font-bold "
           />
 
@@ -37,7 +35,7 @@ const InfoCard = () => {
 
         {/* Card for Device Info */}
         <Card className="bg-white rounded-md p-4">
-          <Title className="text-xl font-semibold mb-2">La mia presa plus</Title>
+          <Title className="text-xl text-black font-semibold mb-2">La mia presa plus</Title>
 
           <div className="flex flex-row gap-4">
 
@@ -46,7 +44,7 @@ const InfoCard = () => {
               className="w-20 h-24"
               alt="meter_icon"
             />
-            <div className="flex flex-col gap-0">
+            <div className="flex flex-col gap-0 text-black">
               <Flex justifyContent="start" alignItems="center" className="mt-2" >
                 <CiPlug1 className="font-bold text-xl text-green-800" />
                 <div className="text-xs flex flex-col ml-2">

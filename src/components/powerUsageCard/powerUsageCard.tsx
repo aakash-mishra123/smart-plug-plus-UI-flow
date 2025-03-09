@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Text } from "@tremor/react";
+import { Card, Text } from "@tremor/react/dist";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
