@@ -20,6 +20,7 @@ interface BarListProps<T = unknown>
   onValueChange?: (payload: Bar<T>) => void
   sortOrder?: "ascending" | "descending" | "none",
   averagedata?: number,
+  peakBar?: Bar<T>
 }
 
 function BarListInner<T>(
@@ -31,6 +32,7 @@ function BarListInner<T>(
     sortOrder = "descending",
     className,
     rowHeight,
+    peakBar,
     ...props
   }: BarListProps<T>,
   forwardedRef: React.ForwardedRef<HTMLDivElement>,
@@ -150,7 +152,7 @@ function BarListInner<T>(
             <p
               className={cx(
                 // base
-                "truncate whitespace-nowrap text-sm leading-none",
+                "truncate whitespace-nowrap text-lg leading-none",
                 // text color
                 "text-gray-900 dark:text-gray-800 mb-1",
               )}

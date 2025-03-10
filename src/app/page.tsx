@@ -1,5 +1,6 @@
 import PowerUsageCard from "../components/cards/PowerUsageCard";
 import UserInfoCard from "@/components/cards/UserInfoCard";
+import { BarChartHero } from "@/components/navbar/BarChartHero";
 
 export default function Home() {
 
@@ -7,7 +8,7 @@ export default function Home() {
     <div className="grid justify-items-center min-h-screen mb-20 w-100 font-[family-name:var(--font-geist-sans)] bg-[#edf1f5]">
       <UserInfoCard />
       <PowerUsageCard />
-      {/* <BarChartHero /> */}
+      <BarChartHero />
     </div>
   );
 }

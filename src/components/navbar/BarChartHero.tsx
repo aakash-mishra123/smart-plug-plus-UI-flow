@@ -13,7 +13,6 @@ export const BarChartHero = () => {
         console.log('edit barlist');
     }
     const barWidth = 7;         // Calculate fixed dimensions
-    // Calculate total chart width based on data length
     return (
         <div className="relative">
             {/* Fixed Y-axis */}

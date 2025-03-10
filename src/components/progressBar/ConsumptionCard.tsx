@@ -31,13 +31,12 @@ const ConsumptionCard = ({
               TEMPO REALE
             </Badge>
           </div>
-          <div className="flex flex-row gap-2 pt-1 items-end">
-
+          <div className="flex flex-row gap-2 items-end ">
             <Text className="text-xs text-black font-semibold mt-2">
               Mercoledì 22 gennaio 2025, ore 09:30 - <strong>Fascia F1</strong>
             </Text>
 
-            <InfoIcon className="font-semibold text-pink-800 text-sm w-5 h-5" onClick={() => setIsModalOpen(() => true)} />
+            <InfoIcon className="font-semibold text-pink-800 text-sm w-4 h-4" onClick={() => setIsModalOpen(() => true)} />
           </div>
         </div>
         <hr />

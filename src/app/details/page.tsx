@@ -3,6 +3,7 @@ import Transitions from "@/components/animations/Transition";
 import InfoCard from "@/components/shared/InfoCard";
 import BarListHero from "@/components/BarList/BarListHero";
 import ConsumptionCard from "@/components/progressBar/ConsumptionCard";
+import { BarChartHero } from "@/components/navbar/BarChartHero";
 
 const Temp = () => {
     return (
@@ -19,6 +20,7 @@ const Temp = () => {
                     maxPower={90}
                     limitPower={3}
                 />
+                <BarChartHero />
                 <BarListHero />
             </div>
 

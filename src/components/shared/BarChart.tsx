@@ -15,7 +15,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from "recharts/types"
+} from "recharts"
 import { AxisDomain } from "recharts/types/util/types"
 
 import {
