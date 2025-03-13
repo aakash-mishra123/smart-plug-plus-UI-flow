@@ -65,3 +65,33 @@ export interface DrawerModalProps {
     data?: PowerUsageProps;
     className?: string;
 }
+export interface EnergyDataProp {
+    quartAverageProdPower: number;
+    totalProdInductiveReactEnergy: number;
+    currQuartProdActEnergy: number;
+    totalActEnergy: number;
+    prevQuartInduttiveProdReactEnergy: number;
+    prevQuartCapactiveReactEnergy: number;
+    ttl: number;
+    currQuartInduttiveReactEnergy: number;
+    instantProdPower: number;
+    formattedDate: string; // Assuming it's always a date in 'YYYY-MM-DD' format
+    instantPower: number;
+    currQuartCapactiveReactEnergy: number;
+    prevQuartProdActEnergy: number;
+    prevQuartActEnergy: number;
+    serial: string; // Assuming it's always a string like "c2g-57CFACECC"
+    measureTS: number; // Assuming it's a timestamp
+    prevQuartCapacitiveProdReactEnergy: number;
+    totalProdActEnergy: number;
+    tariffCode: number;
+    currQuartCapacitiveProdReactEnergy: number;
+    currQuartActEnergy: number;
+    prevQuartInduttiveReactEnergy: number;
+    prevQuartCapacitiveReactEnergy: number;
+    currQuartInduttiveProdReactEnergy: number;
+    quartAveragePower: number;
+    currQuartCapacitiveReactEnergy: number;
+    totalInduttiveReactEnergy: number;
+    totalInductiveReactEnergy: number;
+};

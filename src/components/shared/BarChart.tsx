@@ -574,6 +574,7 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   type?: "default" | "stacked" | "percent"
   legendPosition?: "left" | "center" | "right"
   tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
+  refetch?: () => void
   customTooltip?: React.ComponentType<TooltipProps>
   customWrapperStyle?: CSSProperties
   barWidth?: number
@@ -606,6 +607,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       className,
       onValueChange,
       handleBarClick,
+      refetch,
       enableLegendSlider = false,
       barCategoryGap,
       tickGap = 5,
@@ -921,23 +923,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             )}
           </RechartsBarChart>
         </ResponsiveContainer>
-        {
-          allowClickableTransitions ? (
-            <div className="h-fit rounded-lg flex w-full flex-row justify-between mr-4 pr-4 items-end">
-              <div className="flex flex-col gap-0 montserrat-custom">
-
-                <p className="text-sm text-gray-500"> Ora della giornata</p>
-                <p className="text-md text-gray-900 font-semibold">Dalle ore 12:00 alle ore 13:00</p>
-              </div>
-
-
-              <div className="flex flex-row gap-4 mb-2 ">
-                <FaChevronLeft onClick={() => setSelectedBar((prev) => String(Number(prev) - 1))} className="text-pink-800 font-bold text-lg h-6 w-8" />
-                <FaChevronRight onClick={() => setSelectedBar((prev) => String(Number(prev) + 1))} className="text-pink-800 font-bold text-lg h-6 w-8" />
-              </div>
-            </div>
-          ) : null
-        }
 
       </div>
     )

@@ -5,10 +5,10 @@ import { MqttOptions } from './types';
 const AWS_IOT_ENDPOINT: string | undefined = "wss://aexnbs2m3vzug-ats.iot.eu-west-1.amazonaws.com:443/mqtt";
 
 const options: MqttOptions = {
-  clientId: `iotconsole-9a11e896-a61b-45c1-a83d-7483a0af180a`, // Random client ID
+  clientId: 'iotconsole-9a11e896-a61b-45c1-a83d-7483a0af180a', // Random client ID
   clean: true,
-  connectTimeout: 4000,
   port: 443,
+  connectTimeout: 4000,
   reconnectPeriod: 4000,
 };
 

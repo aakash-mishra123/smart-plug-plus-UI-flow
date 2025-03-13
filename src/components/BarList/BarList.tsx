@@ -87,7 +87,7 @@ function BarListInner<T>(
             <div
               className={cx(
                 // base
-                "flex items-center rounded transition-all",
+                "flex items-center rounded transition-all h-8",
                 rowHeight,
                 // background color
                 "bg-pink-200 dark:bg-pink-200 text-black",

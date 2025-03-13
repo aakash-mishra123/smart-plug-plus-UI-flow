@@ -1,20 +1,42 @@
 "use client"
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { BarChart } from "@/components/shared/BarChart"
 
-
+interface chartDataType {
+    date: string,
+    usage: number
+}
+interface BarchartProps  {
+    chartdata: chartDataType[]
+}
 export const BarChartHero = ({
     chartdata
-}: any) => {
+}: BarchartProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
+    const [barWidth, setBarWidth] = useState(7); // Default bar width
+
     const handleBarClick = () => {
         console.log('edit barlist');
     }
-    const barWidth = 7;         // Calculate fixed dimensions
+    useEffect(() => {
+        const updateBarWidth = () => {
+          const windowWidth = window.innerWidth;
+          
+          if (windowWidth < 640) setBarWidth(5); // Mobile (Small)
+          else if (windowWidth < 1024) setBarWidth(7); // Tablet (Medium)
+          else setBarWidth(10); // Desktop (Large)
+        };
+    
+        updateBarWidth(); // Set initial value
+        window.addEventListener("resize", updateBarWidth); // Update on resize
+    
+        return () => window.removeEventListener("resize", updateBarWidth); // Cleanup
+      }, []);
+
     return (
         <div className="relative">
             {/* Fixed Y-axis */}
-            <div className="absolute left-0 -top-2 h-full z-10 w-[3rem] ml-[-10px]">
+            <div className="absolute left-0 -top-2 h-full mt-[20px] z-10 w-[3rem] ml-[-10px]">
                 <BarChart
                     data={chartdata}
                     index="date"
@@ -34,14 +56,12 @@ export const BarChartHero = ({
                     allowClickableTransitions={false}
                 />
             </div>
-
-            {/* Scrollable chart area */}
             <div
                 ref={containerRef}
                 className="overflow-x-auto h-full ml-8 mt-4"
                 style={{ scrollbarWidth: 'thin' }}
             >
-                <div style={{ width: `300px`, minWidth: '100%', height: '380px' }}>
+                <div style={{ width: `300px`, minWidth: '100%' }}>
                     <BarChart
                         data={chartdata}
                         index="date"
@@ -60,7 +80,7 @@ export const BarChartHero = ({
                         tickGap={0}
                         startEndOnly={false}
                         showYAxis={false}
-                        allowClickableTransitions={true}
+                        allowClickableTransitions={false}
                     />
                 </div>
             </div>
