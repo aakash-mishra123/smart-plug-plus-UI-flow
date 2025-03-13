@@ -1,9 +1,10 @@
 "use client"
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { BarChart } from "../shared/BarChart";
-// import {barChartData} from "../../utils/constants";
-import { DrawerModal } from "../drawer/DrawerModal";
 import { PowerUsageProps } from "@/utils/types";
+
+const DrawerModal = dynamic(() => import("../drawer/DrawerModal"));
 
 const chartdata = [
   {
@@ -89,10 +90,6 @@ const BarChartLayoutExample = () => {
       />
       {/* Drawer modal open */}
       <DrawerModal isOpen={isOpen} setIsOpen={setIsOpen} data={modalData} />
-      {/* 
-      <ConsumptionStats 
-        data={barChartData}
-      /> */}
     </>
   )
 }

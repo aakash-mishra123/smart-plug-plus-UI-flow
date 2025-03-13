@@ -2,17 +2,12 @@
 
 import { Card, Tab, TabGroup, TabList, Text, Title } from '@tremor/react/dist';
 import { dummyUserData } from '@/utils/constants';
-import { IoChevronBack } from "react-icons/io5";
-import { BiPencil } from "react-icons/bi";
-
 const UserInfoCard = () => {
     return (
       <Card className="max-w-md mx-auto bg-[#ebf0f5] rounded-xl p-6 text-black">
-        <IoChevronBack onClick={() => { console.log('card input')}} className="w-10 h-10 p-2 rounded-3xl bg-white text-lg text-black font-bold mt-1 " />
-        
         <div className="mb-4 mt-16">
           <Title className="text-3xl font-bold flex flex-row gap-2 items-end ">
-            {dummyUserData.title} <BiPencil className="text-sm mb-2 text-pink-800"/>
+            {dummyUserData.title}
           </Title>
           <Text className="text-sm text-gray-500">{dummyUserData.address}</Text>
         </div>

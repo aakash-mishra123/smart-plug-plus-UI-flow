@@ -1,5 +1,5 @@
 "use client";
-
+import { BarChart } from "@tremor/react";
 import { Card, Title, Text, Grid, Col, LineChart } from "@tremor/react/dist";
 
 const chartData = [
@@ -8,7 +8,6 @@ const chartData = [
   { date: "Mar", sales: 1500, profit: 500 },
   { date: "Apr", sales: 1800, profit: 700 },
 ];
-import { BarChart } from "@tremor/react";
 
 const data = [
   { name: "Product A", sales: 3000 },

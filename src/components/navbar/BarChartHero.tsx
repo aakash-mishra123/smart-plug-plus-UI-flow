@@ -1,13 +1,11 @@
 "use client"
-
-import { BarChart } from "@/components/shared/BarChart"
 import React, { useRef } from "react";
-const chartdata = Array.from({ length: 24 }, (_, i) => ({
-    date: `${String(i).padStart(2)}`,
-    usage: Math.floor(Math.random() * 10 + 1),
-}));
+import { BarChart } from "@/components/shared/BarChart"
 
-export const BarChartHero = () => {
+
+export const BarChartHero = ({
+    chartdata
+}: any) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const handleBarClick = () => {
         console.log('edit barlist');

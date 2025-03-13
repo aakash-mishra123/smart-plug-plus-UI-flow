@@ -1,14 +1,8 @@
 import { Button } from '@/components/shared/Button'
 import { Drawer, DrawerContent, DrawerTitle, DrawerHeader, DrawerDescription, DrawerBody, DrawerFooter, DrawerClose } from '../shared/Drawer';
-import { PowerUsageProps } from '@/utils/types';
-interface DrawerModalProps {
-  isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
-  data?: PowerUsageProps;
-  className?: string;
-}
+import { DrawerModalProps } from '@/utils/types';
 
-export const DrawerModal = ({ isOpen, setIsOpen, className }: DrawerModalProps) => {
+const DrawerModal = ({ isOpen, setIsOpen, className }: DrawerModalProps) => {
     return (
    <>
         <div className={`flex justify-center`}>
@@ -48,3 +42,5 @@ export const DrawerModal = ({ isOpen, setIsOpen, className }: DrawerModalProps) 
   </>
     )
 };
+
+export default DrawerModal;

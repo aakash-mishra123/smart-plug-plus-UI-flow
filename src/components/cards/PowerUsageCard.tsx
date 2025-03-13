@@ -1,18 +1,16 @@
 "use client";
 
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Card, Text } from "@tremor/react/dist";
 import { ArrowRight } from "lucide-react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
 import VoltageIcon from "../../../public/assets/voltage_icon.png";
 
 export default function PowerUsageCard() {
-  // const [openScreen, setOpenScreen] = useState(false);
   const router = useRouter();
 
   return (
     <div className={`flex flex-col gap-4 p-2 mx-0 w-[100vw] montserrat-custom bg-white`}>
-      {/* Smart Plug Card */}
       <Card 
         className="bg-[#d4135a] mt-2 p-0 text-white rounded-md mx-4 w-100"
         onClick={() =>{ router.push('/details');}}

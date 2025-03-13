@@ -37,6 +37,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
             borderRadius: 16,
             "& .MuiBoxRoot": {
               height: 50,
+              animation: "none"
             },
             "& .MuiLinearProgress-bar": {
               backgroundColor: "#1976D2", // Value bar color (Primary)
@@ -52,13 +53,15 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
               transform: "translateX(-2%) !important",
               maxWidth: "98%",
               width: `${value}%`,
-              marginLeft: "7px"
+              marginLeft: "8px"
             },
             "& .MuiLinearProgress-dashed": {
               backgroundColor: "#edf1f5", // Dashed buffer color (Red)
+              backgroundImage: "none"
             },
             "& .MuiLinearProgress-bar2Buffer": {
               backgroundColor: "#c1cede", // Buffer bar color (Amber)
+              animation: "none"
             },
           }}
         />

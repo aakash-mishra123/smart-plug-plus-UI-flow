@@ -1,25 +1,26 @@
 "use client";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 
-import { PowerUsageProps } from "@/utils/types";
 import { Card, Badge, Text, Metric } from "@tremor/react/dist";
-import CustomLinearProgress from "../progressBar/progressBar";
 import { InfoIcon } from "lucide-react";
-import { DrawerModal } from "../drawer/DrawerModal";
-import useMqttClient from "../hooks/useMqttClient";
+import { PowerUsageProps, DrawerModalProps } from "@/utils/types";
+
+const DrawerModal = dynamic(() => import("../../components/drawer/DrawerModal"));
+const CustomLinearProgress = dynamic(() => import("../progressBar/progressBar"));
+
+// import useMqttClient from "../hooks/useMqttClient";
+
 const ConsumptionCard = ({
   powerUsage,
   maxPower,
 }: PowerUsageProps) => {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { client, isConnected } = useMqttClient();
-
-  console.log('mqtt client & isConnected', client, isConnected);
+  // const { client, isConnected } = useMqttClient();
   return (
-    <div className="">
+    <div>
       <Card
-        key={0}
         className="bg-transparent p-2 mt-2 montserrat-custom rounded-sm"
       >
         <div className="flex flex-col p-2 justify-between">
@@ -54,8 +55,6 @@ const ConsumptionCard = ({
 
         <CustomLinearProgress value={powerUsage} />
         </div>
-
-
         {/* {dummyAlertData.map((alert, index) => {
             return (
               <WarningCard 

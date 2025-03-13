@@ -59,3 +59,9 @@ export interface AlertDataType {
     borderColor?: string;
     subMessage?: string;
 }
+export interface DrawerModalProps {
+    isOpen: boolean;
+    setIsOpen: (open: boolean) => void;
+    data?: PowerUsageProps;
+    className?: string;
+}

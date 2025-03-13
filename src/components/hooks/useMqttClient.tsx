@@ -1,17 +1,8 @@
 import mqtt, { MqttClient } from 'mqtt';
 import { useEffect, useState } from 'react';
+import { MqttOptions } from './types';
 
-const AWS_IOT_ENDPOINT: string = 'wss://aexnbs2m3vzug-ats.iot.eu-west-1.amazonaws.com:443/mqtt';
-
-interface MqttOptions {
-  clientId: string;
-  clean: boolean;
-  connectTimeout: number;
-  username?: string;
-  password?: string;
-  reconnectPeriod?: number;
-  port ?: number;
-}
+const AWS_IOT_ENDPOINT: string | undefined = "wss://aexnbs2m3vzug-ats.iot.eu-west-1.amazonaws.com:443/mqtt";
 
 const options: MqttOptions = {
   clientId: `iotconsole-9a11e896-a61b-45c1-a83d-7483a0af180a`, // Random client ID

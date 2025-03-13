@@ -1,13 +1,13 @@
 "use client";
-
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Card, Text, Title, Flex, } from "@tremor/react/dist";
 import { GoCheckCircle } from "react-icons/go";
 import { IoChevronBack } from "react-icons/io5";
 import { PiGearBold } from "react-icons/pi";
 import { CiPlug1 } from "react-icons/ci";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import meterIcon from "../../../public/assets/meter_Icon.png";
+
+import MeterIcon from "../../../public/assets/meter_Icon.png";
 
 const InfoCard = () => {
   const router = useRouter();
@@ -38,9 +38,8 @@ const InfoCard = () => {
           <Title className="text-xl text-black font-semibold mb-2">La mia presa plus</Title>
 
           <div className="flex flex-row gap-4">
-
             <Image
-              src={meterIcon}
+              src={MeterIcon}
               className="w-20 h-24"
               alt="meter_icon"
             />

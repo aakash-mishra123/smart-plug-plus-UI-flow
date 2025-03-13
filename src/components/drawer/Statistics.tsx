@@ -1,7 +1,6 @@
 import { PowerUsageRecord } from "@/utils/types";
 
-export default function ConsumptionStats({ data } : PowerUsageRecord) {
-    
+export default function ConsumptionStats({ data }: PowerUsageRecord) {
     return (
       <div className="bg-white w-full max-w-md montserrat-custom font-bold mb-20 ">
         <div className="border-b p-4 border-1 border-gray-400 pb-4 w-full flex flex-row justify-between items-center">
