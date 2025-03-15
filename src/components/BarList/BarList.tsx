@@ -20,7 +20,6 @@ interface BarListProps<T = unknown>
   onValueChange?: (payload: Bar<T>) => void
   sortOrder?: "ascending" | "descending" | "none",
   averagedata?: number,
-  peakBar?: Bar<T>
 }
 
 function BarListInner<T>(
@@ -32,7 +31,6 @@ function BarListInner<T>(
     sortOrder = "descending",
     className,
     rowHeight,
-    peakBar,
     ...props
   }: BarListProps<T>,
   forwardedRef: React.ForwardedRef<HTMLDivElement>,

@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-
 import React, { CSSProperties } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
-
 import {
   Bar,
   CartesianGrid,
@@ -621,7 +618,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       barColor,
       enableAnimation,
       animationDuration,
-      allowClickableTransitions,
       ...other
     } = props
     const CustomTooltip = customTooltip

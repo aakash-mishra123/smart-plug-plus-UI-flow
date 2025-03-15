@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 
 import { Card, Badge, Text, Metric } from "@tremor/react/dist";
 import { InfoIcon } from "lucide-react";
-import { PowerUsageProps, DrawerModalProps } from "@/utils/types";
+import { PowerUsageProps } from "@/utils/types";
 
 const DrawerModal = dynamic<DrawerModalProps>(() => import("@/components/drawer/DrawerModal"));
 const CustomLinearProgress = dynamic(() => import("../progressBar/progressBar"));

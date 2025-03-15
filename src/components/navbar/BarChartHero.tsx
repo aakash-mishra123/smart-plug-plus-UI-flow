@@ -1,11 +1,13 @@
 "use client"
 import React, { useRef } from "react";
 import { BarChart } from "@/components/shared/BarChart"
-
-
+import { quarterUsageData } from "@/api/types/dailyUsageTypes";
+interface BarchartProps  {
+    chartdata: quarterUsageData[]
+}
 export const BarChartHero = ({
     chartdata
-}: any) => {
+}: BarchartProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const handleBarClick = () => {
         console.log('edit barlist');
@@ -31,7 +33,6 @@ export const BarChartHero = ({
                     tickGap={0}
                     startEndOnly={false}
                     showGridLines={false}
-                    allowClickableTransitions={false}
                 />
             </div>
 
@@ -60,7 +61,6 @@ export const BarChartHero = ({
                         tickGap={0}
                         startEndOnly={false}
                         showYAxis={false}
-                        allowClickableTransitions={true}
                     />
                 </div>
             </div>
