@@ -1,13 +1,10 @@
 "use client"
 import React, { useRef, useState, useEffect } from "react";
 import { BarChart } from "@/components/shared/BarChart"
+import { quarterUsageData } from "@/api/types/dailyUsageTypes";
 
-interface chartDataType {
-    date: string,
-    usage: number
-}
 interface BarchartProps  {
-    chartdata: chartDataType[]
+    chartdata: quarterUsageData[]
 }
 export const BarChartHero = ({
     chartdata
@@ -36,7 +33,7 @@ export const BarChartHero = ({
     return (
         <div className="relative">
             {/* Fixed Y-axis */}
-            <div className="absolute left-0 -top-2 h-full mt-[20px] z-10 w-[3rem] ml-[-10px]">
+            <div className="absolute -left-1 -top-6 h-full mt-[12px] z-10 w-[3rem] ml-[-14px] mr-[5px]">
                 <BarChart
                     data={chartdata}
                     index="date"
