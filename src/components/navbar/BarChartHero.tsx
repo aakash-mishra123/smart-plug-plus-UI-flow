@@ -4,16 +4,18 @@ import { BarChart } from "@/components/shared/BarChart"
 import { quarterUsageData } from "@/api/types/dailyUsageTypes";
 
 interface BarchartProps  {
-    chartdata: quarterUsageData[]
+    chartdata: quarterUsageData[];
+    setSelectedBarData: (data : quarterUsageData) => void;
 }
 export const BarChartHero = ({
-    chartdata
+    chartdata,
+    setSelectedBarData
 }: BarchartProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [barWidth, setBarWidth] = useState(7); // Default bar width
 
-    const handleBarClick = () => {
-        console.log('edit barlist');
+    const handleBarClick = (data : quarterUsageData) => {
+        setSelectedBarData(data);
     }
     useEffect(() => {
         const updateBarWidth = () => {
@@ -33,14 +35,13 @@ export const BarChartHero = ({
     return (
         <div className="relative">
             {/* Fixed Y-axis */}
-            <div className="absolute -left-1 -top-6 h-full mt-[12px] z-10 w-[3rem] ml-[-14px] mr-[5px]">
+            <div className="absolute -left-1 -top-6 h-full z-10 w-[3rem] ml-[-14px] mr-[5px]">
                 <BarChart
                     data={chartdata}
                     index="date"
                     categories={["usage"]}
                     showXAxis={false}
                     showLegend={false}
-
                     layout="horizontal"
                     colors={["blue", "blue", "blue", "blue"]}
                     customWrapperStyle={{
@@ -50,12 +51,11 @@ export const BarChartHero = ({
                     tickGap={0}
                     startEndOnly={false}
                     showGridLines={false}
-                    allowClickableTransitions={false}
                 />
             </div>
             <div
                 ref={containerRef}
-                className="overflow-x-auto h-full ml-8 mt-4"
+                className="overflow-x-auto h-full ml-8 mt-16"
                 style={{ scrollbarWidth: 'thin' }}
             >
                 <div style={{ width: `300px`, minWidth: '100%' }}>
@@ -77,7 +77,6 @@ export const BarChartHero = ({
                         tickGap={0}
                         startEndOnly={false}
                         showYAxis={false}
-                        allowClickableTransitions={false}
                     />
                 </div>
             </div>

@@ -21,7 +21,7 @@ const ConsumptionCard = ({
   return (
     <div>
       <Card
-        className="bg-transparent p-2 mt-2 montserrat-custom rounded-sm"
+        className="bg-transparent p-2 montserrat-custom rounded-sm"
       >
         <div className="flex flex-col p-2 justify-between">
           <div className="flex justify-between">

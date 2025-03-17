@@ -1,35 +1,37 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useEffect, useMemo } from "react";
-import  io from "socket.io-client";
+//import  io from "socket.io-client";
 import dayjs, { Dayjs} from 'dayjs';
 import queryString from 'query-string';
 import { useState } from "react";
 import { BarChartHero } from "@/components/navbar/BarChartHero"
 import DateSwitcher from "@/components/dateSwitch/DateSwitcher";
 import FormatDailyUsageData from "@/api/quarterlyUsageAPI";
-
+import { quarterUsageData } from "@/api/types/dailyUsageTypes";
 const Transitions = dynamic(() => import("@/components/animations/Transition"));
 const InfoCard = dynamic(() => import("@/components/shared/InfoCard"));
 const BarListHero = dynamic(() => import("@/components/BarList/BarListHero"));
 const ConsumptionCard = dynamic(() => import("@/components/progressBar/ConsumptionCard"))
 
-const socket = io("http://localhost:4000");
+// const socket = io("http://localhost:4000");
 
-socket.on("mqttMessage", (data) => {
-    console.log("📡 MQTT Message:", data);
-});
+// socket.on("mqttMessage", (data) => {
+//     console.log("📡 MQTT Message:", data);
+// });
 
 const Temp = () => {
-    const barlistData1 = [
+    const barlistData1 = {
+        data: [
         { name: "09:00-09:15", value: 3.7 },
         { name: "09:15-09:30", value: 4.1 },
         { name: "09:45-10:30", value: 4.2 },
         { name: "09:45-10:00", value: 3.8 },
-    ];
+    ]};
 
      
     const [selectedDate, setSelectedDate ] = useState<Dayjs>(dayjs().locale("en"));
+    const [selectedBarData, setSelectedBarData] = useState<quarterUsageData>(barlistData1);
     const options = useMemo(() => ({
         // date: dayjs(selectedDate).format('YYYY-MM-DD'),
         date: '2025-03-12',
@@ -37,24 +39,26 @@ const Temp = () => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps 
     }), [selectedDate]); // Recompute only when selectedDate changes
-      
-    const [messages, setMessages] = useState<{ topic: string, message: string }[]>([]);
-
-    useEffect(() => {
-        socket.on("mqttMessage", (data: any) => {
-            console.log("📡 MQTT Message:", data);
-            setMessages((prev) => [...prev, data]); // Store received messages
-        });
-
-        return () => {
-            socket.off("mqttMessage"); // Cleanup on unmount
-        };
-    }, []);
-
+    
     const { data , refetch } = FormatDailyUsageData({
         slug: queryString.stringify(options),
     });
 
+
+   // const [messages, setMessages] = useState<{ topic: string, message: string }[]>([]);
+
+    // useEffect(() => {
+    //     socket.on("mqttMessage", (data: any) => {
+    //         console.log("📡 MQTT Message:", data);
+    //         setMessages((prev) => [...prev, data]); // Store received messages
+    //     });
+
+    //     return () => {
+    //         socket.off("mqttMessage"); // Cleanup on unmount
+    //     };
+    // }, []);
+
+   
     useEffect(() => {
         if(refetch) refetch({
             slug: queryString.stringify(options),
@@ -62,10 +66,6 @@ const Temp = () => {
 
         return (() => {})
     }, [selectedDate, options, refetch])
-
-
-    
-
     return (
         <Transitions
             type="slide"
@@ -86,9 +86,10 @@ const Temp = () => {
                 />
                 <BarChartHero
                     chartdata={data}
+                    setSelectedBarData={setSelectedBarData}
                 />
                 <BarListHero
-                    data={barlistData1}
+                    data={selectedBarData.data}
                 />
             </div>
 

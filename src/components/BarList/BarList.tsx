@@ -7,8 +7,11 @@ import { cx, focusRing } from "@/lib/utils"
 type Bar<T> = T & {
   key?: string
   href?: string
-  value: number
+  value?: number
+  usage?: number
   name: string
+  formattedTimeStamp?: string,
+  peakValue ?: boolean,
 }
 
 interface BarListProps<T = unknown>
@@ -19,7 +22,7 @@ interface BarListProps<T = unknown>
   rowHeight?: string,
   onValueChange?: (payload: Bar<T>) => void
   sortOrder?: "ascending" | "descending" | "none",
-  averagedata?: number,
+  total?: number,
   peakBar?: Bar<T>
 }
 
@@ -28,11 +31,11 @@ function BarListInner<T>(
     data = [],
     valueFormatter = (value) => value.toString(),
     showAnimation = false,
+    total = 100,
     onValueChange,
     sortOrder = "descending",
     className,
     rowHeight,
-    peakBar,
     ...props
   }: BarListProps<T>,
   forwardedRef: React.ForwardedRef<HTMLDivElement>,
@@ -43,17 +46,17 @@ function BarListInner<T>(
       return data
     }
     return [...data].sort((a, b) => {
-      return sortOrder === "ascending" ? a.value - b.value : b.value - a.value
+      return sortOrder === "ascending" ? (a?.value ?? 0) - (b?.value ?? 0) : (b?.value ?? 0) - (a?.value ?? 0)
     })
   }, [data, sortOrder])
 
   const widths = React.useMemo(() => {
-    const maxValue = Math.max(...sortedData.map((item) => item.value), 0)
-    return sortedData.map((item) =>
-      item.value === 0 ? 0 : Math.max((item.value / maxValue) * 100, 2),
-    )
-  }, [sortedData])
+   return sortedData.map((item) =>
+        total === 0 ? 0 : ((item?.value ?? 0) / total) * 100
+    );
+  }, [sortedData, total])
 
+  
 
   return (
     <div
@@ -66,7 +69,7 @@ function BarListInner<T>(
       <div className="relative w-full space-y-1.5">
         {sortedData.map((item, index) => (
           <Component
-            key={item.key ?? item.name}
+            key={item.key ?? item.name ?? index}
             onClick={() => {
               onValueChange?.(item)
             }}
@@ -157,7 +160,7 @@ function BarListInner<T>(
                 "text-gray-900 dark:text-gray-800 mb-1",
               )}
             >
-              {`${valueFormatter(item.value)} kWh`}
+              {`${valueFormatter((item?.usage ?? 0))} kWh`}
             </p>
           </div>
         ))}

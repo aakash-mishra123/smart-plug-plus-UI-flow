@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const PORT = 4000;
+const PORT = 443;
 
 // Create a basic HTTP server (No Express required)
 const httpServer = createServer();

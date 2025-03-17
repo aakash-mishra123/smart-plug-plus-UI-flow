@@ -9,15 +9,24 @@ export type QuarterlyAPIResponseType = {
   data?: EnergyDataProp[]
 }
 
-type dataItem = {
+export type dataItem = {
   date ?: string,
   usage ?: number,
+  formattedTimeStamp ?: string,
+  value ?: number;
+  name ?: string;
+  peakValue ?: boolean
 }
 
 export type quarterUsageData = {
   date?: string;
-  usage ?: string;
-  data: dataItem[];
+  usage ?: number;
+  value ?: number;
+  name ?: number;
+  from ?: string;
+  to ?: string;
+  timestamp ?: string;
+  data?: dataItem[];
 }
 
 export type ResultDataType = {

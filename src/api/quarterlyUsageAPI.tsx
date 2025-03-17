@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
 import { FetchQuarterlyUsageDataProps, QuarterlyAPIResponseType, quarterUsageData, ResultDataType } from "./types/dailyUsageTypes";
 import { EnergyDataProp } from "@/utils/types";
+import dayjs from "dayjs";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const AUTH_TOKEN = process.env.NEXT_PUBLIC_AUTH_TOKEN;
@@ -67,19 +68,34 @@ const FormatDailyUsageData = ({ slug, options = {} }: FetchQuarterlyUsageDataPro
         return { data: [], error: error || null, loading };
     }
 
-        function divideIntoFourGroups(data: { date: string; usage: number }[]) {
+        function divideIntoFourGroups(data: { date: string; usage: number; timestamp: number; formattedTimeStamp: string; }[]) {
             const groupedData = [];
     
             for (let i = 0; i < 24; i++) {
                 const chunk = data.slice(i * 4, i * 4 + 4); // Get 4 elements per group
     
                 if (chunk.length === 4) {
-                    const averageUsage = chunk.reduce((sum, item) => sum + item.usage, 0) / 4; // Calculate average
-    
+                    const totalUsage = chunk.reduce((sum, item) => sum + item.usage, 0);
+                    
+                // Find the peak usage object
+                const peakItem = chunk.reduce((prev, curr) => (curr.usage > prev.usage ? curr : prev), chunk[0]);
+
+                 // Mark peak value
+                 const updatedChunk = chunk.map((item) => ({
+                    ...item,
+                    peakValue: item.timestamp === peakItem.timestamp, 
+                }));
+
+                const from = chunk[0].formattedTimeStamp;
+                const to = dayjs.unix(chunk[0].timestamp).add(60, 'minute').format("DD-MM-YYYY, hh:mm A");
+
                     groupedData.push({
-                        date: String(i + 1), // Group number (1-24)
-                        usage: (averageUsage/4).toFixed(2), // Rounded to 2 decimals
-                        data: chunk, // The 4 objects in this group
+                        date: String(i + 1), 
+                        usage: (totalUsage).toFixed(2), // Rounded to 2 decimals
+                        value: (totalUsage).toFixed(2),
+                        from,
+                        to,
+                        data: updatedChunk, // The 4 objects in this group
                     });
                 }
             }
@@ -89,6 +105,9 @@ const FormatDailyUsageData = ({ slug, options = {} }: FetchQuarterlyUsageDataPro
         const chartData = data?.data.map((item: EnergyDataProp) => ({
             date: item.formattedDate,
             usage: item.currQuartActEnergy || 0, // Ensure usage is a valid number
+            timestamp: item.measureTS,
+            value: item.currQuartActEnergy || 0,
+            formattedTimeStamp: dayjs.unix(item.measureTS).format("DD-MM-YYYY, hh:mm A"),
         }));
     
         const dividedData : quarterUsageData[] = divideIntoFourGroups(chartData);

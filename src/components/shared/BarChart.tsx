@@ -3,8 +3,6 @@
 
 import React, { CSSProperties } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
-
 import {
   Bar,
   CartesianGrid,
@@ -607,7 +605,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       className,
       onValueChange,
       handleBarClick,
-      refetch,
       enableLegendSlider = false,
       barCategoryGap,
       tickGap = 5,
@@ -623,7 +620,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       barColor,
       enableAnimation,
       animationDuration,
-      allowClickableTransitions,
       ...other
     } = props
     const CustomTooltip = customTooltip
