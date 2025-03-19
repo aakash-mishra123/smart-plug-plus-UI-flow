@@ -1,5 +1,5 @@
 // import { BarList } from "./BarList";
-import { dataItem } from "@/api/types/dailyUsageTypes";
+import { quarterUsageData } from "@/api/types/dailyUsageTypes";
 import { Chip } from "@mui/material";
 import { TbBolt } from "react-icons/tb";
 import { LinearProgress } from "@mui/material";
@@ -7,11 +7,12 @@ import { grey } from "@mui/material/colors";
 import { Card } from "@tremor/react";
 
 interface BarListHeroProps {
-  data: dataItem[] | undefined;
+  data: quarterUsageData | undefined;
 }
 
 const BarListHero = ({ data }: BarListHeroProps) => {
-  const total = data?.reduce((sum, item) => sum + (item?.usage ?? 0), 0) ?? 100;
+  const total =
+    data?.data?.reduce((sum, item) => sum + (item?.usage ?? 0), 0) ?? 100;
   return (
     <div className="w-full mx-auto p-4 pt-2 bg-white montserrat-custom pb-12 mb-12">
       {/* Average Consumption Card */}
@@ -20,7 +21,7 @@ const BarListHero = ({ data }: BarListHeroProps) => {
         <span className="text-xl font-semibold">{`${total} kWh`}</span>
       </Card>
       <div className="mt-4 space-y-4">
-        {data?.map((item, index) => (
+        {data?.data?.map((item, index) => (
           <div key={index} className="space-y-1">
             {/* Time & Consumption Value */}
             <div className="flex flex-row justify-between space-x-2 mb-2">

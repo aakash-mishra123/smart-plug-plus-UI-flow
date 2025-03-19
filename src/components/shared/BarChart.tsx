@@ -568,7 +568,7 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   minValue?: number;
   maxValue?: number;
   allowDecimals?: boolean;
-  handleBarClick?: (data: any) => void;
+  handleBarClick?: (date: string) => void;
   barColor?: string;
   onValueChange?: (value: BarChartEventProps) => void;
   enableLegendSlider?: boolean;
@@ -626,7 +626,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       tooltipCallback,
       customTooltip,
       selectedBar,
-      setSelectedBar,
       customWrapperStyle,
       barWidth,
       barColor,
@@ -656,16 +655,13 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
     function valueToPercent(value: number) {
       return `${(value * 100).toFixed(0)}%`;
     }
-
     function onBarClick(data: any, _: any, event: React.MouseEvent) {
       event.stopPropagation();
-      if (setSelectedBar) setSelectedBar(data.date);
-      if (handleBarClick) handleBarClick(data);
+      if (handleBarClick) handleBarClick(data?.date);
       if (!onValueChange) return;
       if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
         setActiveLegend(undefined);
         setActiveBar(undefined);
-        if (setSelectedBar) setSelectedBar(""); // Reset selected bar color
         onValueChange?.(null);
       } else {
         setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
@@ -673,7 +669,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
           ...data.payload,
           value: data.value,
         });
-        if (setSelectedBar) setSelectedBar(data.date); // Track the selected bar
         onValueChange?.({
           eventType: "bar",
           categoryClicked: data.tooltipPayload?.[0]?.dataKey,
