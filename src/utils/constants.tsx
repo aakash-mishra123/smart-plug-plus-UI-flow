@@ -1,80 +1,43 @@
-export const barChartData = [
-  {
-    id: 0,
-    data: { //red prog bar
-      "date": "2024-01-22",
-      powerUsage: 58,
-      maxPower: 3,
-      limitPower: 2.5,
-      "totalConsumption": 26.155,
-      "averageConsumption": 4.2,
-      "peakConsumption": 6.1,
-      "peakTime": "13:00-14:00",
+export const bargraphInitialState = {
+  date: "19",
+  usage: 239.0,
+  value: 239.0,
+  data: [
+    {
+      date: "2025-03-13",
+      usage: 35,
+      timestamp: 1741888800,
+      value: 35,
+      formattedTimeStamp: "13-03-2025, 11:30 PM",
+      timeString: "11:30-11:45",
+      peakValue: false,
     },
-    "detailedConsumption": {
-      "timeRange": "10:00-11:00",
-      "average": 2.8,
-      "quarterlyData": [
-        { "time": "10:00-10:15", "value": 1.2 },
-        { "time": "10:15-10:30", "value": 4.1 },
-        { "time": "10:30-10:45", "value": 3.3 },
-        { "time": "10:45-11:00", "value": 1.2 }
-      ]
-    }
-  },
-  {
-    id: 1,
-    data: { //red prog bar
-      "date": "2024-01-22",
-      powerUsage: 35,
-      maxPower: 3,
-      limitPower: 2.5,
-      "totalConsumption": 26.155,
-      "averageConsumption": 4.2,
-      "peakConsumption": 6.1,
-      "peakTime": "13:00-14:00",
+    {
+      date: "2025-03-13",
+      usage: 554,
+      timestamp: 1741889700,
+      value: 554,
+      formattedTimeStamp: "13-03-2025, 11:45 PM",
+      timeString: "11:45-12:00",
+      peakValue: true,
     },
-    "detailedConsumption": {
-      "timeRange": "10:00-11:00",
-      "average": 2.8,
-      "quarterlyData": [
-        { "time": "10:00-10:15", "value": 1.2 },
-        { "time": "10:15-10:30", "value": 4.1 },
-        { "time": "10:30-10:45", "value": 3.3 },
-        { "time": "10:45-11:00", "value": 1.2 }
-      ]
-    }
-  },
-  {
-    id: 2,
-    data: { //red prog bar
-      "date": "2024-01-22",
-      powerUsage: 98,
-      maxPower: 3,
-      limitPower: 2.5,
-      "totalConsumption": 26.155,
-      "averageConsumption": 4.2,
-      "peakConsumption": 6.1,
-      "peakTime": "13:00-14:00",
+    {
+      date: "2025-03-13",
+      usage: 307,
+      timestamp: 1741890600,
+      value: 307,
+      formattedTimeStamp: "14-03-2025, 12:00 AM",
+      timeString: "12:00-12:30",
+      peakValue: false,
     },
-    "detailedConsumption": {
-      "timeRange": "10:00-11:00",
-      "average": 2.8,
-      "quarterlyData": [
-        { "time": "10:00-10:15", "value": 1.2 },
-        { "time": "10:15-10:30", "value": 4.1 },
-        { "time": "10:30-10:45", "value": 3.3 },
-        { "time": "10:45-11:00", "value": 1.2 }
-      ]
-    }
-  }
-];
-
-export const dummyUserData = {
-  title: 'Luce',
-  address: 'VIA ROMA 70 - 00041 ALBANO LAZIALE RM',
-  clientNumber: '110163341',
-  pod: 'IT001E60727485',
-  activationDate: '01.02.2024',
-  offer: 'ENERGIA PURA SPECIAL',
+    {
+      date: "2025-03-13",
+      usage: 299,
+      timestamp: 1741891500,
+      value: 299,
+      formattedTimeStamp: "14-03-2025, 12:15 AM",
+      timeString: "12:30 - 12: 45",
+      peakValue: false,
+    },
+  ],
 };

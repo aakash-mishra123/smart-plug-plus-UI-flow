@@ -54,10 +54,7 @@ function BarListInner<T>(
    return sortedData.map((item) =>
         total === 0 ? 0 : ((item?.value ?? 0) / total) * 100
     );
-  }, [sortedData, total])
-
-  
-
+  }, [sortedData, total]);
   return (
     <div
       ref={forwardedRef}
