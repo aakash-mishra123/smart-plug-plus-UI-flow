@@ -1,0 +1,43 @@
+export const bargraphInitialState = {
+  date: "19",
+  usage: 239.0,
+  value: 239.0,
+  data: [
+    {
+      date: "2025-03-13",
+      usage: 35,
+      timestamp: 1741888800,
+      value: 35,
+      formattedTimeStamp: "13-03-2025, 11:30 PM",
+      timeString: "11:30-11:45",
+      peakValue: false,
+    },
+    {
+      date: "2025-03-13",
+      usage: 554,
+      timestamp: 1741889700,
+      value: 554,
+      formattedTimeStamp: "13-03-2025, 11:45 PM",
+      timeString: "11:45-12:00",
+      peakValue: true,
+    },
+    {
+      date: "2025-03-13",
+      usage: 307,
+      timestamp: 1741890600,
+      value: 307,
+      formattedTimeStamp: "14-03-2025, 12:00 AM",
+      timeString: "12:00-12:30",
+      peakValue: false,
+    },
+    {
+      date: "2025-03-13",
+      usage: 299,
+      timestamp: 1741891500,
+      value: 299,
+      formattedTimeStamp: "14-03-2025, 12:15 AM",
+      timeString: "12:30 - 12: 45",
+      peakValue: false,
+    },
+  ],
+};
