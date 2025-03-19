@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
+"use client";
 
 import React, { CSSProperties } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
@@ -13,8 +13,8 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from "recharts"
-import { AxisDomain } from "recharts/types/util/types"
+} from "recharts";
+import { AxisDomain } from "recharts/types/util/types";
 
 import {
   AvailableChartColors,
@@ -22,27 +22,33 @@ import {
   constructCategoryColors,
   getColorClassName,
   getYAxisDomain,
-} from "@/lib/chartUtils"
-import { useOnWindowResize } from "@/lib/useOnWindowResize"
-import { cx } from "@/lib/utils"
+} from "@/lib/chartUtils";
+import { useOnWindowResize } from "@/lib/useOnWindowResize";
+import { cx } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 //#region Shape
 function deepEqual<T>(obj1: T, obj2: T): boolean {
   if (obj1 === obj2) return true;
 
-  if (typeof obj1 !== "object" || typeof obj2 !== "object" || obj1 === null || obj2 === null) return false
+  if (
+    typeof obj1 !== "object" ||
+    typeof obj2 !== "object" ||
+    obj1 === null ||
+    obj2 === null
+  )
+    return false;
 
-  const keys1 = Object.keys(obj1) as Array<keyof T>
-  const keys2 = Object.keys(obj2) as Array<keyof T>
+  const keys1 = Object.keys(obj1) as Array<keyof T>;
+  const keys2 = Object.keys(obj2) as Array<keyof T>;
 
-  if (keys1.length !== keys2.length) return false
+  if (keys1.length !== keys2.length) return false;
 
   for (const key of keys1) {
-    if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) return false
+    if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) return false;
   }
 
-  return true
+  return true;
 }
 
 const renderShape = (
@@ -78,7 +84,9 @@ const renderShape = (
         : 0.3
       : fillOpacity;
 
-  const topRadius = customStyle?.roundedTop ? customStyle.roundedTop : width / 2;
+  const topRadius = customStyle?.roundedTop
+    ? customStyle.roundedTop
+    : width / 2;
   const safeTopRadius = Math.min(topRadius, width / 2, height);
 
   const path = `
@@ -108,10 +116,10 @@ const renderShape = (
 //#region Legend
 
 interface LegendItemProps {
-  name: string
-  color: AvailableChartColorsKeys
-  onClick?: (name: string, color: AvailableChartColorsKeys) => void
-  activeLegend?: string
+  name: string;
+  color: AvailableChartColorsKeys;
+  onClick?: (name: string, color: AvailableChartColorsKeys) => void;
+  activeLegend?: string;
 }
 
 const LegendItem = ({
@@ -120,7 +128,7 @@ const LegendItem = ({
   onClick,
   activeLegend,
 }: LegendItemProps) => {
-  const hasOnValueChange = !!onClick
+  const hasOnValueChange = !!onClick;
   return (
     <li
       className={cx(
@@ -128,18 +136,18 @@ const LegendItem = ({
         "group inline-flex flex-nowrap items-center gap-1.5 whitespace-nowrap rounded px-2 py-1 transition",
         hasOnValueChange
           ? "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
-          : "cursor-default",
+          : "cursor-default"
       )}
       onClick={(e) => {
-        e.stopPropagation()
-        onClick?.(name, color)
+        e.stopPropagation();
+        onClick?.(name, color);
       }}
     >
       <span
         className={cx(
           "size-2 shrink-0 rounded-sm",
           getColorClassName(color, "bg"),
-          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
+          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100"
         )}
         aria-hidden={true}
       />
@@ -150,44 +158,44 @@ const LegendItem = ({
           // text color
           "text-gray-700 dark:text-gray-300",
           hasOnValueChange &&
-          "group-hover:text-gray-900 dark:group-hover:text-gray-50",
-          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100",
+            "group-hover:text-gray-900 dark:group-hover:text-gray-50",
+          activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100"
         )}
       >
         {name}
       </p>
     </li>
-  )
-}
+  );
+};
 
 interface ScrollButtonProps {
-  icon: React.ElementType
-  onClick?: () => void
-  disabled?: boolean
+  icon: React.ElementType;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
 const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
-  const Icon = icon
-  const [isPressed, setIsPressed] = React.useState(false)
-  const intervalRef = React.useRef<NodeJS.Timeout | null>(null)
+  const Icon = icon;
+  const [isPressed, setIsPressed] = React.useState(false);
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
   React.useEffect(() => {
     if (isPressed) {
       intervalRef.current = setInterval(() => {
-        onClick?.()
-      }, 300)
+        onClick?.();
+      }, 300);
     } else {
-      clearInterval(intervalRef.current as NodeJS.Timeout)
+      clearInterval(intervalRef.current as NodeJS.Timeout);
     }
-    return () => clearInterval(intervalRef.current as NodeJS.Timeout)
-  }, [isPressed, onClick])
+    return () => clearInterval(intervalRef.current as NodeJS.Timeout);
+  }, [isPressed, onClick]);
 
   React.useEffect(() => {
     if (disabled) {
-      clearInterval(intervalRef.current as NodeJS.Timeout)
-      setIsPressed(false)
+      clearInterval(intervalRef.current as NodeJS.Timeout);
+      setIsPressed(false);
     }
-  }, [disabled])
+  }, [disabled]);
 
   return (
     <button
@@ -197,39 +205,39 @@ const ScrollButton = ({ icon, onClick, disabled }: ScrollButtonProps) => {
         "group inline-flex size-5 items-center truncate rounded transition",
         disabled
           ? "cursor-not-allowed text-gray-400 dark:text-gray-600"
-          : "cursor-pointer text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-50",
+          : "cursor-pointer text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-50"
       )}
       disabled={disabled}
       onClick={(e) => {
-        e.stopPropagation()
-        onClick?.()
+        e.stopPropagation();
+        onClick?.();
       }}
       onMouseDown={(e) => {
-        e.stopPropagation()
-        setIsPressed(true)
+        e.stopPropagation();
+        setIsPressed(true);
       }}
       onMouseUp={(e) => {
-        e.stopPropagation()
-        setIsPressed(false)
+        e.stopPropagation();
+        setIsPressed(false);
       }}
     >
       <Icon className="size-full" aria-hidden="true" />
     </button>
-  )
-}
+  );
+};
 
 interface LegendProps extends React.OlHTMLAttributes<HTMLOListElement> {
-  categories: string[]
-  colors?: AvailableChartColorsKeys[]
-  onClickLegendItem?: (category: string, color: string) => void
-  activeLegend?: string
-  enableLegendSlider?: boolean
+  categories: string[];
+  colors?: AvailableChartColorsKeys[];
+  onClickLegendItem?: (category: string, color: string) => void;
+  activeLegend?: string;
+  enableLegendSlider?: boolean;
 }
 
 type HasScrollProps = {
-  left: boolean
-  right: boolean
-}
+  left: boolean;
+  right: boolean;
+};
 
 const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
   const {
@@ -240,30 +248,30 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
     activeLegend,
     enableLegendSlider = false,
     ...other
-  } = props
-  const scrollableRef = React.useRef<HTMLInputElement>(null)
-  const scrollButtonsRef = React.useRef<HTMLDivElement>(null)
-  const [hasScroll, setHasScroll] = React.useState<HasScrollProps | null>(null)
-  const [isKeyDowned, setIsKeyDowned] = React.useState<string | null>(null)
-  const intervalRef = React.useRef<NodeJS.Timeout | null>(null)
+  } = props;
+  const scrollableRef = React.useRef<HTMLInputElement>(null);
+  const scrollButtonsRef = React.useRef<HTMLDivElement>(null);
+  const [hasScroll, setHasScroll] = React.useState<HasScrollProps | null>(null);
+  const [isKeyDowned, setIsKeyDowned] = React.useState<string | null>(null);
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
   const checkScroll = React.useCallback(() => {
-    const scrollable = scrollableRef?.current
-    if (!scrollable) return
+    const scrollable = scrollableRef?.current;
+    if (!scrollable) return;
 
-    const hasLeftScroll = scrollable.scrollLeft > 0
+    const hasLeftScroll = scrollable.scrollLeft > 0;
     const hasRightScroll =
-      scrollable.scrollWidth - scrollable.clientWidth > scrollable.scrollLeft
+      scrollable.scrollWidth - scrollable.clientWidth > scrollable.scrollLeft;
 
-    setHasScroll({ left: hasLeftScroll, right: hasRightScroll })
-  }, [setHasScroll])
+    setHasScroll({ left: hasLeftScroll, right: hasRightScroll });
+  }, [setHasScroll]);
 
   const scrollToTest = React.useCallback(
     (direction: "left" | "right") => {
-      const element = scrollableRef?.current
-      const scrollButtons = scrollButtonsRef?.current
-      const scrollButtonsWith = scrollButtons?.clientWidth ?? 0
-      const width = element?.clientWidth ?? 0
+      const element = scrollableRef?.current;
+      const scrollButtons = scrollButtonsRef?.current;
+      const scrollButtonsWith = scrollButtons?.clientWidth ?? 0;
+      const width = element?.clientWidth ?? 0;
 
       if (element && enableLegendSlider) {
         element.scrollTo({
@@ -272,59 +280,59 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
               ? element.scrollLeft - width + scrollButtonsWith
               : element.scrollLeft + width - scrollButtonsWith,
           behavior: "smooth",
-        })
+        });
         setTimeout(() => {
-          checkScroll()
-        }, 400)
+          checkScroll();
+        }, 400);
       }
     },
-    [enableLegendSlider, checkScroll],
-  )
+    [enableLegendSlider, checkScroll]
+  );
 
   React.useEffect(() => {
     const keyDownHandler = (key: string) => {
       if (key === "ArrowLeft") {
-        scrollToTest("left")
+        scrollToTest("left");
       } else if (key === "ArrowRight") {
-        scrollToTest("right")
+        scrollToTest("right");
       }
-    }
+    };
     if (isKeyDowned) {
-      keyDownHandler(isKeyDowned)
+      keyDownHandler(isKeyDowned);
       intervalRef.current = setInterval(() => {
-        keyDownHandler(isKeyDowned)
-      }, 300)
+        keyDownHandler(isKeyDowned);
+      }, 300);
     } else {
-      clearInterval(intervalRef.current as NodeJS.Timeout)
+      clearInterval(intervalRef.current as NodeJS.Timeout);
     }
-    return () => clearInterval(intervalRef.current as NodeJS.Timeout)
-  }, [isKeyDowned, scrollToTest])
+    return () => clearInterval(intervalRef.current as NodeJS.Timeout);
+  }, [isKeyDowned, scrollToTest]);
 
   const keyDown = (e: KeyboardEvent) => {
-    e.stopPropagation()
+    e.stopPropagation();
     if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
-      e.preventDefault()
-      setIsKeyDowned(e.key)
+      e.preventDefault();
+      setIsKeyDowned(e.key);
     }
-  }
+  };
   const keyUp = (e: KeyboardEvent) => {
-    e.stopPropagation()
-    setIsKeyDowned(null)
-  }
+    e.stopPropagation();
+    setIsKeyDowned(null);
+  };
 
   React.useEffect(() => {
-    const scrollable = scrollableRef?.current
+    const scrollable = scrollableRef?.current;
     if (enableLegendSlider) {
-      checkScroll()
-      scrollable?.addEventListener("keydown", keyDown)
-      scrollable?.addEventListener("keyup", keyUp)
+      checkScroll();
+      scrollable?.addEventListener("keydown", keyDown);
+      scrollable?.addEventListener("keyup", keyUp);
     }
 
     return () => {
-      scrollable?.removeEventListener("keydown", keyDown)
-      scrollable?.removeEventListener("keyup", keyUp)
-    }
-  }, [checkScroll, enableLegendSlider])
+      scrollable?.removeEventListener("keydown", keyDown);
+      scrollable?.removeEventListener("keyup", keyUp);
+    };
+  }, [checkScroll, enableLegendSlider]);
 
   return (
     <ol
@@ -341,7 +349,7 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
             ? hasScroll?.right || hasScroll?.left
               ? "snap-mandatory items-center overflow-auto pl-4 pr-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               : ""
-            : "flex-wrap",
+            : "flex-wrap"
         )}
       >
         {categories.map((category, index) => (
@@ -361,22 +369,22 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
               // base
               "absolute bottom-0 right-0 top-0 flex h-full items-center justify-center pr-1",
               // background color
-              "bg-white dark:bg-gray-950",
+              "bg-white dark:bg-gray-950"
             )}
           >
             <ScrollButton
               icon={RiArrowLeftSLine}
               onClick={() => {
-                setIsKeyDowned(null)
-                scrollToTest("left")
+                setIsKeyDowned(null);
+                scrollToTest("left");
               }}
               disabled={!hasScroll?.left}
             />
             <ScrollButton
               icon={RiArrowRightSLine}
               onClick={() => {
-                setIsKeyDowned(null)
-                scrollToTest("right")
+                setIsKeyDowned(null);
+                scrollToTest("right");
               }}
               disabled={!hasScroll?.right}
             />
@@ -384,10 +392,10 @@ const Legend = React.forwardRef<HTMLOListElement, LegendProps>((props, ref) => {
         </>
       ) : null}
     </ol>
-  )
-})
+  );
+});
 
-Legend.displayName = "Legend"
+Legend.displayName = "Legend";
 
 const ChartLegend = (
   { payload }: any,
@@ -397,20 +405,20 @@ const ChartLegend = (
   onClick?: (category: string, color: string) => void,
   enableLegendSlider?: boolean,
   legendPosition?: "left" | "center" | "right",
-  yAxisWidth?: number,
+  yAxisWidth?: number
 ) => {
-  const legendRef = React.useRef<HTMLDivElement>(null)
+  const legendRef = React.useRef<HTMLDivElement>(null);
 
   useOnWindowResize(() => {
     const calculateHeight = (height: number | undefined) =>
-      height ? Number(height) + 15 : 60
-    setLegendHeight(calculateHeight(legendRef.current?.clientHeight))
-  })
+      height ? Number(height) + 15 : 60;
+    setLegendHeight(calculateHeight(legendRef.current?.clientHeight));
+  });
 
-  const filteredPayload = payload.filter((item: any) => item.type !== "none")
+  const filteredPayload = payload.filter((item: any) => item.type !== "none");
 
   const paddingLeft =
-    legendPosition === "left" && yAxisWidth ? yAxisWidth - 8 : 0
+    legendPosition === "left" && yAxisWidth ? yAxisWidth - 8 : 0;
 
   return (
     <div
@@ -422,40 +430,40 @@ const ChartLegend = (
         {
           "justify-start": legendPosition === "left",
         },
-        { "justify-end": legendPosition === "right" },
+        { "justify-end": legendPosition === "right" }
       )}
     >
       <Legend
         categories={filteredPayload.map((entry: any) => entry.value)}
         colors={filteredPayload.map((entry: any) =>
-          categoryColors.get(entry.value),
+          categoryColors.get(entry.value)
         )}
         onClickLegendItem={onClick}
         activeLegend={activeLegend}
         enableLegendSlider={enableLegendSlider}
       />
     </div>
-  )
-}
+  );
+};
 
 //#region Tooltip
 
-type TooltipProps = Pick<ChartTooltipProps, "active" | "payload" | "label">
+type TooltipProps = Pick<ChartTooltipProps, "active" | "payload" | "label">;
 
 type PayloadItem = {
-  category: string
-  value: number
-  index: string
-  color: AvailableChartColorsKeys
-  type?: string
-  payload: any
-}
+  category: string;
+  value: number;
+  index: string;
+  color: AvailableChartColorsKeys;
+  type?: string;
+  payload: any;
+};
 
 interface ChartTooltipProps {
-  active: boolean | undefined
-  payload: PayloadItem[]
-  label: string
-  valueFormatter: (value: number) => string
+  active: boolean | undefined;
+  payload: PayloadItem[];
+  label: string;
+  valueFormatter: (value: number) => string;
 }
 
 const ChartTooltip = ({
@@ -473,7 +481,7 @@ const ChartTooltip = ({
           // border color
           "border-gray-200 dark:border-gray-800",
           // background color
-          "bg-white dark:bg-gray-950",
+          "bg-white dark:bg-gray-950"
         )}
       >
         <div className={cx("border-b border-inherit px-4 py-2")}>
@@ -482,7 +490,7 @@ const ChartTooltip = ({
               // base
               "font-medium",
               // text color
-              "text-gray-900 dark:text-gray-50",
+              "text-gray-900 dark:text-gray-50"
             )}
           >
             {label}
@@ -499,7 +507,7 @@ const ChartTooltip = ({
                   aria-hidden="true"
                   className={cx(
                     "size-2 shrink-0 rounded-sm",
-                    getColorClassName(color, "bg"),
+                    getColorClassName(color, "bg")
                   )}
                 />
                 <p
@@ -507,7 +515,7 @@ const ChartTooltip = ({
                     // base
                     "whitespace-nowrap text-right",
                     // text color
-                    "text-gray-700 dark:text-gray-300",
+                    "text-gray-700 dark:text-gray-300"
                   )}
                 >
                   {category}
@@ -518,7 +526,7 @@ const ChartTooltip = ({
                   // base
                   "whitespace-nowrap text-right font-medium tabular-nums",
                   // text color
-                  "text-gray-900 dark:text-gray-50",
+                  "text-gray-900 dark:text-gray-50"
                 )}
               >
                 {valueFormatter(value)}
@@ -527,56 +535,58 @@ const ChartTooltip = ({
           ))}
         </div>
       </div>
-    )
+    );
   }
-  return null
-}
+  return null;
+};
 
 //#region BarChart
 
 type BaseEventProps = {
-  eventType: "category" | "bar"
-  categoryClicked: string
-  [key: string]: number | string
-}
+  eventType: "category" | "bar";
+  categoryClicked: string;
+  [key: string]: number | string;
+};
 
-type BarChartEventProps = BaseEventProps | null | undefined
+type BarChartEventProps = BaseEventProps | null | undefined;
 
 interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: Record<string, any>[]
-  index: string
-  categories: string[]
-  colors?: AvailableChartColorsKeys[]
-  valueFormatter?: (value: number) => string
-  startEndOnly?: boolean
-  showXAxis?: boolean
-  showYAxis?: boolean
-  showGridLines?: boolean
-  yAxisWidth?: number
-  intervalType?: "preserveStartEnd" | "equidistantPreserveStart"
-  showTooltip?: boolean
-  showLegend?: boolean
-  autoMinValue?: boolean
-  minValue?: number
-  maxValue?: number
-  allowDecimals?: boolean
-  handleBarClick?: (data: any) => void
-  barColor?: string
-  onValueChange?: (value: BarChartEventProps) => void
-  enableLegendSlider?: boolean
-  tickGap?: number
-  barCategoryGap?: string | number
-  xAxisLabel?: string
-  yAxisLabel?: string
-  layout?: "vertical" | "horizontal"
-  type?: "default" | "stacked" | "percent"
-  legendPosition?: "left" | "center" | "right"
-  tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void
-  refetch?: () => void
-  customTooltip?: React.ComponentType<TooltipProps>
-  customWrapperStyle?: CSSProperties
-  barWidth?: number
-  x?: number
+  data: Record<string, any>[];
+  index: string;
+  categories: string[];
+  colors?: AvailableChartColorsKeys[];
+  valueFormatter?: (value: number) => string;
+  startEndOnly?: boolean;
+  showXAxis?: boolean;
+  showYAxis?: boolean;
+  showGridLines?: boolean;
+  yAxisWidth?: number;
+  intervalType?: "preserveStartEnd" | "equidistantPreserveStart";
+  showTooltip?: boolean;
+  showLegend?: boolean;
+  autoMinValue?: boolean;
+  minValue?: number;
+  maxValue?: number;
+  allowDecimals?: boolean;
+  handleBarClick?: (date: string) => void;
+  barColor?: string;
+  onValueChange?: (value: BarChartEventProps) => void;
+  enableLegendSlider?: boolean;
+  tickGap?: number;
+  barCategoryGap?: string | number;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  layout?: "vertical" | "horizontal";
+  type?: "default" | "stacked" | "percent";
+  legendPosition?: "left" | "center" | "right";
+  selectedBar?: string;
+  setSelectedBar?: (data: string) => void;
+  tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void;
+  refetch?: () => void;
+  customTooltip?: React.ComponentType<TooltipProps>;
+  customWrapperStyle?: CSSProperties;
+  barWidth?: number;
+  x?: number;
   enableAnimation?: boolean;
   animationDuration?: number;
   allowClickableTransitions?: boolean;
@@ -615,41 +625,43 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       legendPosition = "right",
       tooltipCallback,
       customTooltip,
+      selectedBar,
       customWrapperStyle,
       barWidth,
       barColor,
       enableAnimation,
       animationDuration,
       ...other
-    } = props
-    const CustomTooltip = customTooltip
+    } = props;
+    const CustomTooltip = customTooltip;
     const paddingValue =
-      (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20
+      (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20;
     const [legendHeight, setLegendHeight] = React.useState(60);
-    const [selectedBar, setSelectedBar] = React.useState<string>('-1');
+    // const [selectedBar, setSelectedBar] = React.useState<string>('-1');
 
-    const [activeLegend, setActiveLegend] = React.useState<string | undefined>(undefined)
-    const categoryColors = constructCategoryColors(categories, colors)
-    const [activeBar, setActiveBar] = React.useState<any | undefined>(undefined)
-    const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue)
-    const hasOnValueChange = !!onValueChange
-    const stacked = type === "stacked" || type === "percent"
+    const [activeLegend, setActiveLegend] = React.useState<string | undefined>(
+      undefined
+    );
+    const categoryColors = constructCategoryColors(categories, colors);
+    const [activeBar, setActiveBar] = React.useState<any | undefined>(
+      undefined
+    );
+    const yAxisDomain = getYAxisDomain(autoMinValue, minValue, maxValue);
+    const hasOnValueChange = !!onValueChange;
+    const stacked = type === "stacked" || type === "percent";
 
-    const prevActiveRef = React.useRef<boolean | undefined>(undefined)
-    const prevLabelRef = React.useRef<string | undefined>(undefined)
+    const prevActiveRef = React.useRef<boolean | undefined>(undefined);
+    const prevLabelRef = React.useRef<string | undefined>(undefined);
     function valueToPercent(value: number) {
-      return `${(value * 100).toFixed(0)}%`
+      return `${(value * 100).toFixed(0)}%`;
     }
-
     function onBarClick(data: any, _: any, event: React.MouseEvent) {
       event.stopPropagation();
-      setSelectedBar(data.date);
-      if (handleBarClick) handleBarClick(data);
+      if (handleBarClick) handleBarClick(data?.date);
       if (!onValueChange) return;
       if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
         setActiveLegend(undefined);
         setActiveBar(undefined);
-        setSelectedBar(""); // Reset selected bar color
         onValueChange?.(null);
       } else {
         setActiveLegend(data.tooltipPayload?.[0]?.dataKey);
@@ -657,7 +669,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
           ...data.payload,
           value: data.value,
         });
-        setSelectedBar(data.date); // Track the selected bar
         onValueChange?.({
           eventType: "bar",
           categoryClicked: data.tooltipPayload?.[0]?.dataKey,
@@ -667,18 +678,18 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
     }
 
     function onCategoryClick(dataKey: string) {
-      if (!hasOnValueChange) return
+      if (!hasOnValueChange) return;
       if (dataKey === activeLegend && !activeBar) {
-        setActiveLegend(undefined)
-        onValueChange?.(null)
+        setActiveLegend(undefined);
+        onValueChange?.(null);
       } else {
-        setActiveLegend(dataKey)
+        setActiveLegend(dataKey);
         onValueChange?.({
           eventType: "category",
           categoryClicked: dataKey,
-        })
+        });
       }
-      setActiveBar(undefined)
+      setActiveBar(undefined);
     }
     return (
       <div
@@ -693,10 +704,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             onClick={
               hasOnValueChange && (activeLegend || activeBar)
                 ? () => {
-                  setActiveBar(undefined)
-                  setActiveLegend(undefined)
-                  onValueChange?.(null)
-                }
+                    setActiveBar(undefined);
+                    setActiveLegend(undefined);
+                    onValueChange?.(null);
+                  }
                 : undefined
             }
             margin={{
@@ -729,30 +740,30 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 "text-xs",
                 // text fill
                 "fill-gray-500 dark:fill-gray-500",
-                { "mt-4": layout !== "vertical" },
+                { "mt-4": layout !== "vertical" }
               )}
               tickLine={false}
               axisLine={false}
               minTickGap={tickGap}
               {...(layout !== "vertical"
                 ? {
-                  padding: {
-                    left: paddingValue,
-                    right: paddingValue,
-                  },
-                  dataKey: index,
-                  interval: startEndOnly ? "preserveStartEnd" : intervalType,
-                  ticks: startEndOnly
-                    ? [data[0][index], data[data.length - 1][index]]
-                    : undefined,
-                }
+                    padding: {
+                      left: paddingValue,
+                      right: paddingValue,
+                    },
+                    dataKey: index,
+                    interval: startEndOnly ? "preserveStartEnd" : intervalType,
+                    ticks: startEndOnly
+                      ? [data[0][index], data[data.length - 1][index]]
+                      : undefined,
+                  }
                 : {
-                  type: "number",
-                  domain: yAxisDomain as AxisDomain,
-                  tickFormatter:
-                    type === "percent" ? valueToPercent : valueFormatter,
-                  allowDecimals: allowDecimals,
-                })}
+                    type: "number",
+                    domain: yAxisDomain as AxisDomain,
+                    tickFormatter:
+                      type === "percent" ? valueToPercent : valueFormatter,
+                    allowDecimals: allowDecimals,
+                  })}
             >
               {xAxisLabel && (
                 <Label
@@ -775,7 +786,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 // base
                 "text-xs",
                 // text fill
-                "fill-gray-500 dark:fill-gray-500",
+                "fill-gray-500 dark:fill-gray-500"
               )}
               tick={{
                 transform:
@@ -785,20 +796,20 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               }}
               {...(layout !== "vertical"
                 ? {
-                  type: "number",
-                  domain: yAxisDomain as AxisDomain,
-                  tickFormatter:
-                    type === "percent" ? valueToPercent : valueFormatter,
-                  allowDecimals: allowDecimals,
-                }
+                    type: "number",
+                    domain: yAxisDomain as AxisDomain,
+                    tickFormatter:
+                      type === "percent" ? valueToPercent : valueFormatter,
+                    allowDecimals: allowDecimals,
+                  }
                 : {
-                  dataKey: index,
-                  ticks: startEndOnly
-                    ? [data[0][index], data[data.length - 1][index]]
-                    : undefined,
-                  type: "category",
-                  interval: "equidistantPreserveStart",
-                })}
+                    dataKey: index,
+                    ticks: startEndOnly
+                      ? [data[0][index], data[data.length - 1][index]]
+                      : undefined,
+                    type: "category",
+                    interval: "equidistantPreserveStart",
+                  })}
             >
               {yAxisLabel && (
                 <Label
@@ -825,25 +836,25 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               content={({ active, payload, label }) => {
                 const cleanPayload: TooltipProps["payload"] = payload
                   ? payload.map((item: any) => ({
-                    category: item.dataKey,
-                    value: item.value,
-                    index: item.payload[index],
-                    color: categoryColors.get(
-                      item.dataKey,
-                    ) as AvailableChartColorsKeys,
-                    type: item.type,
-                    payload: item.payload,
-                  }))
-                  : []
+                      category: item.dataKey,
+                      value: item.value,
+                      index: item.payload[index],
+                      color: categoryColors.get(
+                        item.dataKey
+                      ) as AvailableChartColorsKeys,
+                      type: item.type,
+                      payload: item.payload,
+                    }))
+                  : [];
 
                 if (
                   tooltipCallback &&
                   (active !== prevActiveRef.current ||
                     label !== prevLabelRef.current)
                 ) {
-                  tooltipCallback({ active, payload: cleanPayload, label })
-                  prevActiveRef.current = active
-                  prevLabelRef.current = label
+                  tooltipCallback({ active, payload: cleanPayload, label });
+                  prevActiveRef.current = active;
+                  prevLabelRef.current = label;
                 }
 
                 return showTooltip && active ? (
@@ -861,7 +872,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                       valueFormatter={valueFormatter}
                     />
                   )
-                ) : null
+                ) : null;
               }}
             />
             {showLegend ? (
@@ -876,11 +887,11 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                     activeLegend,
                     hasOnValueChange
                       ? (clickedLegendItem: string) =>
-                        onCategoryClick(clickedLegendItem)
+                          onCategoryClick(clickedLegendItem)
                       : undefined,
                     enableLegendSlider,
                     legendPosition,
-                    yAxisWidth,
+                    yAxisWidth
                   )
                 }
               />
@@ -891,9 +902,9 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                   className={cx(
                     getColorClassName(
                       categoryColors.get(category) as AvailableChartColorsKeys,
-                      "fill",
+                      "fill"
                     ),
-                    onValueChange ? "cursor-pointer" : "",
+                    onValueChange ? "cursor-pointer" : ""
                   )}
                   key={category}
                   name={category}
@@ -907,24 +918,23 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                   fill=""
                   shape={(props: any) => {
                     props.width = barWidth;
-                    props.barColor = selectedBar === props.date ? "black" : barColor;
+                    props.barColor =
+                      selectedBar === props.date ? "black" : barColor;
                     return renderShape(props, activeBar, activeLegend, layout);
                   }}
                   color="#c71c5d"
                   radius={[10, 10, 0, 0]}
                   onClick={onBarClick}
                 />
-              )
-            }
-            )}
+              );
+            })}
           </RechartsBarChart>
         </ResponsiveContainer>
-
       </div>
-    )
-  },
-)
+    );
+  }
+);
 
-BarChart.displayName = "BarChart"
+BarChart.displayName = "BarChart";
 
-export { BarChart, type BarChartEventProps, type TooltipProps }
+export { BarChart, type BarChartEventProps, type TooltipProps };

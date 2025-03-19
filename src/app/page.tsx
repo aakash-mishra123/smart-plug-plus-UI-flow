@@ -24,6 +24,7 @@ export default function Home() {
   const [selectedBarData, setSelectedBarData] =
     useState<quarterUsageData>(bargraphInitialState);
 
+  const [selectedBar, setSelectedBar] = useState<string>("0");
   const options = useMemo(
     () => ({
       date: dayjs(selectedDate).format("YYYY-MM-DD"),
@@ -41,8 +42,6 @@ export default function Home() {
       refetch({
         slug: queryString.stringify(options),
       });
-    setSelectedBarData(data[0]);
-
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options.date, selectedDate, refetch]);
@@ -63,9 +62,11 @@ export default function Home() {
         />
         <BarChartHero
           chartdata={data}
+          selectedBar={selectedBar}
+          setSelectedBar={setSelectedBar}
           setSelectedBarData={setSelectedBarData}
         />
-        <BarListHero data={selectedBarData.data} />
+        <BarListHero data={selectedBarData} />
       </div>
     </Transitions>
   );

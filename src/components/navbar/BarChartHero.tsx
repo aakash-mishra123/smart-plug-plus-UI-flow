@@ -5,20 +5,18 @@ import { BarChart } from "@/components/shared/BarChart";
 import { quarterUsageData } from "@/api/types/dailyUsageTypes";
 interface BarchartProps {
   chartdata: quarterUsageData[];
+  selectedBar: string;
+  setSelectedBar: (data: string) => void;
   setSelectedBarData: (data: quarterUsageData) => void;
 }
-const BarChartHero = ({ chartdata, setSelectedBarData }: BarchartProps) => {
+const BarChartHero = ({
+  chartdata,
+  selectedBar,
+  setSelectedBar,
+  setSelectedBarData,
+}: BarchartProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [barWidth, setBarWidth] = useState(7); // Default bar width
-  const [selectedBar, setSelectedBar] = React.useState<string>("-1");
-
-  useEffect(() => {
-    if (chartdata.length > 0) {
-      setSelectedBar("0"); // Set first bar as default
-      setSelectedBarData(chartdata[0]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setSelectedBarData]);
 
   useEffect(() => {
     const updateBarWidth = () => {
@@ -37,8 +35,10 @@ const BarChartHero = ({ chartdata, setSelectedBarData }: BarchartProps) => {
 
   const handleBarClick = useCallback((date: string) => {
     setSelectedBar(date);
-    const newSelectedBar = chartdata.find((bar) => bar.date === date);
-    if (newSelectedBar) setSelectedBarData(newSelectedBar);
+    const newSelectedBar = chartdata.findIndex((bar) => bar.date === date);
+    if (newSelectedBar) {
+      setSelectedBarData(chartdata[newSelectedBar]);
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -50,7 +50,7 @@ const BarChartHero = ({ chartdata, setSelectedBarData }: BarchartProps) => {
       setSelectedBarData(chartdata[currentIndex - 1]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selectedBar]);
 
   const handleNextClick = useCallback(() => {
     const currentIndex = chartdata.findIndex((bar) => bar.date === selectedBar);
