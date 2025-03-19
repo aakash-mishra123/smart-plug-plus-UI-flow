@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import queryString from "query-string";
 import { useState } from "react";
-import { BarChartHero } from "@/components/navbar/BarChartHero";
+import BarChartHero from "@/components/navbar/BarChartHero";
 import DateSwitcher from "@/components/dateSwitch/DateSwitcher";
 import FormatDailyUsageData from "@/api/quarterlyUsageAPI";
 import { quarterUsageData } from "@/api/types/dailyUsageTypes";
@@ -17,7 +17,7 @@ const ConsumptionCard = dynamic(
   () => import("@/components/progressBar/ConsumptionCard")
 );
 
-export default function Temp() {
+export default function Home() {
   const [selectedDate, setSelectedDate] = useState<Dayjs>(
     dayjs().subtract(5, "day").locale("en")
   );
@@ -62,10 +62,10 @@ export default function Temp() {
           setSelectedDate={setSelectedDate}
         />
         <BarChartHero
-          chartdata={[bargraphInitialState, selectedBarData]}
+          chartdata={data}
           setSelectedBarData={setSelectedBarData}
         />
-        <BarListHero data={bargraphInitialState.data} />
+        <BarListHero data={selectedBarData.data} />
       </div>
     </Transitions>
   );

@@ -34,7 +34,8 @@
     ".next/types/**/*.ts",
     "next-env.d.ts",
     "out/types/**/*.ts"
-, "src/lib/iot_core/mqtt-service.mjs"  ],
+, "src/lib/iot_core/mqtt-service.mjs", 
+"src/app/pages/_document.js"  ],
   "exclude": [
     ".next/node_modules"
   ],

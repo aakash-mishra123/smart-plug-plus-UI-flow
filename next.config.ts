@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
     }
     return config
   },
+  swcMinify: true,
 };
 
 export default nextConfig;

@@ -7,13 +7,13 @@ import { grey } from "@mui/material/colors";
 import { Card } from "@tremor/react";
 
 interface BarListHeroProps {
-  data: dataItem[];
+  data: dataItem[] | undefined;
 }
 
 const BarListHero = ({ data }: BarListHeroProps) => {
-  const total = data.reduce((sum, item) => sum + (item?.usage ?? 0), 0);
+  const total = data?.reduce((sum, item) => sum + (item?.usage ?? 0), 0) ?? 100;
   return (
-    <div className="w-full mx-auto p-4 pt-2 bg-white montserrat-custom mb-12">
+    <div className="w-full mx-auto p-4 pt-2 bg-white montserrat-custom pb-12 mb-12">
       {/* Average Consumption Card */}
       <Card className="mt-3 p-4 flex justify-between items-center bg-slate-200 rounded-lg">
         <span className="text-md text-black">Media consumo orario</span>

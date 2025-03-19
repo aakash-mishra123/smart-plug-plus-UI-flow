@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { BarChart } from "@/components/shared/BarChart";
 import { quarterUsageData } from "@/api/types/dailyUsageTypes";
@@ -7,10 +7,7 @@ interface BarchartProps {
   chartdata: quarterUsageData[];
   setSelectedBarData: (data: quarterUsageData) => void;
 }
-export const BarChartHero = ({
-  chartdata,
-  setSelectedBarData,
-}: BarchartProps) => {
+const BarChartHero = ({ chartdata, setSelectedBarData }: BarchartProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [barWidth, setBarWidth] = useState(7); // Default bar width
   const [selectedBar, setSelectedBar] = React.useState<string>("-1");
@@ -18,9 +15,10 @@ export const BarChartHero = ({
   useEffect(() => {
     if (chartdata.length > 0) {
       setSelectedBar("0"); // Set first bar as default
-      // setSelectedBarData(chartdata[0]);
+      setSelectedBarData(chartdata[0]);
     }
-  }, [chartdata, setSelectedBarData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setSelectedBarData]);
 
   useEffect(() => {
     const updateBarWidth = () => {
@@ -37,21 +35,24 @@ export const BarChartHero = ({
     return () => window.removeEventListener("resize", updateBarWidth); // Cleanup
   }, []);
 
-  const handleBarClick = (date: string) => {
+  const handleBarClick = useCallback((date: string) => {
     setSelectedBar(date);
     const newSelectedBar = chartdata.find((bar) => bar.date === date);
     if (newSelectedBar) setSelectedBarData(newSelectedBar);
-  };
 
-  const handlePrevClick = () => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handlePrevClick = useCallback(() => {
     const currentIndex = chartdata.findIndex((bar) => bar.date === selectedBar);
     if (currentIndex > 0) {
       setSelectedBar(chartdata[currentIndex - 1].date ?? "0");
       setSelectedBarData(chartdata[currentIndex - 1]);
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const handleNextClick = () => {
+  const handleNextClick = useCallback(() => {
     const currentIndex = chartdata.findIndex((bar) => bar.date === selectedBar);
     if (currentIndex < chartdata.length - 1) {
       setSelectedBar(
@@ -59,7 +60,8 @@ export const BarChartHero = ({
       );
       setSelectedBarData(chartdata[currentIndex + 1]);
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="relative bg-white">
@@ -79,7 +81,6 @@ export const BarChartHero = ({
           tickGap={0}
           startEndOnly={false}
           showGridLines={false}
-          setSelectedBar={setSelectedBar}
         />
       </div>
       <div
@@ -107,7 +108,7 @@ export const BarChartHero = ({
             startEndOnly={false}
             showYAxis={false}
             selectedBar={selectedBar}
-            setSelectedBar={setSelectedBarData}
+            setSelectedBar={setSelectedBar}
           />
           <div id="switch_hours" className="montserrat-custom">
             <div className="flex flex-row justify-between">
@@ -162,3 +163,5 @@ export const BarChartHero = ({
     </div>
   );
 };
+
+export default BarChartHero;
