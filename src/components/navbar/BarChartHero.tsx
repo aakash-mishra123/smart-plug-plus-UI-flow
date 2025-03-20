@@ -1,19 +1,21 @@
 "use client";
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+//import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { BarChart } from "@/components/shared/BarChart";
 import { quarterUsageData } from "@/api/types/dailyUsageTypes";
+import { Button } from "@tremor/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 interface BarchartProps {
   chartdata: quarterUsageData[];
   selectedBar: string;
-  setSelectedBar: (data: string) => void;
-  setSelectedBarData: (data: quarterUsageData) => void;
+  setselectedbar: (data: string) => void;
+  setselectedbardata: (data: quarterUsageData) => void;
 }
 const BarChartHero = ({
   chartdata,
   selectedBar,
-  setSelectedBar,
-  setSelectedBarData,
+  setselectedbar,
+  setselectedbardata,
 }: BarchartProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [barWidth, setBarWidth] = useState(7); // Default bar width
@@ -34,10 +36,10 @@ const BarChartHero = ({
   }, []);
 
   const handleBarClick = useCallback((date: string) => {
-    setSelectedBar(date);
+    setselectedbar(date);
     const newSelectedBar = chartdata.findIndex((bar) => bar.date === date);
     if (newSelectedBar) {
-      setSelectedBarData(chartdata[newSelectedBar]);
+      setselectedbardata(chartdata[newSelectedBar]);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,8 +48,8 @@ const BarChartHero = ({
   const handlePrevClick = useCallback(() => {
     const currentIndex = chartdata.findIndex((bar) => bar.date === selectedBar);
     if (currentIndex > 0) {
-      setSelectedBar(chartdata[currentIndex - 1].date ?? "0");
-      setSelectedBarData(chartdata[currentIndex - 1]);
+      setselectedbar(chartdata[currentIndex - 1].date ?? "0");
+      setselectedbardata(chartdata[currentIndex - 1]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedBar]);
@@ -55,13 +57,13 @@ const BarChartHero = ({
   const handleNextClick = useCallback(() => {
     const currentIndex = chartdata.findIndex((bar) => bar.date === selectedBar);
     if (currentIndex < chartdata.length - 1) {
-      setSelectedBar(
+      setselectedbar(
         chartdata[currentIndex + 1].date ?? (chartdata.length - 1).toString()
       );
-      setSelectedBarData(chartdata[currentIndex + 1]);
+      setselectedbardata(chartdata[currentIndex + 1]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selectedBar]);
 
   return (
     <div className="relative bg-white">
@@ -108,9 +110,8 @@ const BarChartHero = ({
             startEndOnly={false}
             showYAxis={false}
             selectedBar={selectedBar}
-            setSelectedBar={setSelectedBar}
           />
-          <div id="switch_hours" className="montserrat-custom">
+          <div id="switch_hours" className="montserrat-custom mr-2">
             <div className="flex flex-row justify-between">
               <div className="flex flex-col gap-1">
                 <div className="text-gray-600 text-xs">Ora della giornata</div>
@@ -120,41 +121,36 @@ const BarChartHero = ({
               </div>
 
               <div id="switch_arrows" className="flex flex-row gap-2 *:mr-2">
-                <button
-                  className={`p-2 rounded-full ${
-                    selectedBar === chartdata[0]?.date
-                      ? "bg-gray-300"
-                      : "bg-transparent"
-                  }`}
-                  onClick={handlePrevClick}
-                  disabled={selectedBar === chartdata[0]?.date}
+                <div
+                  className={`flex items-center ${
+                    selectedBar === String(chartdata.length) ? "gap-4" : "gap-6"
+                  } mt-1`}
                 >
-                  <FaChevronLeft
-                    className={`text-pink-800 ${
-                      selectedBar === chartdata[0]?.date ? "opacity-50" : ""
-                    }`}
+                  <Button
+                    variant="light"
+                    size="xs"
+                    icon={ChevronLeftIcon}
+                    onClick={handlePrevClick}
+                    className="text-pink-700"
                   />
-                </button>
 
-                <button
-                  className={`p-4 rounded-full ${
-                    selectedBar === chartdata[chartdata.length - 1]?.date
-                      ? "bg-gray-300"
-                      : "bg-[#c2aab3] text-pink-800"
-                  }`}
-                  onClick={handleNextClick}
-                  disabled={
-                    selectedBar === chartdata[chartdata.length - 1]?.date
-                  }
-                >
-                  <FaChevronRight
-                    className={`text-white ${
-                      selectedBar === chartdata[chartdata.length - 1]?.date
-                        ? "opacity-50"
+                  <Button
+                    variant="light"
+                    size="xs"
+                    icon={ChevronRightIcon}
+                    onClick={handleNextClick}
+                    className={`text-pink-700 ${
+                      chartdata.findIndex((bar) => bar.date === selectedBar) ===
+                      chartdata.length - 1
+                        ? "opacity-50 cursor-not-allowed bg-gray-400 text-gray-800 rounded-md p-2"
                         : ""
                     }`}
+                    disabled={
+                      chartdata.findIndex((bar) => bar.date === selectedBar) ===
+                      chartdata.length - 1
+                    }
                   />
-                </button>
+                </div>
               </div>
             </div>
           </div>

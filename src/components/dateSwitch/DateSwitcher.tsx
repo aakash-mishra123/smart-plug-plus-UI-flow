@@ -89,7 +89,7 @@ const DateSwitcher = ({ selectedDate, setSelectedDate }: DateSwitcherProps) => {
           <p className="text-sm text-gray-500 font-light">Orario {}</p>
         </div>
 
-        <p className="text-md w-20 font-extrabold">{peakConsumption} kWh</p>
+        <p className="text-md w-16 font-extrabold">{peakConsumption} kWh</p>
       </div>
     </div>
   );

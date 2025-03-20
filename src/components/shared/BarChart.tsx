@@ -580,7 +580,7 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   type?: "default" | "stacked" | "percent";
   legendPosition?: "left" | "center" | "right";
   selectedBar?: string;
-  setSelectedBar?: (data: string) => void;
+  setselectedbar?: (data: string) => void;
   tooltipCallback?: (tooltipCallbackContent: TooltipProps) => void;
   refetch?: () => void;
   customTooltip?: React.ComponentType<TooltipProps>;
@@ -637,8 +637,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
     const paddingValue =
       (!showXAxis && !showYAxis) || (startEndOnly && !showYAxis) ? 0 : 20;
     const [legendHeight, setLegendHeight] = React.useState(60);
-    // const [selectedBar, setSelectedBar] = React.useState<string>('-1');
-
     const [activeLegend, setActiveLegend] = React.useState<string | undefined>(
       undefined
     );

@@ -18,13 +18,13 @@ const ConsumptionCard = dynamic(
 );
 
 export default function Home() {
-  const [selectedDate, setSelectedDate] = useState<Dayjs>(
+  const [selectedDate, setselectedDate] = useState<Dayjs>(
     dayjs().subtract(5, "day").locale("en")
   );
-  const [selectedBarData, setSelectedBarData] =
+  const [selectedBarData, setselectedBarData] =
     useState<quarterUsageData>(bargraphInitialState);
 
-  const [selectedBar, setSelectedBar] = useState<string>("0");
+  const [selectedBar, setselectedbar] = useState<string>("0");
   const options = useMemo(
     () => ({
       date: dayjs(selectedDate).format("YYYY-MM-DD"),
@@ -36,7 +36,6 @@ export default function Home() {
   const { data, refetch } = FormatDailyUsageData({
     slug: queryString.stringify(options),
   });
-
   useEffect(() => {
     if (refetch)
       refetch({
@@ -46,6 +45,13 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options.date, selectedDate, refetch]);
 
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setselectedbar(String(data.length));
+    }
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(data)]);
   return (
     <Transitions
       type="slide"
@@ -58,13 +64,13 @@ export default function Home() {
         <ConsumptionCard powerUsage={75} maxPower={90} limitPower={3} />
         <DateSwitcher
           selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
+          setSelectedDate={setselectedDate}
         />
         <BarChartHero
           chartdata={data}
           selectedBar={selectedBar}
-          setSelectedBar={setSelectedBar}
-          setSelectedBarData={setSelectedBarData}
+          setselectedbar={setselectedbar}
+          setselectedbardata={setselectedBarData}
         />
         <BarListHero data={selectedBarData} />
       </div>
