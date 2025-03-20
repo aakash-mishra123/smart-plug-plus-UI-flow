@@ -71,7 +71,7 @@ const BarChartHero = ({
 
   return (
     <div className="relative bg-white">
-      <div className="absolute -left-1 -top-6 h-full z-10 w-[3rem] ml-[-14px] mr-[5px] bg-transparent">
+      <div className="absolute left-0 top-10 z-10 w-[3rem] ml-[-14px] mr-[5px] bg-transparent">
         <BarChart
           data={chartdata}
           index="date"
@@ -118,7 +118,7 @@ const BarChartHero = ({
           <div
             id="switch_hours"
             className="montserrat-custom w-100"
-            style={{ marginLeft: "-16px" }}
+            style={{ marginLeft: "-20px" }}
           >
             <div className="flex flex-row justify-between">
               <div className="flex flex-col gap-1">
@@ -128,11 +128,7 @@ const BarChartHero = ({
                 </h2>
               </div>
 
-              <div
-                id="switch_arrows"
-                className="flex flex-row gap-2 *:mr-2"
-                style={{ marginLeft: "-16px" }}
-              >
+              <div id="switch_arrows" className="flex flex-row gap-2 *:mr-4">
                 <div
                   className={`flex items-center ${
                     selectedBar === String(chartdata.length) ? "gap-4" : "gap-6"

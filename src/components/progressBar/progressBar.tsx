@@ -43,13 +43,13 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
             },
             "& .MuiLinearProgress-bar": {
               backgroundColor: "#1976D2", // Value bar color (Primary)
-              marginLeft: "4px",
+              marginLeft: "12px",
             },
             "& .MuiLinearProgress-bar1": {
               backgroundColor: bkgColor, // Value bar color (Primary)
               borderRadius: 16,
               position: "absolute",
-              left: "4lpx",
+              left: "4px",
               marginY: "4px",
               transform: "translateX(-2%) !important",
               maxWidth: "98%",

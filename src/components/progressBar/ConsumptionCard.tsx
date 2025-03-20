@@ -12,11 +12,8 @@ const CustomLinearProgress = dynamic(
   () => import("../progressBar/progressBar")
 );
 
-// import useMqttClient from "../hooks/useMqttClient";
-
 const ConsumptionCard = ({ powerUsage, maxPower }: PowerUsageProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  // const { client, isConnected } = useMqttClient();
   return (
     <div>
       <Card className="bg-transparent p-2 montserrat-custom rounded-sm">

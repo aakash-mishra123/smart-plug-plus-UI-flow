@@ -111,10 +111,12 @@ const FormatDailyUsageData = ({
             .add(additionValue, "minute")
             .format("HH:mm");
 
-          const to = dayjs(item.timestamp, "HH:mm")
-            .add((additionValue += 15), "minute")
+          const to = dayjs
+            .unix(item.timestamp)
+            .add(additionValue + 15, "minute")
             .format("HH:mm");
 
+          additionValue += 15;
           return {
             ...item,
             timeString: `${from} - ${to}`,
@@ -122,10 +124,18 @@ const FormatDailyUsageData = ({
           };
         });
 
+        additionValue = 0;
+
         groupedData.push({
           date: String(i + 1),
-          usage: (totalUsage / 5).toFixed(2), // Rounded to 2 decimals
-          value: (totalUsage / 5).toFixed(2),
+          usage:
+            totalUsage > 500
+              ? (totalUsage / 4).toFixed(2)
+              : totalUsage.toFixed(2), // Rounded to 2 decimals
+          value:
+            totalUsage > 500
+              ? (totalUsage / 4).toFixed(2)
+              : totalUsage.toFixed(2),
           data: updatedChunk, // The 4 objects in this group
         });
       }

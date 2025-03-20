@@ -54,6 +54,7 @@ export default function Home() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options.date, selectedDate, refetch, JSON.stringify(data)]);
+
   //startMQTTService();
 
   return (
