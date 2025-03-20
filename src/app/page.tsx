@@ -9,7 +9,7 @@ import DateSwitcher from "@/components/dateSwitch/DateSwitcher";
 import FormatDailyUsageData from "@/api/quarterlyUsageAPI";
 import { quarterUsageData } from "@/api/types/dailyUsageTypes";
 import { bargraphInitialState } from "@/utils/constants";
-
+//import { startMQTTService } from "@/lib/iot_core/temp-mqtt";
 const Transitions = dynamic(() => import("@/components/animations/Transition"));
 const InfoCard = dynamic(() => import("@/components/shared/InfoCard"));
 const BarListHero = dynamic(() => import("@/components/BarList/BarListHero"));
@@ -36,22 +36,26 @@ export default function Home() {
   const { data, refetch } = FormatDailyUsageData({
     slug: queryString.stringify(options),
   });
+
   useEffect(() => {
-    if (refetch)
+    if (refetch) {
       refetch({
         slug: queryString.stringify(options),
       });
-    return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options.date, selectedDate, refetch]);
+    }
 
-  useEffect(() => {
     if (data && data.length > 0) {
       setselectedbar(String(data.length));
     }
-    return () => {};
+
+    return () => {
+      setselectedbar("0");
+      setselectedBarData(bargraphInitialState);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(data)]);
+  }, [options.date, selectedDate, refetch, JSON.stringify(data)]);
+  //startMQTTService();
+
   return (
     <Transitions
       type="slide"
@@ -59,7 +63,7 @@ export default function Home() {
       in={true}
       timeout={{ appear: 0, enter: 100, exit: 100 }}
     >
-      <div className="bg-[#edf1f5]">
+      <div className="bg-[#edf1f5] no-scrollbar">
         <InfoCard />
         <ConsumptionCard powerUsage={75} maxPower={90} limitPower={3} />
         <DateSwitcher

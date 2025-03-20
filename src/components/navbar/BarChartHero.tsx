@@ -35,15 +35,19 @@ const BarChartHero = ({
     return () => window.removeEventListener("resize", updateBarWidth); // Cleanup
   }, []);
 
-  const handleBarClick = useCallback((date: string) => {
-    setselectedbar(date);
-    const newSelectedBar = chartdata.findIndex((bar) => bar.date === date);
-    if (newSelectedBar) {
-      setselectedbardata(chartdata[newSelectedBar]);
-    }
+  const handleBarClick = useCallback(
+    async (date: string) => {
+      setselectedbar(date);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      await Promise.resolve(); // Ensures the state update completes before proceeding
+
+      const newSelectedBar = chartdata.findIndex((bar) => bar.date === date);
+      if (newSelectedBar !== -1) {
+        setselectedbardata(chartdata[newSelectedBar]);
+      }
+    },
+    [chartdata, setselectedbar, setselectedbardata]
+  );
 
   const handlePrevClick = useCallback(() => {
     const currentIndex = chartdata.findIndex((bar) => bar.date === selectedBar);
@@ -111,7 +115,11 @@ const BarChartHero = ({
             showYAxis={false}
             selectedBar={selectedBar}
           />
-          <div id="switch_hours" className="montserrat-custom mr-2">
+          <div
+            id="switch_hours"
+            className="montserrat-custom w-100"
+            style={{ marginLeft: "-16px" }}
+          >
             <div className="flex flex-row justify-between">
               <div className="flex flex-col gap-1">
                 <div className="text-gray-600 text-xs">Ora della giornata</div>

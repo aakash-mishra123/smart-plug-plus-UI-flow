@@ -34,3 +34,13 @@ body {
 .roboto {
   font-family: "Roboto", serif;
 }
+
+/* Hide scrollbar for all browsers */
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
+}
