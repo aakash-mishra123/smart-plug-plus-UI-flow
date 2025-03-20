@@ -720,7 +720,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
           >
             {showGridLines ? (
               <CartesianGrid
-                className={cx("stroke-gray-200 stroke-1 dark:stroke-gray-400")}
+                className={cx("#f0f2f6 stroke-1 dark:#f0f2f6")}
                 horizontal={layout !== "vertical"}
                 vertical={layout === "vertical"}
               />
@@ -737,7 +737,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 // base
                 "text-xs",
                 // text fill
-                "fill-gray-500 dark:fill-gray-500",
+                "#f0f2f6 dark:bg-gray-500",
                 { "mt-4": layout !== "vertical" }
               )}
               tickLine={false}

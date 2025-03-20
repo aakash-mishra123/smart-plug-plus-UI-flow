@@ -40,7 +40,7 @@ const DateSwitcher = ({ selectedDate, setSelectedDate }: DateSwitcherProps) => {
         <div className="flex flex-col gap-0 items-left">
           <span className="text-gray-400 text-sm font-bold">Giorno</span>
 
-          <span className="text-md font-semibold">
+          <span className="text-sm md:text-md font-semibold">
             {selectedDate.locale("it").format("dddd D MMMM YYYY")}
           </span>
         </div>
@@ -75,7 +75,9 @@ const DateSwitcher = ({ selectedDate, setSelectedDate }: DateSwitcherProps) => {
         id="total_consumption_stats"
         className="flex montserrat-custom flex-row justify-between w-full gap-4 pb-2 bg-white border-b-2 border-gray-300"
       >
-        <p className="text-sm text-gray-800">Media di consumo giornaliero</p>
+        <p className="text-sm sm:text-md md:text-lg text-gray-800">
+          Media di consumo giornaliero
+        </p>
         <p className="text-md font-bold">{averageConsumption} kWh</p>
       </div>
       <div
@@ -83,7 +85,7 @@ const DateSwitcher = ({ selectedDate, setSelectedDate }: DateSwitcherProps) => {
         className="flex montserrat-custom items-center flex-row gap-8 justify-between w-full bg-white pt-2 "
       >
         <div className="flex flex-col gap-0">
-          <p className="text-md text-gray-800">
+          <p className="text-sm sm:text-md md:text-lg text-gray-800">
             Orario di consumo massimo giornalerio
           </p>
           <p className="text-sm text-gray-500 font-light">Orario {}</p>

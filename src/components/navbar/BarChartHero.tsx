@@ -87,7 +87,7 @@ const BarChartHero = ({
       </div>
       <div
         ref={containerRef}
-        className="overflow-x-auto h-full ml-4 mt-16"
+        className="overflow-x-auto h-full pt-12 pl-10 !bg-white"
         style={{ scrollbarWidth: "thin" }}
       >
         <div style={{ width: `300px`, minWidth: "100%" }}>
@@ -120,7 +120,11 @@ const BarChartHero = ({
                 </h2>
               </div>
 
-              <div id="switch_arrows" className="flex flex-row gap-2 *:mr-2">
+              <div
+                id="switch_arrows"
+                className="flex flex-row gap-2 *:mr-2"
+                style={{ marginLeft: "-16px" }}
+              >
                 <div
                   className={`flex items-center ${
                     selectedBar === String(chartdata.length) ? "gap-4" : "gap-6"

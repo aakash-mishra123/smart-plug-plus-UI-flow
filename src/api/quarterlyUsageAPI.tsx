@@ -105,11 +105,8 @@ const FormatDailyUsageData = ({
 
         // Mark peak value
         const updatedChunk = chunk.map((item) => {
-          const from = dayjs.unix(item.timestamp).format("hh:mm");
-          const to = dayjs
-            .unix(chunk[0].timestamp)
-            .add(15, "minute")
-            .format("hh:mm");
+          const from = dayjs.unix(item.timestamp).format("HH:mm");
+          const to = dayjs(from, "HH:mm").add(15, "minute").format("HH:mm");
           return {
             ...item,
             timeString: `${from} - ${to}`,
