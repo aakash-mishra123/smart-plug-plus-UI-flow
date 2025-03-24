@@ -6,6 +6,8 @@ export type FetchQuarterlyUsageDataProps = {
 };
 
 export type QuarterlyAPIResponseType = {
+  date: string;
+  totalEnergyConsumed?: number;
   data?: EnergyDataProp[];
 };
 
@@ -30,8 +32,15 @@ export type quarterUsageData = {
   data?: dataItem[];
 };
 
-export type ResultDataType = {
+export type totalDailyUsageType = {
+  date: string;
+  totalEnergyConsumed: number | undefined;
+  averageConsumption: number | undefined;
+  peakConsumption: { value: number; timeString: string };
   data: quarterUsageData[];
+};
+export type ResultDataType = {
+  data: totalDailyUsageType;
   error: string | null;
   loading: boolean;
   refetch?: (params: FetchQuarterlyUsageDataProps) => void;

@@ -57,7 +57,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
               marginLeft: "8px",
             },
             "& .MuiLinearProgress-dashed": {
-              backgroundColor: "#edf1f5", // Dashed buffer color (Red)
+              backgroundColor: "#c1cede", // Dashed buffer color (Red)
               backgroundImage: "none",
             },
             "& .MuiLinearProgress-bar2Buffer": {

@@ -1,0 +1,52 @@
+import { ReactNode } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../shared/Tabs";
+
+type TabContentComponents = {
+  id: number;
+  value: string;
+  children: ReactNode;
+};
+
+type TabHeadingComponent = {
+  heading: string;
+  title: string;
+  onTabClick: (topic: string) => void;
+};
+
+type NavbarProps = {
+  tabHeadings: TabHeadingComponent[];
+  tabChildComponents: TabContentComponents[];
+};
+
+const Navbar = ({ tabHeadings, tabChildComponents }: NavbarProps) => (
+  <Tabs defaultValue={tabHeadings[1].heading} className="!ring-0 !dark:ring-0">
+    <TabsList
+      variant="line"
+      className="pt-4 px-4 mr-2 montserrat-custom font-bold !ring-0 !dark:ring-0 border-none text-2xl text-black !dark:border-gray-100"
+    >
+      {tabHeadings.map((item: TabHeadingComponent, index: number) => {
+        return (
+          <TabsTrigger
+            key={index}
+            value={item.heading}
+            onTabClick={item.onTabClick}
+            className="text-black w-1/2 pb-4"
+          >
+            {item.title}
+          </TabsTrigger>
+        );
+      })}
+    </TabsList>
+    <div className="mt-0 mb-32">
+      {tabChildComponents.map((item: TabContentComponents) => {
+        return (
+          <TabsContent key={item.id} value={item.value}>
+            {item.children}
+          </TabsContent>
+        );
+      })}
+    </div>
+  </Tabs>
+);
+
+export default Navbar;

@@ -3,6 +3,7 @@ import { TbBolt } from "react-icons/tb";
 import { Chip, LinearProgress } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Card } from "@tremor/react";
+import { convertToItalicNumber } from "@/utils/methods";
 
 interface BarListHeroProps {
   data: quarterUsageData | undefined;
@@ -14,9 +15,12 @@ const BarListHero = ({ data }: BarListHeroProps) => {
   return (
     <div className="w-full mx-auto p-4 pt-2 bg-white montserrat-custom pb-12 mb-12">
       {/* Average Consumption Card */}
-      <Card className="mt-3 p-4 flex justify-between items-center bg-slate-200 rounded-lg">
-        <span className="text-md text-black">Media consumo orario</span>
-        <span className="text-xl font-semibold">{`${total} kWh`}</span>
+      <Card className="mt-3 p-4 flex justify-between !ring-transparent items-center bg-slate-200 rounded-lg">
+        <span className="text-md text-black">Consumo orario</span>
+        <span className="text-xl font-semibold">{`${convertToItalicNumber(
+          total,
+          100
+        )} Wh`}</span>
       </Card>
       <div className="mt-4 space-y-4">
         {data?.data?.map((item, index) => (

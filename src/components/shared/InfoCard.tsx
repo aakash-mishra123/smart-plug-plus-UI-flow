@@ -8,7 +8,7 @@ import MeterIcon from "../../../public/assets/meter_Icon.png";
 const InfoCard = () => {
   return (
     <>
-      <div className="bg-[#C81D5E] h-fit p-4 min-w-[100vw] mb-4">
+      <div className="bg-[#C81D5E] h-fit p-4 min-w-[100vw]">
         <Card className="bg-white rounded-md p-4">
           <Title className="text-xl text-black font-semibold mb-2">
             La mia presa plus

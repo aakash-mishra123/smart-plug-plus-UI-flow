@@ -5,6 +5,7 @@ import {
   QuarterlyAPIResponseType,
   quarterUsageData,
   ResultDataType,
+  totalDailyUsageType,
 } from "./types/dailyUsageTypes";
 import { EnergyDataProp } from "@/utils/types";
 import dayjs from "dayjs";
@@ -77,8 +78,20 @@ const FormatDailyUsageData = ({
   });
 
   if (!data || !data?.data) {
-    return { data: [], error: error || null, loading };
+    return {
+      data: {
+        date: "",
+        totalEnergyConsumed: 0,
+        averageConsumption: 0,
+        peakConsumption: { value: 0, timeString: "" },
+        data: [],
+      },
+      error: error || null,
+      loading,
+    };
   }
+
+  const peakConsumption = { value: 0, timeString: "" };
 
   function divideIntoFourGroups(
     data: {
@@ -117,6 +130,16 @@ const FormatDailyUsageData = ({
             .format("HH:mm");
 
           additionValue += 15;
+
+          if (totalUsage > peakConsumption.value) {
+            peakConsumption.value = Math.max(totalUsage, peakConsumption.value);
+            const endValue = dayjs(`2000-01-01 ${from}`, "YYYY-MM-DD HH:mm") // Add a date component
+              .add(60, "minute")
+              .format("HH:mm");
+
+            peakConsumption.timeString = `${from} - ${endValue}`;
+          }
+
           return {
             ...item,
             timeString: `${from} - ${to}`,
@@ -140,6 +163,10 @@ const FormatDailyUsageData = ({
         });
       }
     }
+    const totalHours = 24;
+    while (groupedData.length < totalHours) {
+      groupedData.push({});
+    }
 
     return groupedData;
   }
@@ -153,7 +180,16 @@ const FormatDailyUsageData = ({
       .format("DD-MM-YYYY, hh:mm A"),
   }));
 
-  const dividedData: quarterUsageData[] = divideIntoFourGroups(chartData);
+  const dividedIntervalsData: quarterUsageData[] =
+    divideIntoFourGroups(chartData);
+
+  const dividedData: totalDailyUsageType = {
+    date: data?.date,
+    totalEnergyConsumed: data?.totalEnergyConsumed,
+    averageConsumption: data?.totalEnergyConsumed ?? 0 / 24,
+    peakConsumption: peakConsumption,
+    data: dividedIntervalsData,
+  };
   return { data: dividedData, error: error || null, loading, refetch };
 };
 

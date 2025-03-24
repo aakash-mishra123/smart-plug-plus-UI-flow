@@ -9,8 +9,9 @@ import DateSwitcher from "@/components/dateSwitch/DateSwitcher";
 import FormatDailyUsageData from "@/api/quarterlyUsageAPI";
 import { quarterUsageData } from "@/api/types/dailyUsageTypes";
 import { bargraphInitialState } from "@/utils/constants";
-//import { startMQTTService } from "@/lib/iot_core/temp-mqtt";
-const Transitions = dynamic(() => import("@/components/animations/Transition"));
+import { startMQTTService } from "@/lib/iot_core/temp-mqtt";
+const Navbar = dynamic(() => import("@/components/tabs/Tabs"));
+const Display = dynamic(() => import("@/components/display/display"));
 const InfoCard = dynamic(() => import("@/components/shared/InfoCard"));
 const BarListHero = dynamic(() => import("@/components/BarList/BarListHero"));
 const ConsumptionCard = dynamic(
@@ -18,11 +19,12 @@ const ConsumptionCard = dynamic(
 );
 
 export default function Home() {
-  const [selectedDate, setselectedDate] = useState<Dayjs>(
-    dayjs().subtract(5, "day").locale("en")
-  );
-  const [selectedBarData, setselectedBarData] =
-    useState<quarterUsageData>(bargraphInitialState);
+  const [selectedDate, setselectedDate] = useState<Dayjs>(dayjs().locale("en"));
+  const [selectedBarData, setselectedBarData] = useState<quarterUsageData>();
+
+  const [prevDayConsumption, setPrevDayConsumption] = useState<number>(0);
+
+  const [currDayConsumption, setCurrDayConsumption] = useState<number>(0);
 
   const [selectedBar, setselectedbar] = useState<string>("0");
   const options = useMemo(
@@ -44,8 +46,14 @@ export default function Home() {
       });
     }
 
-    if (data && data.length > 0) {
-      setselectedbar(String(data.length));
+    if (data && data?.data && data?.data.length > 0) {
+      const lastIndex = data.data
+        .map((obj, index) => (Object.keys(obj).length > 0 ? index : -1))
+        .filter((index) => index != -1)
+        .pop();
+
+      setselectedbar(String(lastIndex ? lastIndex + 1 : 0));
+      setselectedBarData(data?.data[lastIndex ?? 0]);
     }
 
     return () => {
@@ -53,32 +61,78 @@ export default function Home() {
       setselectedBarData(bargraphInitialState);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options.date, selectedDate, refetch, JSON.stringify(data)]);
+  }, [options.date, selectedDate, refetch]);
 
-  //startMQTTService();
+  const onFirstTabClick = async () => {
+    setCurrDayConsumption(data?.totalEnergyConsumed ?? 0);
+    await Promise.resolve();
+    if (refetch) {
+      refetch({
+        slug: queryString.stringify({
+          date: dayjs().subtract(1, "day").format("YYYY-MM-DD"),
+          serial: process.env.NEXT_PUBLIC_SERIAL_PARAMS,
+        }),
+      });
+
+      setPrevDayConsumption(data?.totalEnergyConsumed ?? 0);
+    }
+  };
+
+  startMQTTService();
 
   return (
-    <Transitions
-      type="slide"
-      direction="left"
-      in={true}
-      timeout={{ appear: 0, enter: 100, exit: 100 }}
-    >
-      <div className="bg-[#edf1f5] no-scrollbar">
-        <InfoCard />
-        <ConsumptionCard powerUsage={75} maxPower={90} limitPower={3} />
-        <DateSwitcher
-          selectedDate={selectedDate}
-          setSelectedDate={setselectedDate}
-        />
-        <BarChartHero
-          chartdata={data}
-          selectedBar={selectedBar}
-          setselectedbar={setselectedbar}
-          setselectedbardata={setselectedBarData}
-        />
-        <BarListHero data={selectedBarData} />
-      </div>
-    </Transitions>
+    <div className="bg-[#edf1f5] no-scrollbar">
+      <InfoCard />
+      <ConsumptionCard powerUsage={75} maxPower={90} limitPower={3} />
+
+      <Navbar
+        tabHeadings={[
+          {
+            heading: "Tab1",
+            title: "Consumi e spesa",
+            onTabClick: () => onFirstTabClick(),
+          },
+          {
+            heading: "Tab2",
+            title: "Dettaglio dei consumi",
+            onTabClick: () => {
+              console.log("second tab clicked");
+            },
+          },
+        ]}
+        tabChildComponents={[
+          {
+            id: 1,
+            value: "Tab1",
+            children: (
+              <Display
+                currentDayConsumption={currDayConsumption}
+                previousDayConsumption={prevDayConsumption}
+              />
+            ),
+          },
+          {
+            id: 2,
+            value: "Tab2",
+            children: (
+              <>
+                <DateSwitcher
+                  selectedDate={selectedDate}
+                  setSelectedDate={setselectedDate}
+                  data={data}
+                />
+                <BarChartHero
+                  chartdata={data}
+                  selectedBar={selectedBar}
+                  setselectedbar={setselectedbar}
+                  setselectedbardata={setselectedBarData}
+                />
+                <BarListHero data={selectedBarData} />
+              </>
+            ),
+          },
+        ]}
+      />
+    </div>
   );
 }
