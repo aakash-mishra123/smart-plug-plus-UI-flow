@@ -19,10 +19,13 @@ type NavbarProps = {
 };
 
 const Navbar = ({ tabHeadings, tabChildComponents }: NavbarProps) => (
-  <Tabs defaultValue={tabHeadings[1].heading} className="!ring-0 !dark:ring-0">
+  <Tabs
+    defaultValue={tabHeadings[1].heading}
+    className="!ring-opacity-0 !dark:ring-opacity-0 !ring-white !dark:ring-white"
+  >
     <TabsList
       variant="line"
-      className="pt-4 px-4 mr-2 montserrat-custom font-bold !ring-0 !dark:ring-0 border-none text-2xl text-black !dark:border-gray-100"
+      className="pt-4 px-4 mr-2 montserrat-custom font-bold !ring-opacity-0 !ring-white !dark:ring-white !dark:ring-opacity-0 border-none text-2xl text-black !dark:border-gray-100"
     >
       {tabHeadings.map((item: TabHeadingComponent, index: number) => {
         return (

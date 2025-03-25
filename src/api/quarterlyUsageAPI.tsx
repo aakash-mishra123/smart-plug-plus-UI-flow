@@ -98,7 +98,6 @@ const FormatDailyUsageData = ({
       date: string;
       usage: number;
       timestamp: number;
-      formattedTimeStamp: string;
     }[]
   ) {
     const groupedData = [];
@@ -129,8 +128,6 @@ const FormatDailyUsageData = ({
             .add(additionValue + 15, "minute")
             .format("HH:mm");
 
-          additionValue += 15;
-
           if (totalUsage > peakConsumption.value) {
             peakConsumption.value = Math.max(totalUsage, peakConsumption.value);
             const endValue = dayjs(`2000-01-01 ${from}`, "YYYY-MM-DD HH:mm") // Add a date component
@@ -148,18 +145,19 @@ const FormatDailyUsageData = ({
         });
 
         additionValue = 0;
+        const timestring = `Dalle ore ${dayjs
+          .unix(chunk[0].timestamp)
+          .format("HH:mm")} - alle ore ${dayjs
+          .unix(chunk[0].timestamp)
+          .add(60, "minute")
+          .format("HH:mm")}`;
 
         groupedData.push({
-          date: String(i + 1),
-          usage:
-            totalUsage > 500
-              ? (totalUsage / 4).toFixed(2)
-              : totalUsage.toFixed(2), // Rounded to 2 decimals
-          value:
-            totalUsage > 500
-              ? (totalUsage / 4).toFixed(2)
-              : totalUsage.toFixed(2),
-          data: updatedChunk, // The 4 objects in this group
+          date: String(i),
+          usage: totalUsage,
+          value: totalUsage,
+          timestring: timestring,
+          data: updatedChunk,
         });
       }
     }
@@ -172,21 +170,22 @@ const FormatDailyUsageData = ({
   }
   const chartData = data?.data.map((item: EnergyDataProp) => ({
     date: item.formattedDate,
-    usage: item.currQuartActEnergy || 0, // Ensure usage is a valid number
+    usage: item.currQuartActEnergy || 0,
     timestamp: item.measureTS,
     value: item.currQuartActEnergy || 0,
-    formattedTimeStamp: dayjs
-      .unix(item.measureTS)
-      .format("DD-MM-YYYY, hh:mm A"),
   }));
 
   const dividedIntervalsData: quarterUsageData[] =
     divideIntoFourGroups(chartData);
 
+  const averageConsumption = data?.totalEnergyConsumed
+    ? data?.totalEnergyConsumed / 24
+    : 0;
+
   const dividedData: totalDailyUsageType = {
     date: data?.date,
     totalEnergyConsumed: data?.totalEnergyConsumed,
-    averageConsumption: data?.totalEnergyConsumed ?? 0 / 24,
+    averageConsumption: averageConsumption,
     peakConsumption: peakConsumption,
     data: dividedIntervalsData,
   };

@@ -729,13 +729,13 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               hide={!showXAxis}
               tick={{
                 transform:
-                  layout !== "vertical" ? "translate(0, 6)" : undefined,
+                  layout !== "vertical" ? "translate(-6, 2)" : undefined,
               }}
               fill=""
               stroke=""
               className={cx(
                 // base
-                "text-xs",
+                "text-xs -ml-4",
                 // text fill
                 "#f0f2f6 dark:bg-gray-500",
                 { "mt-4": layout !== "vertical" }

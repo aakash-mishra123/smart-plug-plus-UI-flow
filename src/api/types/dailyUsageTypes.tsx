@@ -19,7 +19,6 @@ export type dataItem = {
   peakValue?: boolean;
   from?: string;
   to?: string;
-  formattedTimeStamp: string;
   timeString?: string;
 };
 
@@ -27,8 +26,8 @@ export type quarterUsageData = {
   date?: string;
   usage?: number | string;
   value?: number | string;
-  name?: number;
   timestamp?: string;
+  timestring?: string;
   data?: dataItem[];
 };
 

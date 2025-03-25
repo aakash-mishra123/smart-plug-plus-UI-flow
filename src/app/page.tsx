@@ -1,15 +1,12 @@
 "use client";
 import dynamic from "next/dynamic";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import queryString from "query-string";
-import { useState } from "react";
 import BarChartHero from "@/components/navbar/BarChartHero";
 import DateSwitcher from "@/components/dateSwitch/DateSwitcher";
 import FormatDailyUsageData from "@/api/quarterlyUsageAPI";
 import { quarterUsageData } from "@/api/types/dailyUsageTypes";
-import { bargraphInitialState } from "@/utils/constants";
-import { startMQTTService } from "@/lib/iot_core/temp-mqtt";
 const Navbar = dynamic(() => import("@/components/tabs/Tabs"));
 const Display = dynamic(() => import("@/components/display/display"));
 const InfoCard = dynamic(() => import("@/components/shared/InfoCard"));
@@ -20,13 +17,11 @@ const ConsumptionCard = dynamic(
 
 export default function Home() {
   const [selectedDate, setselectedDate] = useState<Dayjs>(dayjs().locale("en"));
-  const [selectedBarData, setselectedBarData] = useState<quarterUsageData>();
-
+  const [selectedBarData, setselectedBarData] = useState<quarterUsageData>({});
   const [prevDayConsumption, setPrevDayConsumption] = useState<number>(0);
-
   const [currDayConsumption, setCurrDayConsumption] = useState<number>(0);
-
   const [selectedBar, setselectedbar] = useState<string>("0");
+
   const options = useMemo(
     () => ({
       date: dayjs(selectedDate).format("YYYY-MM-DD"),
@@ -38,6 +33,10 @@ export default function Home() {
   const { data, refetch } = FormatDailyUsageData({
     slug: queryString.stringify(options),
   });
+
+  //const { data: deviceData, isLoading } = FormatDeviceStatusData(1000);
+  //console.log("data isLoading", deviceData, isLoading);
+  // console.log("device data & isLoading", deviceData, isLoading);
 
   useEffect(() => {
     if (refetch) {
@@ -52,14 +51,11 @@ export default function Home() {
         .filter((index) => index != -1)
         .pop();
 
-      setselectedbar(String(lastIndex ? lastIndex + 1 : 0));
+      setselectedbar(String(lastIndex ? lastIndex : 0));
       setselectedBarData(data?.data[lastIndex ?? 0]);
     }
 
-    return () => {
-      setselectedbar("0");
-      setselectedBarData(bargraphInitialState);
-    };
+    return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options.date, selectedDate, refetch]);
 
@@ -78,11 +74,9 @@ export default function Home() {
     }
   };
 
-  startMQTTService();
-
   return (
     <div className="bg-[#edf1f5] no-scrollbar">
-      <InfoCard />
+      <InfoCard online={true} serial={""} id={""} />
       <ConsumptionCard powerUsage={75} maxPower={90} limitPower={3} />
 
       <Navbar
@@ -126,6 +120,7 @@ export default function Home() {
                   selectedBar={selectedBar}
                   setselectedbar={setselectedbar}
                   setselectedbardata={setselectedBarData}
+                  selectedBarData={selectedBarData}
                 />
                 <BarListHero data={selectedBarData} />
               </>

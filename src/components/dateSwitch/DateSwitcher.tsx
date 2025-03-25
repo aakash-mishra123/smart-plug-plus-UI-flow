@@ -79,7 +79,7 @@ const DateSwitcher = ({
           Media di consumo giornaliero
         </p>
         <p className="text-md font-bold">
-          {convertToItalicNumber(data?.averageConsumption ?? 0, 1000)} kWh
+          {convertToItalicNumber(data?.averageConsumption ?? 0, 100)} Wh
         </p>
       </div>
       <div
@@ -96,7 +96,7 @@ const DateSwitcher = ({
         </div>
 
         <p className="text-md w-18 font-extrabold">
-          {convertToItalicNumber(data?.peakConsumption.value ?? 0, 1000)} kWh
+          {convertToItalicNumber(data?.peakConsumption.value ?? 0, 100)} Wh
         </p>
       </div>
     </div>

@@ -11,6 +11,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 interface BarchartProps {
   chartdata: totalDailyUsageType;
   selectedBar: string;
+  selectedBarData: quarterUsageData;
   setselectedbar: (data: string) => void;
   setselectedbardata: (data: quarterUsageData) => void;
 }
@@ -19,6 +20,7 @@ const BarChartHero = ({
   selectedBar,
   setselectedbar,
   setselectedbardata,
+  selectedBarData,
 }: BarchartProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [barWidth, setBarWidth] = useState(7); // Default bar width
@@ -83,7 +85,7 @@ const BarChartHero = ({
     <div className="relative bg-white">
       <div
         ref={containerRef}
-        className="overflow-x-auto h-full pt-12 !bg-white"
+        className="overflow-x-auto h-full pt-8 !bg-white"
         style={{ scrollbarWidth: "thin" }}
       >
         <div style={{ width: `300px`, minWidth: "100%" }}>
@@ -122,7 +124,7 @@ const BarChartHero = ({
               <div className="flex flex-col gap-1">
                 <div className="text-gray-600 text-xs">Ora della giornata</div>
                 <h2 className="text-md text-black font-semibold">
-                  Dalle ore 12:00 alle ore 13:00
+                  {selectedBarData.timestring}
                 </h2>
               </div>
 
