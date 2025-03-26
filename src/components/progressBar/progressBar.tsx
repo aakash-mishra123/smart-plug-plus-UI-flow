@@ -11,7 +11,6 @@ type CustomProgressProps = {
 const CustomLinearProgress = ({ value }: CustomProgressProps) => {
   const bkgColor =
     value < 84 ? (value < 38 ? "#37785a" : "#f5b800") : "#ed0528";
-
   return (
     <Box
       sx={{
@@ -42,11 +41,11 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
               animation: "none",
             },
             "& .MuiLinearProgress-bar": {
-              backgroundColor: "#1976D2", // Value bar color (Primary)
-              marginLeft: "12px",
+              backgroundColor: "#1976D2",
+              marginLeft: "2px",
             },
             "& .MuiLinearProgress-bar1": {
-              backgroundColor: bkgColor, // Value bar color (Primary)
+              backgroundColor: bkgColor,
               borderRadius: 16,
               position: "absolute",
               left: "4px",
@@ -54,14 +53,14 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
               transform: "translateX(-2%) !important",
               maxWidth: "98%",
               width: `${value}%`,
-              marginLeft: "8px",
+              marginLeft: "4px",
             },
             "& .MuiLinearProgress-dashed": {
-              backgroundColor: "#c1cede", // Dashed buffer color (Red)
+              backgroundColor: "#c1cede",
               backgroundImage: "none",
             },
             "& .MuiLinearProgress-bar2Buffer": {
-              backgroundColor: "#c1cede", // Buffer bar color (Amber)
+              backgroundColor: "#c1cede",
               animation: "none",
             },
           }}

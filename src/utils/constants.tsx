@@ -1083,3 +1083,48 @@ export const dummyQuarterUsage = {
     },
   ],
 };
+
+export const meterEventDummyData = {
+  Id: "c2g-57CFB6E1C",
+  Ts: "2025/03/25 16:42:44",
+  Meter: "M1",
+  Type: "CF51",
+  Payload: {
+    MessagePosixTimestamp: 1742920993,
+    EventType: 2,
+    EventPosixTimestamp: 1742920993,
+    EventsCounter: 49427,
+    InstantPower: 177,
+    ProdInstantPower: 0,
+    Gap: 300,
+  },
+};
+
+export const podDataDummy = [
+  {
+    pesse: 1,
+    dataPlate: "MATRICOLA_AABBCC",
+    availablePower: 3420,
+    pod: "IT0123456789AB",
+    customerCode: "CLIENTExx",
+    ttl: "1804248523",
+    k: 1,
+    messagePosixTimestamp: 1619433928,
+    contractPower: 30,
+    meter: "M1",
+    vendor: "NOME__VENDITORE__ENERGIA",
+    eventPosixTimestamp: 1619433928,
+    startContract: "01/02/2020 [7]",
+    eventsCounter: 19,
+    gap: 300,
+    freezingDay: "31/01/2020 [6]",
+    serial: "c2g-57CFACECC",
+    phone: "0717450110",
+  },
+];
+
+export const chain2gatedummy = {
+  online: true,
+  id: "0366d483-3b26-4c0e-96de-ef4e5cd9f230",
+  serial: "c2g-57CFB6E1C",
+};

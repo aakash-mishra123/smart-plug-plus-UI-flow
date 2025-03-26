@@ -1,24 +1,21 @@
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-// import { useCallback, useState } from "react";
 // import { DeviceStatusResponseType } from "./types/deviceStatusTypes";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const STATUS_SLUG = "v1/energy/chain-to-gate";
-const AUTH_TOKEN = process.env.NEXT_PUBLIC_DEVICE_AUTH_TOKEN;
+// const AUTH_TOKEN = process.env.NEXT_PUBLIC_DEVICE_AUTH_TOKEN;
 
-const FetchDeviceData = async () => {
+export const FetchDeviceData = async () => {
   const url = `${BASE_URL}/${STATUS_SLUG}`;
-
-  // const [data, setData] = useState<DeviceStatusResponseType | null>(null);
-
   try {
     const { data } = await axios.get(url, {
+      params: {},
       headers: {
-        accept: "application/json",
+        accept: "/",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${AUTH_TOKEN}`,
+        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZFByZXNhRm9ybWlkYWJpbGUiOiIwMzY2ZDQ4My0zYjI2LTRjMGUtOTZkZS1lZjRlNWNkOWYyMzAiLCJpc3MiOiJBUFAiLCJleHAiOjE3NDE2ODg5OTR9.Bste60xcPzeVwDwSC54xr8XuoXhc2qB7AhC-9M9G6ZfrWkZd8qGMfYiVqomk3DR37_-XlagqoDgvNjrSf2eDXAzkrXQH8ZVnJXz08aDhZjouZYMN_nv4QKo3eNek20mO9MsSjLNmn1MfPqKWYLwPMOCFo4O62LCs2mESexUAaSYPI-FWowtwWuWyOI_fs_7OQvGvKXyzhRNt9EBz1FzBvs5I1QSFXTyzm8pz8nyOPNiRbtSDrLcFiiS422Jv6P-SmD0rTxlbxfvZPYHosAEmq217Xg0SMp715kKrbxBAu6Y3wiRTWwnn92JXjJ_n3uH5oNHv9nCErcfBBKiGt81NnQ`,
       },
+      withCredentials: true,
     });
 
     return data;
@@ -29,15 +26,3 @@ const FetchDeviceData = async () => {
     }
   }
 };
-
-const FormatDeviceStatusData = (interval: number) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["apiData"],
-    queryFn: FetchDeviceData,
-    refetchInterval: interval,
-  });
-
-  return { data, isLoading };
-};
-
-export default FormatDeviceStatusData;

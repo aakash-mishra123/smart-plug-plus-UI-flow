@@ -1,4 +1,4 @@
-import axios from "axios";
+//import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
 import {
   FetchQuarterlyUsageDataProps,
@@ -9,7 +9,7 @@ import {
 } from "./types/dailyUsageTypes";
 import { EnergyDataProp } from "@/utils/types";
 import dayjs from "dayjs";
-
+import axios from "axios";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const AUTH_TOKEN = process.env.NEXT_PUBLIC_AUTH_TOKEN;
 const QUARTER_USAGE_URL = "v1/energy/quarter";
@@ -33,25 +33,31 @@ const FetchUsageByIntervals = ({
 
   const fetchData = useCallback(
     async ({ slug, options = {} }: FetchQuarterlyUsageDataProps) => {
-      const url = `${BASE_URL}/${QUARTER_USAGE_URL}?${slug}`;
-      setLoading(() => true);
-      setError(null);
-
       try {
+        const url = `${BASE_URL}/${QUARTER_USAGE_URL}?${slug}`;
+
         const response = await axios.get(url, {
           params: options,
           headers: {
             accept: "application/json",
-            "Content-Type": "application/json",
+            "Content-type": "application/json",
             Authorization: `Bearer ${AUTH_TOKEN}`,
+            "Cache-Control": "no-cache",
           },
         });
-        setData(response.data);
+
+        setLoading(() => true);
+        setError(null);
+        const responseData = response?.data;
+        setData(responseData);
+
+        setData(data);
       } catch (err) {
         if (err instanceof Error) setError(err.message);
       }
       setLoading(() => false);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -136,7 +142,6 @@ const FormatDailyUsageData = ({
 
             peakConsumption.timeString = `${from} - ${endValue}`;
           }
-
           return {
             ...item,
             timeString: `${from} - ${to}`,

@@ -5,7 +5,7 @@ import { TbBolt } from "react-icons/tb";
 import { FaMoneyBills } from "react-icons/fa6";
 import { convertToItalicNumber } from "@/utils/methods";
 import { FaPercentage } from "react-icons/fa";
-
+//import { fetchData, resetData } from "@/app/store/redux/slice/powerSlice";
 interface ConsumptionDisplayProps {
   title: string;
   value: number;
