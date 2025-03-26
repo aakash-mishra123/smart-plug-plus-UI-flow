@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import {
   quarterUsageData,
   totalDailyUsageType,
-} from "@/api/types/dailyUsageTypes";
+} from "@/app/types/dailyUsageTypes";
 import { motion } from "framer-motion";
 import { Button } from "@tremor/react";
 import { BarChart } from "@/components/shared/BarChart";
@@ -80,7 +80,6 @@ const BarChartHero = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedBar]);
-
   return (
     <div className="relative bg-white">
       <div

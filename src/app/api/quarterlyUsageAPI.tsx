@@ -1,12 +1,12 @@
 //import axios from "axios";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   FetchQuarterlyUsageDataProps,
   QuarterlyAPIResponseType,
   quarterUsageData,
   ResultDataType,
   totalDailyUsageType,
-} from "./types/dailyUsageTypes";
+} from "../types/dailyUsageTypes";
 import { EnergyDataProp } from "@/utils/types";
 import dayjs from "dayjs";
 import axios from "axios";
@@ -40,9 +40,8 @@ const FetchUsageByIntervals = ({
           params: options,
           headers: {
             accept: "application/json",
-            "Content-type": "application/json",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${AUTH_TOKEN}`,
-            "Cache-Control": "no-cache",
           },
         });
 
@@ -50,8 +49,6 @@ const FetchUsageByIntervals = ({
         setError(null);
         const responseData = response?.data;
         setData(responseData);
-
-        setData(data);
       } catch (err) {
         if (err instanceof Error) setError(err.message);
       }

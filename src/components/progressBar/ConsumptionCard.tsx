@@ -4,13 +4,13 @@ import dynamic from "next/dynamic";
 import dayjs from "dayjs";
 import { Card, Badge, Text, Metric } from "@tremor/react/dist";
 import { InfoIcon } from "lucide-react";
-import axios from "axios";
 import { EnergyMeterData } from "@/utils/types";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import Paho from "paho-mqtt";
 import { convertToItalicNumber } from "@/utils/methods";
-import { MeterEvent } from "@/api/types/deviceStatusTypes";
+import { MeterEvent } from "@/app/types/deviceStatusTypes";
 import { meterEventDummyData, podDataDummy } from "@/utils/constants";
+import { fetchPodData } from "@/app/api/podDeviceData";
 
 const DrawerModal = dynamic(
   () => import("../../components/drawer/DrawerModal")
@@ -33,24 +33,12 @@ const ConsumptionCard = () => {
   dayjs.locale("it");
 
   useEffect(() => {
-    const fetchData = async () => {
-      const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-      const POD_DATA_SLUG = "v1/energy/pod-data";
-
-      const { data } = await axios.get(`${BASE_URL}/${POD_DATA_SLUG}`, {
-        params: {},
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZFByZXNhRm9ybWlkYWJpbGUiOiIwMzY2ZDQ4My0zYjI2LTRjMGUtOTZkZS1lZjRlNWNkOWYyMzAiLCJpc3MiOiJBUFAiLCJleHAiOjE3NDE2ODg5OTR9.Bste60xcPzeVwDwSC54xr8XuoXhc2qB7AhC-9M9G6ZfrWkZd8qGMfYiVqomk3DR37_-XlagqoDgvNjrSf2eDXAzkrXQH8ZVnJXz08aDhZjouZYMN_nv4QKo3eNek20mO9MsSjLNmn1MfPqKWYLwPMOCFo4O62LCs2mESexUAaSYPI-FWowtwWuWyOI_fs_7OQvGvKXyzhRNt9EBz1FzBvs5I1QSFXTyzm8pz8nyOPNiRbtSDrLcFiiS422Jv6P-SmD0rTxlbxfvZPYHosAEmq217Xg0SMp715kKrbxBAu6Y3wiRTWwnn92JXjJ_n3uH5oNHv9nCErcfBBKiGt81NnQ`,
-          "Cache-Control": "no-cache",
-        },
-      });
-
-      setPodData(data[0]);
+    const getData = async () => {
+      const result = await fetchPodData();
+      setPodData(result);
     };
 
-    fetchData();
+    getData();
   }, []);
 
   useEffect(() => {
@@ -72,6 +60,10 @@ const ConsumptionCard = () => {
       setiotData(JSON.parse(message.payloadString).Chain2Data);
     };
   }, []);
+
+  const contractPowerToShow = podData?.contractPower
+    ? podData?.contractPower
+    : 90;
 
   return (
     <>
@@ -108,9 +100,9 @@ const ConsumptionCard = () => {
                 "2,3"}
             </Metric>
             <Metric className=" text-3xl ">
-              di {podData?.contractPower ?? 90 / 100}{" "}
+              di {contractPowerToShow / 100}{" "}
             </Metric>
-            <p className="text-xl font-bold">kW</p>
+            <p className="text-2xl font-bold">kW</p>
           </div>
 
           <CustomLinearProgress

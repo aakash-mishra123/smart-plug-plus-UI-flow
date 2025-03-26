@@ -12,18 +12,11 @@ export async function startMQTTService() {
         userName: mqttUsername,
         password: "password",
         onSuccess: function () {
-            console.log("connected!");
             client.subscribe('c2/d/c2g-57CFB6E1C'); //serial from chain-2-gate 
-        },
-        onFailure: function (e) {
-            console.log("ERROR: ", e);
-            console.log("failed");
         },
     });
 
     client.onMessageArrived = function (message) {
-        console.log("Message arrived: ", JSON.parse(message.payloadString));
-
         return { iotData: JSON.parse(message.payloadString).Chain2Data }
     };
 

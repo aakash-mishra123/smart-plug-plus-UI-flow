@@ -5,8 +5,8 @@ import dayjs, { Dayjs } from "dayjs";
 import queryString from "query-string";
 import BarChartHero from "@/components/navbar/BarChartHero";
 import DateSwitcher from "@/components/dateSwitch/DateSwitcher";
-import FormatDailyUsageData from "@/api/quarterlyUsageAPI";
-import { quarterUsageData } from "@/api/types/dailyUsageTypes";
+import FormatDailyUsageData from "@/app/api/quarterlyUsageAPI";
+import { quarterUsageData } from "@/app/types/dailyUsageTypes";
 import { bargraphInitialState } from "@/utils/constants";
 const Navbar = dynamic(() => import("@/components/tabs/Tabs"));
 const Display = dynamic(() => import("@/components/display/display"));
@@ -71,10 +71,9 @@ export default function Home() {
       setPrevDayConsumption(data?.totalEnergyConsumed ?? 0);
     }
   };
-
   return (
     <div className="bg-[#edf1f5] no-scrollbar">
-      <InfoCard online={true} serial={""} id={""} />
+      <InfoCard />
       <ConsumptionCard />
 
       <Navbar
@@ -87,9 +86,7 @@ export default function Home() {
           {
             heading: "Tab2",
             title: "Dettaglio dei consumi",
-            onTabClick: () => {
-              console.log("second tab clicked");
-            },
+            onTabClick: () => {},
           },
         ]}
         tabChildComponents={[

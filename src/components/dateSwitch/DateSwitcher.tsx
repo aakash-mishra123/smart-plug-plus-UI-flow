@@ -3,7 +3,7 @@ import dayjs, { Dayjs } from "dayjs";
 import "dayjs/locale/it"; // Import Italian locale
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"; // Tremor uses Heroicons
 import { Button } from "@tremor/react"; // Tremor Button component
-import { totalDailyUsageType } from "@/api/types/dailyUsageTypes";
+import { totalDailyUsageType } from "@/app/types/dailyUsageTypes";
 import { convertToItalicNumber } from "@/utils/methods";
 dayjs.locale("it"); // Set locale globally
 

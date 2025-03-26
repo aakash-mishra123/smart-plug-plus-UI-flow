@@ -1,4 +1,4 @@
-import { quarterUsageData } from "@/api/types/dailyUsageTypes";
+import { quarterUsageData } from "@/app/types/dailyUsageTypes";
 import { TbBolt } from "react-icons/tb";
 import { Chip, LinearProgress } from "@mui/material";
 import { grey } from "@mui/material/colors";
