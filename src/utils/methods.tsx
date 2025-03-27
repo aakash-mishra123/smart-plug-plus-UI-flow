@@ -1,3 +1,7 @@
-export const convertToItalicNumber = (number: number, divisor: number) => {
-  return (number / divisor).toFixed(1).toString().replace(".", ",");
+export const convertToItalicNumber = (
+  number: number,
+  divisor: number,
+  decimalValues: number
+) => {
+  return (number / divisor).toFixed(decimalValues).toString().replace(".", ",");
 };

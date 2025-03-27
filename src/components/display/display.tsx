@@ -32,7 +32,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
           <div className="flex flex-row gap-1">
             <TbBolt className="text-pink-800 font-bold text-2xl" />
             <p className="text-lg sm:text-2xl font-black ">
-              {convertToItalicNumber(value, 1000)} {unit}
+              {convertToItalicNumber(value, 1000, 2)} {unit}
             </p>
           </div>
         </div>

@@ -19,7 +19,8 @@ const BarListHero = ({ data }: BarListHeroProps) => {
         <span className="text-md text-black">Consumo orario</span>
         <span className="text-xl font-semibold">{`${convertToItalicNumber(
           total,
-          100
+          100,
+          2
         )} Wh`}</span>
       </Card>
       <div className="mt-4 space-y-4">

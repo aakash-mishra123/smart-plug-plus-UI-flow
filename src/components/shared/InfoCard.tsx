@@ -49,11 +49,15 @@ const InfoCard = () => {
                 </div>
               </Flex>
 
-              <Flex justifyContent="start" alignItems="center" className="mt-2">
+              <Flex
+                justifyContent="start"
+                alignItems="center"
+                className="mt-2 gap-1"
+              >
                 {data?.online ? (
-                  <TbCircleFilled className="text-blue-600 rounded-full w-4 h-4" />
+                  <TbCircleFilled className="text-blue-600 rounded-full w-3 h-3" />
                 ) : (
-                  <TbCircleFilled className="text-red-800 rounded-full w-4 h-4" />
+                  <TbCircleFilled className="text-red-800 rounded-full w-3 h-3" />
                 )}
                 <div className="flex flex-col ml-2">
                   <Text className="text-gray-700 text-sm">

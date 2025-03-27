@@ -114,3 +114,21 @@ export interface EnergyDataProp {
   totalInduttiveReactEnergy: number;
   totalInductiveReactEnergy: number;
 }
+
+type Payload = {
+  MessagePosixTimestamp: number;
+  EventType: number;
+  EventPosixTimestamp: number;
+  EventsCounter: number;
+  InstantPower: number;
+  ProdInstantPower: number;
+  Gap: number;
+};
+
+export type MeterEvent = {
+  Id: string;
+  Ts: string;
+  Meter: string;
+  Type: string;
+  Payload: Payload;
+};
