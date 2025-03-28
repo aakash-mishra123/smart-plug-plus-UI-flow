@@ -3,7 +3,8 @@
 import React from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 import { Box, Typography } from "@mui/material";
-import { CiCircleCheck, CiWarning } from "react-icons/ci";
+import { FaCheckCircle } from "react-icons/fa";
+import { IoWarning } from "react-icons/io5";
 import { Metric } from "@tremor/react";
 import { convertToItalicNumber } from "@/utils/methods";
 type CustomProgressProps = {
@@ -14,20 +15,18 @@ type CustomProgressProps = {
 
 const CustomLinearProgress = ({ value }: CustomProgressProps) => {
   const bkgColor =
-    value < 2300 ? (value < 1900 ? "#37785a" : "#f5b800") : "#ed0528";
+    value < 3000 ? (value < 2500 ? "#37785a" : "#f5b800") : "#ed0528";
 
-  const bkgBanner = value < 1900 ? "#f5ff6" : "#fee9e8";
-
-  console.log("instant power", value, bkgColor);
-  const percent = Math.round((value / 3000) * 100);
+  const bkgBanner = value < 2500 ? "#f5fff6" : "#fcf1f6";
+  const percent = Math.round((value / 3200) * 100);
   return (
     <div className="flex flex-col relative py-2">
       <div className="flex flex-row gap-2 items-end mt-4 mb-4 pl-2">
         <Metric className={`text-3xl font-bold`} style={{ color: bkgColor }}>
           {convertToItalicNumber(value, 1000, 2) ?? "2,3"}
         </Metric>
-        <Metric className="  text-black text-3xl ">di {3000 / 1000} </Metric>
-        <p className="text-black text-2xl font-bold">kW</p>
+        <Metric className="text-black text-3xl ">di {3000 / 1000} </Metric>
+        <p className="text-black text-2xl ">kW</p>
       </div>
       <Box
         sx={{
@@ -58,7 +57,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
               },
               "& .MuiLinearProgress-bar": {
                 backgroundColor: "#1976D2",
-                marginLeft: "1%",
+                marginLeft: "2%",
                 position: "relative",
               },
               "& .MuiLinearProgress-bar1": {
@@ -86,7 +85,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
           <Box
             sx={{
               position: "absolute",
-              top: "9%",
+              top: "31%",
               width: "95%",
               display: "flex",
               justifyContent: "space-between",
@@ -94,7 +93,6 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
               px: "2%",
             }}
           >
-            {/* First Dot - 0 kW */}
             <Box
               sx={{
                 width: 6,
@@ -105,8 +103,6 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
                 left: "4%",
               }}
             />
-
-            {/* Second Dot - 2.5 kW (83.33% position) */}
             <Box
               sx={{
                 width: 6,
@@ -114,11 +110,9 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
                 backgroundColor: value < 83 ? "black" : "white",
                 borderRadius: "50%",
                 position: "absolute",
-                left: "75%",
+                right: "38%",
               }}
             />
-
-            {/* Third Dot - 3 kW (100% position) */}
             <Box
               sx={{
                 width: 6,
@@ -126,7 +120,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
                 backgroundColor: value < 98 ? "black" : "white",
                 borderRadius: "50%",
                 position: "absolute",
-                right: "-1%",
+                right: "2%",
               }}
             />
           </Box>
@@ -165,7 +159,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
             sx={{
               position: "absolute",
               color: "black",
-              right: "20%",
+              right: "35%",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -188,7 +182,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
           <Box
             sx={{
               color: "black",
-              marginRight: "3%",
+              marginRight: "6%",
               display: "flex",
               flexDirection: "column",
               alignItems: "end",
@@ -211,28 +205,28 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
 
         <hr />
         <div
-          className={`rounded-lg border-2 mt-4 p-4 flex flex-row gap-2 bg-white text-black montserrat-custom items-center`}
+          className={`rounded-lg border-2 mt-4 p-4 flex flex-row gap-2 bg-white text-black font-roboto items-center`}
           style={{ borderColor: bkgColor, background: bkgBanner }}
         >
-          {value < 1900 ? (
-            <CiCircleCheck
-              className={`font-bold w-8 rounded-full h-8 text-2xl text-green-800`}
+          {value < 2500 ? (
+            <FaCheckCircle
+              className={`font-bold w-6 rounded-full h-6 text-2xl text-green-800`}
             />
-          ) : value < 2300 ? (
-            <CiWarning
-              className={`font-bold w-8 rounded-full h-8 text-2xl text-yellow-500`}
+          ) : value < 3000 ? (
+            <IoWarning
+              className={`font-bold w-6 rounded-full h-6 text-2xl text-yellow-500`}
             />
           ) : (
-            <CiWarning
-              className={`font-bold w-8 rounded-full h-8 text-2xl text-red-800`}
+            <IoWarning
+              className={`font-bold w-6 rounded-full h-6 text-2xl text-red-800`}
             />
           )}
-          {value < 1900 ? (
+          {value < 2500 ? (
             <p className={`text-sm text-black`}>
               {" "}
               Lorem ipsum ab akldklajf dsalkf adslkfjsadf jldsakf jdsalfk{" "}
             </p>
-          ) : value < 2300 ? (
+          ) : value < 3000 ? (
             <p className={`text-sm text-[${bkgColor}]`}>
               {" "}
               Lorem ipsum ab akldklajf dsalkf adslkfjsadf jldsakf jdsalfk Lorem

@@ -75,7 +75,7 @@ const DrawerContent = React.forwardRef<
           id="drawer_content"
           ref={forwardedRef}
           className={cx(
-            "fixed bottom-0 z-50 !w-[100vw] max-w-lg h-fit overflow-y-auto rounded-t-xl border border-gray-200 bg-white py-6 px-4 shadow-lg",
+            "fixed bottom-0 z-50 !w-[100vw] max-w-lg h-fit overflow-y-auto rounded-t-xl border border-gray-200 bg-white pt-4 pb-2 px-4 shadow-lg",
             "data-[state=closed]:animate-slideDown data-[state=open]:animate-slideUp",
             focusRing,
             className

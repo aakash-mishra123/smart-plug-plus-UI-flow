@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         monteserrat: ["Monteserrat", "serif"],
-        roboto: ["Roboto", 'serif']
+        roboto: ["var(--font-roboto)", 'sans-serif'],
       },
       keyframes: {
         slideUp: {

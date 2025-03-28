@@ -31,8 +31,8 @@ const InfoCard = () => {
   return (
     <>
       <div className="bg-[#C81D5E] h-fit p-4 min-w-[100vw]">
-        <Card className="bg-white rounded-md p-4">
-          <Title className="text-xl text-black font-semibold mb-2">
+        <Card className="bg-white rounded-md p-4 font-roboto">
+          <Title className="text-lg text-black font-medium mb-2">
             La mia presa plus
           </Title>
 
@@ -42,8 +42,10 @@ const InfoCard = () => {
               <Flex justifyContent="start" alignItems="center" className="mt-2">
                 <CiPlug1 className="font-bold text-xl text-green-800" />
                 <div className="text-xs flex flex-col ml-2">
-                  <Text className="text-gray-500 text-md">Numero seriale</Text>
-                  <Text className="font-semibold">{`${
+                  <Text className="text-gray-500 text-md font-regular font-roboto">
+                    Numero seriale
+                  </Text>
+                  <Text className="font-medium">{`${
                     data?.serial ?? "abcdefg"
                   }`}</Text>
                 </div>
@@ -60,12 +62,12 @@ const InfoCard = () => {
                   <TbCircleFilled className="text-red-800 rounded-full w-3 h-3" />
                 )}
                 <div className="flex flex-col ml-2">
-                  <Text className="text-gray-700 text-sm">
+                  <Text className="text-gray-500 font-regular text-xs">
                     Stato connessione
                   </Text>
                   <div className="flex flex-col gap-0">
                     <Text
-                      className={` ${
+                      className={` text-sm ${
                         data?.online ? "text-green-600" : "text-red-800"
                       }`}
                     >

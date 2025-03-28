@@ -25,7 +25,7 @@ const Navbar = ({ tabHeadings, tabChildComponents }: NavbarProps) => (
   >
     <TabsList
       variant="line"
-      className="pt-4 px-4 mr-2 montserrat-custom font-bold !ring-opacity-0 !ring-white !dark:ring-white !dark:ring-opacity-0 border-none text-2xl text-black !dark:border-gray-100"
+      className="pt-4 px-4 mr-2 font-roboto font-thin !ring-opacity-0 !ring-white !dark:ring-white !dark:ring-opacity-0 border-none text-black !dark:border-gray-100"
     >
       {tabHeadings.map((item: TabHeadingComponent, index: number) => {
         return (
@@ -33,7 +33,7 @@ const Navbar = ({ tabHeadings, tabChildComponents }: NavbarProps) => (
             key={index}
             value={item.heading}
             onTabClick={item.onTabClick}
-            className="text-black w-1/2 pb-4"
+            className="text-black text-md w-1/2 pb-4"
           >
             {item.title}
           </TabsTrigger>

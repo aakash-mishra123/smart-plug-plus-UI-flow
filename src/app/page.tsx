@@ -75,7 +75,6 @@ export default function Home() {
     <div className="bg-[#edf1f5] no-scrollbar">
       <InfoCard />
       <ConsumptionCard />
-
       <Navbar
         tabHeadings={[
           {

@@ -5,6 +5,29 @@ import QueryProvider from "./providers/QueryProvider";
 //import { Provider } from "react";
 //import store from "./store/redux/slice/powerSlice";
 //import Providers from "./lib/providers";
+import localFont from "next/font/local";
+
+const robotoFont = localFont({
+  src: [
+    {
+      path: "../../public/fonts/roboto/Roboto-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/roboto/Roboto-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/roboto/Roboto-Italic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+  ],
+  variable: "--font-roboto",
+  display: "swap",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,7 +60,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${robotoFont.variable}antialiased`}
       >
         {/* <Providers> */}
         <QueryProvider>{children}</QueryProvider>

@@ -74,7 +74,7 @@ const Display = ({
           <p className="text-xl font-bold ">kWh</p>
         </div>
       </div>
-      <div className="w-full text-black montserrat-custom flex flex-row gap-4 justify-between pb-4">
+      <div className="w-full text-black flex flex-row gap-4 justify-between pb-4">
         <ConsumptionDisplay
           title="Oggi"
           value={currentDayConsumption}
@@ -86,10 +86,10 @@ const Display = ({
           unit="kW"
         />
       </div>
-      <div className="rounded-lg border-2 mt-4 p-4 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black montserrat-custom items-center">
+      <div className="rounded-lg border-2 mt-4 p-4 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black font-roboto items-center">
         <p>
-          Lorem ipsum Lorem Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
-          Lorem ipsum Lorem ipsum{" "}
+          Lo sapevi che questo mese hai consumato il 41% in meno rispetto allo
+          scorso mese?{" "}
         </p>
       </div>
 
@@ -97,9 +97,9 @@ const Display = ({
 
       <p className="text-[#667890] montserrat-custom text-sm font-bold mx-2">
         {" "}
-        * Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem
-        ipsum Lorem ipsum Lorem ipsum. Lorem ipsum Lorem ipsum Lorem ipsum Lorem
-        ipsum Lorem ipsum.{" "}
+        * Dicitura costo dell’energia. Lorem ipsum dolor sit amet, consectetur
+        adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna
+        aliqua.{" "}
       </p>
     </div>
   );

@@ -32,7 +32,7 @@ const DateSwitcher = ({
     <div className="flex flex-col gap-0 pt-8 pr-4 pl-4 pb-6 bg-white">
       <div className="flex flex-row justify-between">
         <div className="flex flex-col gap-0">
-          <p className="text-md montserrat-custom text-gray-600">
+          <p className="text-md font-roboto text-gray-600">
             Consumo giornaliero
           </p>
           <p className="text-2xl font-bold">
@@ -73,7 +73,7 @@ const DateSwitcher = ({
       </div>
       <div
         id="total_consumption_stats"
-        className="flex montserrat-custom flex-row justify-between w-full gap-4 pb-2 bg-white border-b-2 border-gray-300"
+        className="flex font-roboto flex-row justify-between w-full gap-4 pb-2 bg-white border-b-2 border-gray-300"
       >
         <p className="text-sm sm:text-md md:text-lg text-gray-800">
           Media di consumo giornaliero

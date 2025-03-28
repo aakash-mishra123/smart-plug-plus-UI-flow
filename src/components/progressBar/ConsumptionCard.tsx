@@ -43,9 +43,6 @@ const ConsumptionCard = () => {
       onSuccess: function () {
         client.subscribe(`c2/d/${serialId}`); //serial from chain-2-gate
       },
-      onFailure: function (e) {
-        console.log("FETCH DATA ERROR: ", e);
-      },
       // how to reconnect methods // documentation... how to reco
     });
     client.onMessageArrived = function (message) {
@@ -55,7 +52,6 @@ const ConsumptionCard = () => {
         (JSON.parse(message.payloadString).Chain2Data?.type === "CF21" ||
           "CF51")
       ) {
-        console.log("message recieved", messageRecieved.Chain2Data);
         setIotData(messageRecieved.Chain2Data);
       }
       return { iotData: JSON.parse(message.payloadString).Chain2Data };
@@ -65,18 +61,18 @@ const ConsumptionCard = () => {
 
   return (
     <>
-      <Card className="bg-transparent montserrat-custom rounded-sm p-4 !ring-0 !dark:ring-0">
+      <Card className="bg-transparent font-roboto rounded-sm p-4 !ring-0 !dark:ring-0">
         <div className="flex flex-col p-2 justify-between">
           <div className="flex justify-between">
-            <Text className="text-lg text-black font-semibold">
+            <Text className="text-xl text-black font-medium">
               Consumo istantaneo
             </Text>
-            <Badge className="text-black font-bold rounded-md  bg-green-100 px-2">
+            <Badge className="text-black font-medium rounded-md  bg-green-100 px-2">
               TEMPO REALE
             </Badge>
           </div>
           <div className="flex flex-row gap-2 items-end ">
-            <Text className="text-xs text-black font-semibold mt-2">
+            <Text className="text-xs text-gray-600 font-medium mt-0">
               {`${dayjs(iotData?.Ts, "YYYY/MM/DD HH:mm:ss")
                 .set("hour", 9)
                 .set("minute", 30)
@@ -85,7 +81,7 @@ const ConsumptionCard = () => {
             </Text>
 
             <InfoIcon
-              className="font-semibold text-pink-800 text-sm w-4 h-4"
+              className="font-bold text-pink-800 text-sm w-4 h-4"
               onClick={() => setIsModalOpen(() => true)}
             />
           </div>

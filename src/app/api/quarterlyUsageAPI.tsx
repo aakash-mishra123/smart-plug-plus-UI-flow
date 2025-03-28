@@ -156,8 +156,8 @@ const FormatDailyUsageData = ({
 
         groupedData.push({
           date: String(i),
-          usage: totalUsage,
-          value: totalUsage,
+          usage: totalUsage / 100,
+          value: totalUsage / 100,
           timestring: timestring,
           data: updatedChunk,
         });
