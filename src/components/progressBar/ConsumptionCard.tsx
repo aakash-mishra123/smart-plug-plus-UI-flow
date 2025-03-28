@@ -88,7 +88,7 @@ const ConsumptionCard = () => {
         </div>
         <hr />
         <div className="flex flex-col bg-white rounded-md px-4">
-          <CustomLinearProgress value={iotData?.Payload.InstantPower} />
+          <CustomLinearProgress value={iotData?.Payload?.InstantPower} />
         </div>
       </Card>
       <DrawerModal

@@ -20,7 +20,7 @@ type NavbarProps = {
 
 const Navbar = ({ tabHeadings, tabChildComponents }: NavbarProps) => (
   <Tabs
-    defaultValue={tabHeadings[1].heading}
+    defaultValue={tabHeadings[0].heading}
     className="!ring-opacity-0 !dark:ring-opacity-0 !ring-white !dark:ring-white"
   >
     <TabsList

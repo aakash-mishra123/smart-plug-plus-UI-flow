@@ -58,7 +58,7 @@ const renderShape = (
   layout: string,
   customStyle?: any
 ) => {
-  const { fillOpacity, name, payload, value } = props;
+  const { fillOpacity, name } = props;
   let { x, width, y, height } = props;
   const { barColor } = props;
 
@@ -77,9 +77,10 @@ const renderShape = (
     width = Math.abs(width);
   }
 
+  const isSelected = barColor === "black";
   const computedOpacity =
     activeBar || (activeLegend && activeLegend !== name)
-      ? deepEqual(activeBar, { ...payload, value })
+      ? isSelected
         ? fillOpacity
         : 0.3
       : fillOpacity;
@@ -90,26 +91,47 @@ const renderShape = (
   const safeTopRadius = Math.min(topRadius, width / 2, height);
 
   const path = `
-      M${x},${y + height} 
-      L${x},${y + safeTopRadius} 
-      Q${x},${y} ${x + safeTopRadius},${y} 
-      L${x + width - safeTopRadius},${y} 
-      Q${x + width},${y} ${x + width},${y + safeTopRadius} 
-      L${x + width},${y + height} 
-      Z
-    `;
+    M${x},${y + height} 
+    L${x},${y + safeTopRadius} 
+    Q${x},${y} ${x + safeTopRadius},${y} 
+    L${x + width - safeTopRadius},${y} 
+    Q${x + width},${y} ${x + width},${y + safeTopRadius} 
+    L${x + width},${y + height} 
+    Z
+  `;
+
+  const lineSpacing = Math.max(1, Math.floor(height / 10)); // Dynamic spacing based on height with a minimum of 4px
+  const lineCount = Math.floor(height / lineSpacing);
 
   return (
-    <motion.path
-      d={path}
-      initial={{ d: `M${x},${y + height} L${x + width},${y + height} Z` }} // Initial state (collapsed)
-      animate={{ d: path }} // Expands to the rounded top shape
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      fillOpacity={computedOpacity}
-      fill={barColor}
-      whileTap={{ scale: 0.95 }} // Small tap animation
-      style={{ cursor: "pointer" }} // Indicate interactivity
-    />
+    <g>
+      <motion.path
+        d={path}
+        initial={{ d: `M${x},${y + height} L${x + width},${y + height} Z` }}
+        animate={{ d: path }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        fillOpacity={computedOpacity}
+        fill={isSelected ? "black" : barColor}
+        whileTap={{ scale: 0.95 }}
+        style={{ cursor: "pointer" }}
+      />
+      {isSelected && (
+        <>
+          {[...Array(lineCount)].map((_, i) => (
+            <line
+              key={i}
+              x1={x}
+              x2={x + width}
+              y1={y + (i + 1) * lineSpacing}
+              y2={y + (i + 1) * lineSpacing}
+              stroke="white"
+              strokeWidth={2}
+              strokeDasharray="5,5"
+            />
+          ))}
+        </>
+      )}
+    </g>
   );
 };
 
@@ -733,16 +755,13 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               }}
               fill=""
               stroke=""
-              className={cx(
-                // base
-                "text-xs -ml-4",
-                // text fill
-                "#f0f2f6 dark:bg-gray-500",
-                { "mt-4": layout !== "vertical" }
-              )}
+              className={cx("text-xs ml-4", "#f0f2f6 dark:bg-gray-500", {
+                "mt-4": layout !== "vertical",
+              })}
               tickLine={false}
               axisLine={false}
               minTickGap={tickGap}
+              tickFormatter={(value) => (Number(value) % 2 === 0 ? value : "")} // ✅ Show only even numbers
               {...(layout !== "vertical"
                 ? {
                     padding: {
@@ -773,6 +792,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 </Label>
               )}
             </XAxis>
+
             <YAxis
               width={yAxisWidth}
               hide={!showYAxis}

@@ -81,7 +81,7 @@ const Display = ({
           unit="kW"
         />
         <ConsumptionDisplay
-          title="Leri"
+          title="Ieri"
           value={previousDayConsumption}
           unit="kW"
         />

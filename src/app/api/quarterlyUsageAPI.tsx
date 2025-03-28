@@ -54,7 +54,6 @@ const FetchUsageByIntervals = ({
       }
       setLoading(() => false);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -156,8 +155,8 @@ const FormatDailyUsageData = ({
 
         groupedData.push({
           date: String(i),
-          usage: totalUsage / 100,
-          value: totalUsage / 100,
+          usage: totalUsage / 1000,
+          value: totalUsage / 1000,
           timestring: timestring,
           data: updatedChunk,
         });

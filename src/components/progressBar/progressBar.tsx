@@ -57,7 +57,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
               },
               "& .MuiLinearProgress-bar": {
                 backgroundColor: "#1976D2",
-                marginLeft: "2%",
+                marginLeft: "1%",
                 position: "relative",
               },
               "& .MuiLinearProgress-bar1": {
@@ -85,7 +85,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
           <Box
             sx={{
               position: "absolute",
-              top: "31%",
+              top: "30%",
               width: "95%",
               display: "flex",
               justifyContent: "space-between",
@@ -159,10 +159,11 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
             sx={{
               position: "absolute",
               color: "black",
-              right: "35%",
+              right: "18%",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              fontFamily: "roboto",
             }}
           >
             <Typography fontSize={14} fontWeight="bold">
@@ -210,31 +211,33 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
         >
           {value < 2500 ? (
             <FaCheckCircle
-              className={`font-bold w-6 rounded-full h-6 text-2xl text-green-800`}
+              className={`font-bold w-8 rounded-full h-8 text-2xl text-green-800`}
             />
           ) : value < 3000 ? (
             <IoWarning
-              className={`font-bold w-6 rounded-full h-6 text-2xl text-yellow-500`}
+              className={`font-bold w-8 rounded-full h-8 text-2xl text-yellow-500`}
             />
           ) : (
             <IoWarning
-              className={`font-bold w-6 rounded-full h-6 text-2xl text-red-800`}
+              className={`font-bold w-12 rounded-full h-12 text-2xl text-red-800`}
             />
           )}
           {value < 2500 ? (
             <p className={`text-sm text-black`}>
               {" "}
-              Lorem ipsum ab akldklajf dsalkf adslkfjsadf jldsakf jdsalfk{" "}
+              La potenza attuale della tua Presa Plus rispetta la soglia del tuo
+              piano 👍
             </p>
           ) : value < 3000 ? (
             <p className={`text-sm text-[${bkgColor}]`}>
               {" "}
-              Lorem ipsum ab akldklajf dsalkf adslkfjsadf jldsakf jdsalfk Lorem
+              Stai raggiungendo il limite di utilizzo.
             </p>
           ) : (
             <p className={`text-sm text-[${bkgColor}]`}>
               {" "}
-              Lorem ipsum ab akldklajf dsalkf adslkfjsadf jldsakf jdsalfk Lorem
+              <b>Hai superato il limite di utilizzo.</b> Riduci il consumo di
+              energia elettrica per evitare l’interruzione della fornitura.
             </p>
           )}
         </div>
