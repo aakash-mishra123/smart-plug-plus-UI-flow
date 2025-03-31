@@ -10,7 +10,7 @@ type TabContentComponents = {
 type TabHeadingComponent = {
   heading: string;
   title: string;
-  onTabClick: (topic: string) => void;
+  onTabClick?: () => void;
 };
 
 type NavbarProps = {

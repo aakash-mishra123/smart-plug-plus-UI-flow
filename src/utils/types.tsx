@@ -132,3 +132,10 @@ export type MeterEvent = {
   Type: string;
   Payload: Payload;
 };
+
+export type dailyEnergyTypes = {
+  tarrifBaseEnergy: string[];
+  dayBaseEnergy: number;
+  serial?: string;
+  date?: string;
+};

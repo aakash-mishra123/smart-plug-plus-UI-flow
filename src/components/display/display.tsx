@@ -43,7 +43,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
             <FaMoneyBills className="text-2xl font-bold text-pink-600" />
             <div className="flex flex-row gap-1 items-baseline">
               <p className=" text-lg sm:text-2xl font-black ">
-                {(value * 0.2).toFixed(1)}
+                {((value / 1000) * 0.2).toFixed(2)}
               </p>
               <FaEuroSign className="text-md md:text-lg font-bold mt-2 text-black" />
             </div>

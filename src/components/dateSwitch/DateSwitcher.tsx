@@ -1,22 +1,26 @@
 import React from "react";
 import dayjs, { Dayjs } from "dayjs";
 import "dayjs/locale/it"; // Import Italian locale
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"; // Tremor uses Heroicons
-import { Button } from "@tremor/react"; // Tremor Button component
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"; // Tremor uses Heroicons // Tremor Button component
 import { totalDailyUsageType } from "@/app/types/dailyUsageTypes";
 import { convertToItalicNumber } from "@/utils/methods";
+import { Button } from "@tremor/react";
 dayjs.locale("it"); // Set locale globally
 
 type DateSwitcherProps = {
   selectedDate: Dayjs;
   setSelectedDate: (date: Dayjs) => void;
   data?: totalDailyUsageType;
+  view: string;
+  setView: (prev: string) => void;
 };
 
 const DateSwitcher = ({
   selectedDate,
   setSelectedDate,
   data,
+  view,
+  setView,
 }: DateSwitcherProps) => {
   const today = dayjs().startOf("day");
   const isNextDisabled = selectedDate.isSame(today, "day");
@@ -39,8 +43,30 @@ const DateSwitcher = ({
             {convertToItalicNumber(data?.totalEnergyConsumed ?? 0, 1000, 2)} kWh
           </p>
         </div>
+        <div className="bg-gray-100 p-1 rounded-lg flex flex-row">
+          <Button
+            onClick={() => setView("month")}
+            className={`text-sm px-4 py-2 rounded-md ${
+              view === "month"
+                ? "border-2 border-blue-600 text-blue-700 bg-white"
+                : "text-gray-900 bg-transparent"
+            }`}
+          >
+            Mese
+          </Button>
+          <Button
+            onClick={() => setView("day")}
+            className={`text-sm px-4 py-2 rounded-md ${
+              view === "day"
+                ? "border-2 border-blue-600 text-blue-700 bg-white"
+                : "text-gray-900 bg-transparent"
+            }`}
+          >
+            Giorno
+          </Button>
+        </div>
       </div>
-      <div className="flex flex-row justify-between w-full pt-2 mb-4 bg-white montserrat-custom">
+      <div className="flex flex-row justify-between w-full pt-2 mb-4 bg-white font-roboto">
         <div className="flex flex-col gap-0 items-left">
           <span className="text-gray-400 text-sm font-bold">Giorno</span>
 

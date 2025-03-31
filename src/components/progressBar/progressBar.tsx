@@ -32,7 +32,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
         sx={{
           width: "100%",
         }}
-        className="montserrat-custom"
+        className="font-roboto flex flex-col items-center"
       >
         <Box
           sx={{
@@ -42,6 +42,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
             height: "fit-content",
             borderRadius: 16,
             backgroundColor: "#c1cede",
+            width: "90%",
           }}
         >
           <LinearProgress
@@ -85,8 +86,8 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
           <Box
             sx={{
               position: "absolute",
-              top: "30%",
-              width: "95%",
+              top: "32%",
+              width: "90%",
               display: "flex",
               justifyContent: "space-between",
               transform: "translateY(+40%)",
@@ -100,7 +101,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
                 backgroundColor: "white",
                 borderRadius: "50%",
                 position: "absolute",
-                left: "4%",
+                left: "8%",
               }}
             />
             <Box
@@ -110,7 +111,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
                 backgroundColor: value < 2500 ? "black" : "white",
                 borderRadius: "50%",
                 position: "absolute",
-                right: "18%",
+                right: "42%",
               }}
             />
             <Box
@@ -120,14 +121,14 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
                 backgroundColor: value < 3000 ? "black" : "white",
                 borderRadius: "50%",
                 position: "absolute",
-                right: "1%",
+                right: "8%",
               }}
             />
           </Box>
         </Box>
 
         <Box
-          className="montserrat-custom"
+          className="font-roboto"
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -137,19 +138,19 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
         >
           <Box
             sx={{
-              width: `15%`,
+              width: `8%`,
               color: "black",
-              marginLeft: "3%",
+              marginLeft: "8%",
               display: "flex",
               flexDirection: "column",
-              alignItems: "start",
+              alignItems: "center",
             }}
           >
             <Typography fontSize={15} fontWeight="bold">
               |
             </Typography>
-            <Typography fontSize={13} fontWeight="bold">
-              0 kW
+            <Typography fontSize={15} fontWeight="bold">
+              0 kw
             </Typography>
             <Typography fontSize={12} fontWeight="medium" color="black">
               Inattività
@@ -159,47 +160,42 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
             sx={{
               position: "absolute",
               color: "black",
-              right: "18%",
+              right: "2%",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               fontFamily: "roboto",
+              marginRight: "28%",
             }}
+            className="font-roboto"
           >
             <Typography fontSize={14} fontWeight="bold">
               |
             </Typography>
-            <Typography fontSize={13} fontWeight="bold">
-              2.5 kW
+            <Typography fontSize={15} fontWeight="bold">
+              2,5 kw
             </Typography>
-            <Typography fontSize={12} fontWeight="bold" color="black">
-              Limite{" "}
-            </Typography>
-            <Typography fontSize={12} fontWeight="bold" color="black">
-              {" "}
-              di utilizzo
+            <Typography fontSize={14} fontWeight="medium" color="black">
+              Soglia del tuo piano
             </Typography>
           </Box>
           <Box
             sx={{
               color: "black",
-              marginRight: "6%",
+              marginRight: "2%",
               display: "flex",
               flexDirection: "column",
-              alignItems: "end",
+              alignItems: "center",
             }}
           >
             <Typography fontSize={15} fontWeight="bold" marginRight="3%">
               |
             </Typography>
-            <Typography fontSize={13} fontWeight="bold" width="full">
-              3 kW
+            <Typography fontSize={15} fontWeight="bold" width="full">
+              3 kw
             </Typography>
-            <Typography fontSize={12} fontWeight="medium" color="black">
-              Soglia{" "}
-            </Typography>
-            <Typography fontSize={12} fontWeight="medium" color="black">
-              massima
+            <Typography fontSize={14} fontWeight="medium" color="black">
+              Soglia massima
             </Typography>
           </Box>
         </Box>

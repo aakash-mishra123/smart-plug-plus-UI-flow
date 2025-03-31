@@ -71,6 +71,7 @@ const BarChartHero = ({
     const currentIndex = chartdata.data.findIndex(
       (bar) => bar.date === selectedBar
     );
+
     if (currentIndex < chartdata.data.length - 1) {
       setselectedbar(
         chartdata.data[currentIndex + 1].date ??
@@ -80,6 +81,7 @@ const BarChartHero = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedBar]);
+
   return (
     <div className="relative bg-white">
       <div
@@ -151,16 +153,13 @@ const BarChartHero = ({
                     className={`text-pink-700 rounded-md p-2 ${
                       chartdata.data.findIndex(
                         (bar) => bar.date === selectedBar
-                      ) ===
-                      chartdata.data.length - 1
+                      ) === chartdata.data.length
                         ? "opacity-50 cursor-not-allowed bg-gray-400 text-gray-800 "
                         : "bg-gray-300"
                     }`}
                     disabled={
-                      chartdata.data.findIndex(
-                        (bar) => bar.date === selectedBar
-                      ) ===
-                      chartdata.data.length - 1
+                      Object.keys(chartdata.data[Number(selectedBar) + 1])
+                        .length === 0
                     }
                   />
                 </div>

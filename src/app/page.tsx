@@ -25,7 +25,7 @@ export default function Home() {
   const serialId = useSelector(
     (store: RootState) => store.deviceData.data.serial
   );
-
+  const [view, setView] = useState<string>("month");
   const [selectedDate, setselectedDate] = useState<Dayjs>(dayjs().locale("en"));
   const [selectedBarData, setselectedBarData] = useState<quarterUsageData>(
     bargraphInitialState.data
@@ -65,14 +65,6 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options.date, selectedDate, refetch]);
 
-  const onFirstTabClick = async () => {
-    //fetch data from both
-  };
-
-  const secondTabClick = async () => {
-    //fetch data from redux/
-  };
-
   return (
     <div className="bg-[#edf1f5] no-scrollbar">
       <InfoCard />
@@ -82,12 +74,10 @@ export default function Home() {
           {
             heading: "Tab1",
             title: "Consumi e spesa",
-            onTabClick: () => onFirstTabClick(),
           },
           {
             heading: "Tab2",
             title: "Dettaglio dei consumi",
-            onTabClick: () => secondTabClick(),
           },
         ]}
         tabChildComponents={[
@@ -105,15 +95,25 @@ export default function Home() {
                   selectedDate={selectedDate}
                   setSelectedDate={setselectedDate}
                   data={data}
+                  view={view}
+                  setView={setView}
                 />
-                <BarChartHero
-                  chartdata={data}
-                  selectedBar={selectedBar}
-                  setselectedbar={setselectedbar}
-                  setselectedbardata={setselectedBarData}
-                  selectedBarData={selectedBarData}
-                />
-                <BarListHero data={selectedBarData} />
+                {view === "day" ? (
+                  <>
+                    <BarChartHero
+                      chartdata={data}
+                      selectedBar={selectedBar}
+                      setselectedbar={setselectedbar}
+                      setselectedbardata={setselectedBarData}
+                      selectedBarData={selectedBarData}
+                    />
+                    <BarListHero data={selectedBarData} />
+                  </>
+                ) : (
+                  <>
+                    <h1>Month view</h1>
+                  </>
+                )}
               </>
             ),
           },
