@@ -107,7 +107,9 @@ export default function Home() {
                       setselectedbardata={setselectedBarData}
                       selectedBarData={selectedBarData}
                     />
-                    <BarListHero data={selectedBarData} />
+                    <BarListHero
+                      data={selectedBarData ?? bargraphInitialState.data}
+                    />
                   </>
                 ) : (
                   <>
