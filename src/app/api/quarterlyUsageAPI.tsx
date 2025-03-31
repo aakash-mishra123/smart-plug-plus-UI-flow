@@ -172,7 +172,7 @@ const FormatDailyUsageData = ({
   const chartData = data?.data.map((item: EnergyDataProp) => ({
     date: item.formattedDate,
     usage: item.currQuartActEnergy || 0,
-    timestamp: item.measureTS,
+    timestamp: item.measureTS - 16200,
     value: item.currQuartActEnergy || 0,
   }));
 

@@ -46,12 +46,11 @@ const ConsumptionCard = () => {
       // how to reconnect methods // documentation... how to reco
     });
     client.onMessageArrived = function (message) {
-      const messageRecieved = JSON.parse(message.payloadString);
       if (
-        Object(messageRecieved) &&
-        (JSON.parse(message.payloadString).Chain2Data?.type === "CF21" ||
-          "CF51")
+        JSON.parse(message.payloadString).Chain2Data?.type === "CF21" ||
+        "CF51"
       ) {
+        const messageRecieved = JSON.parse(message.payloadString);
         setIotData(messageRecieved.Chain2Data);
       }
       return { iotData: JSON.parse(message.payloadString).Chain2Data };
@@ -61,7 +60,7 @@ const ConsumptionCard = () => {
 
   return (
     <>
-      <Card className="bg-transparent font-roboto rounded-sm p-4 !ring-0 !dark:ring-0">
+      <Card className="bg-transparent font-roboto rounded-sm p-4 px-2 !ring-0 !dark:ring-0">
         <div className="flex flex-col p-2 justify-between">
           <div className="flex justify-between">
             <Text className="text-xl text-black font-medium">

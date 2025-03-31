@@ -10,6 +10,7 @@ interface BarListHeroProps {
 const BarListHero = ({ data }: BarListHeroProps) => {
   const total =
     data?.data?.reduce((sum, item) => sum + (item?.usage ?? 0), 0) ?? 100;
+
   return (
     <div className="w-full mx-auto p-4 pt-2 bg-white font-roboto pb-12 mb-12">
       {/* Average Consumption Card */}
@@ -47,7 +48,7 @@ const BarListHero = ({ data }: BarListHeroProps) => {
             </div>
             <LinearProgress
               variant="determinate"
-              value={item?.usage || item?.value}
+              value={item.value}
               sx={{
                 height: 12,
                 borderRadius: 16,

@@ -49,8 +49,9 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
             value={value}
             valueBuffer={80}
             sx={{
-              height: 25,
-              borderRadius: 16,
+              height: 28,
+              borderRadius: 20,
+              overflow: "hidden",
               "& .MuiBoxRoot": {
                 height: 50,
                 animation: "none",
@@ -64,12 +65,11 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
                 backgroundColor: bkgColor,
                 borderRadius: 16,
                 position: "absolute",
-                left: "1%",
                 marginY: "4px",
                 transform: "translateX(-2%) !important",
-                maxWidth: "98%",
+                maxWidth: "99%",
                 width: `${percent}%`,
-                //marginLeft: "2%",
+                left: value >= 2500 ? "2%" : "1%",
               },
               "& .MuiLinearProgress-dashed": {
                 backgroundColor: "#c1cede",
@@ -107,20 +107,20 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
               sx={{
                 width: 6,
                 height: 6,
-                backgroundColor: value < 83 ? "black" : "white",
+                backgroundColor: value < 2500 ? "black" : "white",
                 borderRadius: "50%",
                 position: "absolute",
-                right: "38%",
+                right: "18%",
               }}
             />
             <Box
               sx={{
                 width: 6,
                 height: 6,
-                backgroundColor: value < 98 ? "black" : "white",
+                backgroundColor: value < 3000 ? "black" : "white",
                 borderRadius: "50%",
                 position: "absolute",
-                right: "2%",
+                right: "1%",
               }}
             />
           </Box>

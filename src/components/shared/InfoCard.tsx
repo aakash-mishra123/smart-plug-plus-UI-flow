@@ -66,11 +66,7 @@ const InfoCard = () => {
                     Stato connessione
                   </Text>
                   <div className="flex flex-col gap-0">
-                    <Text
-                      className={` text-sm ${
-                        data?.online ? "text-green-600" : "text-red-800"
-                      }`}
-                    >
+                    <Text className={` text-sm text-black `}>
                       {data?.online ? "Connessa" : "Non-connessa"}
                     </Text>
                   </div>

@@ -1,4 +1,3 @@
-import { dummyBarGraph } from "@/utils/constants";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchData = createAsyncThunk("data/fetchData", async () => {
@@ -6,9 +5,14 @@ export const fetchData = createAsyncThunk("data/fetchData", async () => {
   return response.json();
 });
 
-const powerSlice = createSlice({
-  name: "data",
-  initialState: { data: dummyBarGraph, loading: false, error: null },
+const initialState = {
+  online: true,
+  serial: "c2g-57CFACECC",
+};
+
+const deviceSlice = createSlice({
+  name: "device",
+  initialState: { data: initialState, loading: false, error: null },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -26,4 +30,4 @@ const powerSlice = createSlice({
   },
 });
 
-export default powerSlice.reducer;
+export default deviceSlice.reducer;

@@ -42,10 +42,10 @@ const DrawerModal = ({ isOpen, setIsOpen, className }: DrawerModalProps) => {
                     Dal lunedì al venerdì, dalle 8:00 alle 19:00.
                   </p>
                 </div>
-                <p className="text-gray-600 text-md">
+                <DrawerDescription className="text-gray-600 text-sm">
                   Tariffa più alta, poiché corrisponde ai momenti di maggior
                   richiesta energetica.
-                </p>
+                </DrawerDescription>
               </div>
               <div className="flex flex-col">
                 <p className="text-lg font-bold text-pink-700">
@@ -59,10 +59,10 @@ const DrawerModal = ({ isOpen, setIsOpen, className }: DrawerModalProps) => {
                     alle 23:00; il sabato dalle 7:00 alle 23:00.
                   </p>
                 </div>
-                <p className="text-gray-600">
+                <DrawerDescription className="text-gray-600  text-sm">
                   Tariffa più alta, poiché corrisponde ai momenti di maggior
                   richiesta energetica.
-                </p>
+                </DrawerDescription>
               </div>
               <div className="flex flex-col">
                 <p className="text-lg font-bold text-pink-700">
@@ -76,16 +76,16 @@ const DrawerModal = ({ isOpen, setIsOpen, className }: DrawerModalProps) => {
                     festivi tutto il giorno.
                   </p>
                 </div>
-                <p className="text-gray-600 text-md">
+                <DrawerDescription className="text-gray-600 text-sm">
                   Tariffa intermedia, con un costo più basso rispetto alla F1 ma
                   più alto della F3.
-                </p>
+                </DrawerDescription>
               </div>
             </DrawerBody>
             <DrawerFooter className="mt-2">
               <DrawerClose asChild>
                 <Button className="w-full h-12 sm:w-fit !bg-pink-700 rounded-full">
-                  Ok, got it!
+                  Ok, ho capito!
                 </Button>
               </DrawerClose>
             </DrawerFooter>

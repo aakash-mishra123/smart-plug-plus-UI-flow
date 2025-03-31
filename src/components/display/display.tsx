@@ -5,17 +5,17 @@ import { TbBolt } from "react-icons/tb";
 import { FaMoneyBills } from "react-icons/fa6";
 import { convertToItalicNumber } from "@/utils/methods";
 import { FaPercentage } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
+import FormatDailyUsageData from "@/app/api/quarterlyUsageAPI";
+import queryString from "query-string";
+import dayjs from "dayjs";
 //import { fetchData, resetData } from "@/app/store/redux/slice/powerSlice";
 interface ConsumptionDisplayProps {
   title: string;
   value: number;
   unit?: string;
 }
-
-type DisplayProps = {
-  currentDayConsumption: number;
-  previousDayConsumption: number;
-};
 
 const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
   title,
@@ -54,11 +54,26 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
   );
 };
 
-const Display = ({
-  currentDayConsumption,
-  previousDayConsumption,
-}: DisplayProps) => {
-  const difference = Math.ceil(((67 - 78) / 87) * 100);
+const Display = () => {
+  const currDayConsumption = useSelector(
+    (store: RootState) => store.powerData.data.totalEnergyConsumed
+  );
+
+  const serialId = useSelector(
+    (store: RootState) => store.deviceData.data.serial
+  );
+
+  const { data: prevDayConsumption } = FormatDailyUsageData({
+    slug: queryString.stringify({
+      date: dayjs().subtract(1, "day").format("YYYY-MM-DD"),
+      serial: serialId,
+    }),
+  });
+
+  const prevDay = prevDayConsumption.totalEnergyConsumed ?? 0;
+  const difference = Math.ceil(
+    ((currDayConsumption - prevDay) / prevDay) * 100
+  );
 
   return (
     <div className="flex flex-col gap-4 bg-white px-4">
@@ -68,28 +83,23 @@ const Display = ({
         </p>
         <div className="flex flex-row gap-1 items-baseline text-[#397a5c] ">
           <div className="flex flex-row gap-0 items-baseline">
-            <Text className="text-3xl font-black ">{difference}</Text>
+            <Text className="text-3xl font-black ">{difference ?? 0}</Text>
             <FaPercentage className="text-2xl font-black" />
           </div>
           <p className="text-xl font-bold ">kWh</p>
         </div>
       </div>
       <div className="w-full text-black flex flex-row gap-4 justify-between pb-4">
-        <ConsumptionDisplay
-          title="Oggi"
-          value={currentDayConsumption}
-          unit="kW"
-        />
-        <ConsumptionDisplay
-          title="Ieri"
-          value={previousDayConsumption}
-          unit="kW"
-        />
+        <ConsumptionDisplay title="Oggi" value={currDayConsumption} unit="kW" />
+        <ConsumptionDisplay title="Ieri" value={prevDay} unit="kW" />
       </div>
       <div className="rounded-lg border-2 mt-4 p-4 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black font-roboto items-center">
         <p>
-          Lo sapevi che questo mese hai consumato il 41% in meno rispetto allo
-          scorso mese?{" "}
+          Lo sapevi che questo mese hai consumato il{" "}
+          <b>
+            {Math.abs(difference)} % {difference < 0 ? "in meno" : "in più"}
+          </b>{" "}
+          rispetto allo scorso mese? 🎉
         </p>
       </div>
 

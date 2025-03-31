@@ -7,7 +7,8 @@ import BarChartHero from "@/components/navbar/BarChartHero";
 import DateSwitcher from "@/components/dateSwitch/DateSwitcher";
 import FormatDailyUsageData from "@/app/api/quarterlyUsageAPI";
 import { quarterUsageData } from "@/app/types/dailyUsageTypes";
-import { bargraphInitialState } from "@/utils/constants";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
 const Navbar = dynamic(() => import("@/components/tabs/Tabs"));
 const Display = dynamic(() => import("@/components/display/display"));
 const InfoCard = dynamic(() => import("@/components/shared/InfoCard"));
@@ -17,19 +18,26 @@ const ConsumptionCard = dynamic(
 );
 
 export default function Home() {
+  const bargraphInitialState = useSelector(
+    (store: RootState) => store.powerData
+  );
+
+  const serialId = useSelector(
+    (store: RootState) => store.deviceData.data.serial
+  );
+
   const [selectedDate, setselectedDate] = useState<Dayjs>(dayjs().locale("en"));
-  const [selectedBarData, setselectedBarData] =
-    useState<quarterUsageData>(bargraphInitialState);
-  const [prevDayConsumption, setPrevDayConsumption] = useState<number>(0);
-  const [currDayConsumption, setCurrDayConsumption] = useState<number>(0);
+  const [selectedBarData, setselectedBarData] = useState<quarterUsageData>(
+    bargraphInitialState.data
+  );
   const [selectedBar, setselectedbar] = useState<string>("0");
 
   const options = useMemo(
     () => ({
       date: dayjs(selectedDate).format("YYYY-MM-DD"),
-      serial: process.env.NEXT_PUBLIC_SERIAL_PARAMS,
+      serial: serialId,
     }),
-    [selectedDate]
+    [selectedDate, serialId]
   ); // Recompute only when selectedDate changes
 
   const { data, refetch } = FormatDailyUsageData({
@@ -58,19 +66,13 @@ export default function Home() {
   }, [options.date, selectedDate, refetch]);
 
   const onFirstTabClick = async () => {
-    setCurrDayConsumption(data?.totalEnergyConsumed ?? 0);
-    await Promise.resolve();
-    if (refetch) {
-      refetch({
-        slug: queryString.stringify({
-          date: dayjs().subtract(1, "day").format("YYYY-MM-DD"),
-          serial: process.env.NEXT_PUBLIC_SERIAL_PARAMS,
-        }),
-      });
-
-      setPrevDayConsumption(data?.totalEnergyConsumed ?? 0);
-    }
+    //fetch data from both
   };
+
+  const secondTabClick = async () => {
+    //fetch data from redux/
+  };
+
   return (
     <div className="bg-[#edf1f5] no-scrollbar">
       <InfoCard />
@@ -85,19 +87,14 @@ export default function Home() {
           {
             heading: "Tab2",
             title: "Dettaglio dei consumi",
-            onTabClick: () => {},
+            onTabClick: () => secondTabClick(),
           },
         ]}
         tabChildComponents={[
           {
             id: 1,
             value: "Tab1",
-            children: (
-              <Display
-                currentDayConsumption={currDayConsumption}
-                previousDayConsumption={prevDayConsumption}
-              />
-            ),
+            children: <Display />,
           },
           {
             id: 2,

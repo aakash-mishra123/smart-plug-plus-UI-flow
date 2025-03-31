@@ -1,8 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import powerReducer from "../slice/powerSlice";
+import deviceReducer from "../slice/deviceSlice";
 
 const rootReducer = combineReducers({
-  data: powerReducer,
+  powerData: powerReducer,
+  deviceData: deviceReducer,
 });
 
 export default rootReducer;

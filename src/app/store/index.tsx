@@ -4,8 +4,8 @@ import rootReducer from "./reducers";
 
 const store = configureStore({
   reducer: rootReducer,
-  //   middleware: (getDefaultMiddleware) =>
-  //     getDefaultMiddleware({ serializableCheck: false }).concat(thunk),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
