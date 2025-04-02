@@ -62,7 +62,8 @@ const ConsumptionCard = () => {
     if (fetchPodData) {
       dispatch(fetchPodData(serial));
     }
-  }, [dispatch, serial]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
   return (
     <>
       <Card className="bg-transparent font-roboto rounded-sm p-4 px-2 !ring-0 !dark:ring-0">
@@ -71,17 +72,17 @@ const ConsumptionCard = () => {
             <Text className="text-xl text-black font-medium">
               Consumo istantaneo
             </Text>
-            <Badge className="text-black font-medium rounded-md  bg-green-100 px-2">
+            <Badge className="text-black text-lg rounded-lg  bg-green-100 px-2">
               TEMPO REALE
             </Badge>
           </div>
-          <div className="flex flex-row gap-2 items-end ">
-            <Text className="text-xs text-gray-600 font-medium mt-0">
+          <div className="flex flex-row gap-2 items-end mt-1">
+            <Text className="text-sm text-gray-600 font-medium mt-0">
               {`${dayjs(iotData?.Ts, "YYYY/MM/DD HH:mm:ss")
                 .set("hour", 9)
                 .set("minute", 30)
-                .format("dddd D MMMM YYYY [ore] HH:mm")} - `}
-              <strong>Fascia F1</strong>
+                .format("dddd D MMMM YYYY, [ore] HH:mm")} - `}
+              <strong className="text-black font-bold">Fascia F1</strong>
             </Text>
 
             <InfoIcon

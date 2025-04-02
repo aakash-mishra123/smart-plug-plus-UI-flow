@@ -30,7 +30,7 @@ const CustomLinearProgress = ({
           {convertToItalicNumber(value, 1000, 2) ?? "2,3"}
         </Metric>
         <Metric className="text-black text-3xl ">
-          di {contractPower ?? 0 / 1000}{" "}
+          di {(contractPower ?? 0) / 1000}{" "}
         </Metric>
         <p className="text-black text-2xl ">kW</p>
       </div>
@@ -76,7 +76,7 @@ const CustomLinearProgress = ({
                 transform: "translateX(-2%) !important",
                 maxWidth: "98%",
                 width: `${percent}%`,
-                left: value >= 2500 ? "2%" : "1%",
+                left: value >= 2500 ? "2%" : "0%",
               },
               "& .MuiLinearProgress-dashed": {
                 backgroundColor: "#c1cede",
@@ -98,7 +98,7 @@ const CustomLinearProgress = ({
               justifyContent: "space-between",
               transform: "translateY(+35%)",
               px: "2%",
-              marginLeft: "-12px",
+              marginLeft: "-14px",
             }}
           >
             <Box
@@ -118,7 +118,7 @@ const CustomLinearProgress = ({
                 backgroundColor: value < 2500 ? "black" : "white",
                 borderRadius: "50%",
                 position: "absolute",
-                right: "42%",
+                right: "40%",
               }}
             />
             <Box
@@ -128,7 +128,7 @@ const CustomLinearProgress = ({
                 backgroundColor: value < 3000 ? "black" : "white",
                 borderRadius: "50%",
                 position: "absolute",
-                right: "8%",
+                right: "5%",
               }}
             />
           </Box>
@@ -159,7 +159,7 @@ const CustomLinearProgress = ({
             <Typography fontSize={15} fontWeight="bold">
               0 kw
             </Typography>
-            <Typography fontSize={12} fontWeight="medium" color="black">
+            <Typography fontSize={15} fontWeight="medium" color="black">
               Inattività
             </Typography>
           </Box>
@@ -182,9 +182,9 @@ const CustomLinearProgress = ({
             <Typography fontSize={15} fontWeight="bold">
               2,5 kw
             </Typography>
-            <Typography fontSize={14} fontWeight="medium" color="black">
+            <p className="text-xs sm:text-md md:text-xl">
               Soglia del tuo piano
-            </Typography>
+            </p>
           </Box>
           <Box
             sx={{

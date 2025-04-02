@@ -39,7 +39,6 @@ export const fetchData = createAsyncThunk<dailyEnergyTypes[], FetchDataParams>(
         Authorization: `Bearer ${authToken}`,
       },
     });
-    //console.log("response", response.data);
     return response.data;
   }
 );

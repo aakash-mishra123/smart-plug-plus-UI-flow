@@ -10,12 +10,14 @@ import { fetchDeviceData } from "@/app/store/slice/deviceSlice";
 import { AppDispatch, RootState } from "@/app/store";
 
 const InfoCard = () => {
-  const deviceData = useSelector((store: RootState) => store.deviceData.data);
   const dispatch = useDispatch<AppDispatch>();
+  const deviceData = useSelector((store: RootState) => store.deviceData.data);
   useEffect(() => {
     if (fetchDeviceData) {
       dispatch(fetchDeviceData());
     }
+
+    return () => {};
   }, [dispatch]);
 
   return (

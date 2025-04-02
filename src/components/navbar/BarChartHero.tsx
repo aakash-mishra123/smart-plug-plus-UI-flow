@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { Button } from "@tremor/react";
 import { BarChart } from "@/components/shared/BarChart";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+
 interface BarchartProps {
   chartdata: totalDailyUsageType;
   selectedBar: string;
@@ -15,6 +16,7 @@ interface BarchartProps {
   setselectedbar: (data: string) => void;
   setselectedbardata: (data: quarterUsageData) => void;
 }
+
 const BarChartHero = ({
   chartdata,
   selectedBar,
@@ -28,7 +30,6 @@ const BarChartHero = ({
   useEffect(() => {
     const updateBarWidth = () => {
       const windowWidth = window.innerWidth;
-
       if (windowWidth < 640) setBarWidth(5); // Mobile (Small)
       else if (windowWidth < 1024) setBarWidth(7); // Tablet (Medium)
       else setBarWidth(10); // Desktop (Large)
@@ -36,51 +37,45 @@ const BarChartHero = ({
 
     updateBarWidth(); // Set initial value
     window.addEventListener("resize", updateBarWidth); // Update on resize
-
     return () => window.removeEventListener("resize", updateBarWidth); // Cleanup
   }, []);
 
+  // ✅ Ensure selectedBar updates correctly on bar click
   const handleBarClick = useCallback(
-    async (date: string) => {
-      setselectedbar(date);
-
-      await Promise.resolve(); // Ensures the state update completes before proceeding
-
-      const newSelectedBar = chartdata?.data.findIndex(
+    (date: string) => {
+      const newSelectedBarIndex = chartdata?.data.findIndex(
         (bar) => bar.date === date
       );
-      if (newSelectedBar !== -1) {
-        setselectedbardata(chartdata?.data[newSelectedBar]);
+      if (newSelectedBarIndex !== -1) {
+        setselectedbar(date);
+        setselectedbardata(chartdata?.data[newSelectedBarIndex]);
       }
     },
     [chartdata, setselectedbar, setselectedbardata]
   );
 
+  // ✅ Fix: Ensure dependencies include `chartdata` and `setselectedbar`
   const handlePrevClick = useCallback(() => {
     const currentIndex = chartdata.data.findIndex(
       (bar) => bar.date === selectedBar
     );
     if (currentIndex > 0) {
-      setselectedbar(chartdata.data[currentIndex - 1].date ?? "0");
-      setselectedbardata(chartdata.data[currentIndex - 1]);
+      const prevBar = chartdata.data[currentIndex - 1];
+      setselectedbar(prevBar?.date ?? "0");
+      setselectedbardata(prevBar);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedBar]);
+  }, [selectedBar, chartdata, setselectedbar, setselectedbardata]);
 
   const handleNextClick = useCallback(() => {
     const currentIndex = chartdata.data.findIndex(
       (bar) => bar.date === selectedBar
     );
-
     if (currentIndex < chartdata.data.length - 1) {
-      setselectedbar(
-        chartdata.data[currentIndex + 1].date ??
-          (chartdata.data.length - 1).toString()
-      );
-      setselectedbardata(chartdata.data[currentIndex + 1]);
+      const nextBar = chartdata.data[currentIndex + 1];
+      setselectedbar(nextBar.date ?? "0");
+      setselectedbardata(nextBar);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedBar]);
+  }, [selectedBar, chartdata, setselectedbar, setselectedbardata]);
 
   return (
     <div className="relative bg-white">
@@ -130,19 +125,14 @@ const BarChartHero = ({
               </div>
 
               <div id="switch_arrows" className="flex flex-row gap-2 *:mr-4 ">
-                <div
-                  className={`flex items-center ${
-                    selectedBar === String(chartdata?.data?.length)
-                      ? "gap-2"
-                      : "gap-2"
-                  } mt-1`}
-                >
+                <div className="flex items-center gap-2 mt-1">
                   <Button
                     variant="light"
                     size="xs"
                     icon={ChevronLeftIcon}
                     onClick={handlePrevClick}
                     className="text-pink-700 p-2 rounded-md bg-gray-300"
+                    disabled={selectedBar === chartdata.data[0]?.date}
                   />
 
                   <Button
@@ -151,15 +141,24 @@ const BarChartHero = ({
                     icon={ChevronRightIcon}
                     onClick={handleNextClick}
                     className={`text-pink-700 rounded-md p-2 ${
-                      chartdata.data.findIndex(
-                        (bar) => bar.date === selectedBar
-                      ) === chartdata.data.length
-                        ? "opacity-50 cursor-not-allowed bg-gray-400 text-gray-800 "
+                      Object.keys(
+                        chartdata.data[
+                          chartdata.data.findIndex(
+                            (bar) => bar.date === selectedBar
+                          ) + 1
+                        ] ?? {}
+                      ).length === 0
+                        ? "opacity-50 cursor-not-allowed bg-gray-500 text-gray-800"
                         : "bg-gray-300"
                     }`}
                     disabled={
-                      Object.keys(chartdata.data[Number(selectedBar + 1)] ?? {})
-                        .length === 0
+                      Object.keys(
+                        chartdata.data[
+                          chartdata.data.findIndex(
+                            (bar) => bar.date === selectedBar
+                          ) + 1
+                        ] ?? {}
+                      ).length === 0
                     }
                   />
                 </div>
