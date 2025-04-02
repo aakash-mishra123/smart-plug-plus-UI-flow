@@ -8,24 +8,30 @@ import { IoWarning } from "react-icons/io5";
 import { Metric } from "@tremor/react";
 import { convertToItalicNumber } from "@/utils/methods";
 type CustomProgressProps = {
-  contractPowerToShow?: number;
+  contractPower?: number;
   instantPower?: number;
   value: number;
 };
 
-const CustomLinearProgress = ({ value }: CustomProgressProps) => {
+const CustomLinearProgress = ({
+  contractPower,
+  value,
+}: CustomProgressProps) => {
   const bkgColor =
     value < 3000 ? (value < 2500 ? "#37785a" : "#f5b800") : "#ed0528";
 
   const bkgBanner = value < 2500 ? "#f5fff6" : "#fcf1f6";
   const percent = Math.round((value / 3200) * 100);
+
   return (
     <div className="flex flex-col relative py-2">
       <div className="flex flex-row gap-2 items-end mt-4 mb-4 pl-2">
         <Metric className={`text-3xl font-bold`} style={{ color: bkgColor }}>
           {convertToItalicNumber(value, 1000, 2) ?? "2,3"}
         </Metric>
-        <Metric className="text-black text-3xl ">di {3000 / 1000} </Metric>
+        <Metric className="text-black text-3xl ">
+          di {contractPower ?? 0 / 1000}{" "}
+        </Metric>
         <p className="text-black text-2xl ">kW</p>
       </div>
       <Box
@@ -47,7 +53,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
         >
           <LinearProgress
             variant="buffer"
-            value={value}
+            value={value ?? 0}
             valueBuffer={80}
             sx={{
               height: 28,
@@ -68,7 +74,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
                 position: "absolute",
                 marginY: "4px",
                 transform: "translateX(-2%) !important",
-                maxWidth: "99%",
+                maxWidth: "98%",
                 width: `${percent}%`,
                 left: value >= 2500 ? "2%" : "1%",
               },
@@ -87,11 +93,12 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
             sx={{
               position: "absolute",
               top: "32%",
-              width: "90%",
+              width: "93%",
               display: "flex",
               justifyContent: "space-between",
-              transform: "translateY(+40%)",
+              transform: "translateY(+35%)",
               px: "2%",
+              marginLeft: "-12px",
             }}
           >
             <Box
@@ -101,7 +108,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
                 backgroundColor: "white",
                 borderRadius: "50%",
                 position: "absolute",
-                left: "8%",
+                left: "7%",
               }}
             />
             <Box
@@ -138,9 +145,9 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
         >
           <Box
             sx={{
-              width: `8%`,
+              width: `10%`,
               color: "black",
-              marginLeft: "8%",
+              marginLeft: "4%",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -182,7 +189,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
           <Box
             sx={{
               color: "black",
-              marginRight: "2%",
+              marginLeft: "5%",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",

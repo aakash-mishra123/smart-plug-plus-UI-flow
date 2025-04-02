@@ -139,3 +139,11 @@ export type dailyEnergyTypes = {
   serial?: string;
   date?: string;
 };
+
+export type PodData = {
+  availablePower: number;
+  contractPower: number;
+  meter: string;
+  serial: string;
+  pod: string;
+};

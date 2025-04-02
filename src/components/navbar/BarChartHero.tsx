@@ -158,7 +158,7 @@ const BarChartHero = ({
                         : "bg-gray-300"
                     }`}
                     disabled={
-                      Object.keys(chartdata.data[Number(selectedBar) + 1])
+                      Object.keys(chartdata.data[Number(selectedBar + 1)] ?? {})
                         .length === 0
                     }
                   />

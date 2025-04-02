@@ -14,25 +14,30 @@ import dayjs from "dayjs";
 interface ConsumptionDisplayProps {
   title: string;
   value: number;
+  timeString: string;
   unit?: string;
 }
 
 const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
   title,
   value,
+  timeString,
   unit,
 }) => {
   return (
     <Card className="w-full max-w-xs p-4 py-6 montserrat-custom rounded-xl !dark:border-none ring-0 !dark:ring-0 bg-[#ecf2f6] flex-col justify-items-left ">
       <Text className="text-gray-800 font-black text-2xl">{title}</Text>
-      <p className="text-sm mt-1 text-gray-600">dalle 00 alle 13:30</p>
+      <p className="text-sm mt-1 text-gray-600">{`dalle ${
+        timeString.split("-")[0]
+      } alle 
+      ${timeString.split("-")[1]}`}</p>
       <div className="flex flex-col gap-2 justify-items-center mt-4">
         <div className="flex-col gap-1 flex text-semibold">
           <p className="tex-sm font-thin">Hai consumato</p>
           <div className="flex flex-row gap-1">
             <TbBolt className="text-pink-800 font-bold text-2xl" />
             <p className="text-lg sm:text-2xl font-black ">
-              {convertToItalicNumber(value, 1000, 2)} {unit}
+              {convertToItalicNumber(value, 1000, 2) ?? "0"} {unit}
             </p>
           </div>
         </div>
@@ -55,13 +60,16 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
 };
 
 const Display = () => {
-  const currDayConsumption = useSelector(
-    (store: RootState) => store.powerData.data.totalEnergyConsumed
-  );
-
   const serialId = useSelector(
     (store: RootState) => store.deviceData.data.serial
   );
+
+  const { data: currentDayConsumption } = FormatDailyUsageData({
+    slug: queryString.stringify({
+      date: dayjs().format("YYYY-MM-DD"),
+      serial: serialId,
+    }),
+  });
 
   const { data: prevDayConsumption } = FormatDailyUsageData({
     slug: queryString.stringify({
@@ -71,10 +79,16 @@ const Display = () => {
   });
 
   const prevDay = prevDayConsumption.totalEnergyConsumed ?? 0;
-  const difference = Math.ceil(
-    ((currDayConsumption - prevDay) / prevDay) * 100
-  );
-
+  const currDayConsumption = currentDayConsumption.totalEnergyConsumed ?? 0;
+  let difference = 0;
+  if (
+    currentDayConsumption.totalEnergyConsumed &&
+    currentDayConsumption.totalEnergyConsumed > 0 &&
+    prevDayConsumption.totalEnergyConsumed &&
+    prevDayConsumption.totalEnergyConsumed > 0
+  ) {
+    difference = Math.ceil(((currDayConsumption - prevDay) / prevDay) * 100);
+  }
   return (
     <div className="flex flex-col gap-4 bg-white px-4">
       <div className="flex flex-col gap-0 pt-8 px-2">
@@ -90,8 +104,20 @@ const Display = () => {
         </div>
       </div>
       <div className="w-full text-black flex flex-row gap-4 justify-between pb-4">
-        <ConsumptionDisplay title="Oggi" value={currDayConsumption} unit="kW" />
-        <ConsumptionDisplay title="Ieri" value={prevDay} unit="kW" />
+        <ConsumptionDisplay
+          title="Ieri"
+          value={prevDay}
+          timeString="00:00 - 24:00"
+          unit="kW"
+        />
+        <ConsumptionDisplay
+          title="Oggi"
+          value={currDayConsumption}
+          timeString={`00:00 - ${
+            prevDayConsumption?.peakConsumption?.timeString.split("-")[1]
+          }`}
+          unit="kW"
+        />
       </div>
       <div className="rounded-lg border-2 mt-4 p-4 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black font-roboto items-center">
         <p>

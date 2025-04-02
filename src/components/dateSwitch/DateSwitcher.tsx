@@ -19,8 +19,6 @@ const DateSwitcher = ({
   selectedDate,
   setSelectedDate,
   data,
-  view,
-  setView,
 }: DateSwitcherProps) => {
   const today = dayjs().startOf("day");
   const isNextDisabled = selectedDate.isSame(today, "day");
@@ -33,7 +31,7 @@ const DateSwitcher = ({
     }
   };
   return (
-    <div className="flex flex-col gap-0 pt-8 pr-4 pl-4 pb-6 bg-white">
+    <div className="flex flex-col gap-0 pt-8 pr-4 pl-4 pb-6 w-100 bg-white">
       <div className="flex flex-row justify-between">
         <div className="flex flex-col gap-0">
           <p className="text-md font-roboto text-gray-600">
@@ -42,28 +40,6 @@ const DateSwitcher = ({
           <p className="text-2xl font-bold">
             {convertToItalicNumber(data?.totalEnergyConsumed ?? 0, 1000, 2)} kWh
           </p>
-        </div>
-        <div className="bg-gray-100 p-1 rounded-lg flex flex-row">
-          <Button
-            onClick={() => setView("month")}
-            className={`text-sm px-4 py-2 rounded-md ${
-              view === "month"
-                ? "border-2 border-blue-600 text-blue-700 bg-white"
-                : "text-gray-900 bg-transparent"
-            }`}
-          >
-            Mese
-          </Button>
-          <Button
-            onClick={() => setView("day")}
-            className={`text-sm px-4 py-2 rounded-md ${
-              view === "day"
-                ? "border-2 border-blue-600 text-blue-700 bg-white"
-                : "text-gray-900 bg-transparent"
-            }`}
-          >
-            Giorno
-          </Button>
         </div>
       </div>
       <div className="flex flex-row justify-between w-full pt-2 mb-4 bg-white font-roboto">

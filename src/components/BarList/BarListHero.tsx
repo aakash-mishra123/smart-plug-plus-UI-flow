@@ -15,7 +15,7 @@ const BarListHero = ({ data }: BarListHeroProps) => {
     <div className="w-full mx-auto p-4 pt-2 bg-white font-roboto pb-12 mb-12">
       {/* Average Consumption Card */}
       <Card className="mt-3 p-4 flex justify-between !ring-transparent items-center bg-slate-200 rounded-lg">
-        <span className="text-md text-black">Consumo orario</span>
+        <span className="text-md itext-black">Consumo orario</span>
         <span className="text-xl font-semibold">{`${total} Wh`}</span>
       </Card>
       <div className="mt-4 space-y-4">

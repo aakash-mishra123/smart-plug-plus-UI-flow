@@ -6,7 +6,10 @@ import { Card, Badge, Text } from "@tremor/react/dist";
 import { InfoIcon } from "lucide-react";
 import Paho from "paho-mqtt";
 import { meterEventDummyData } from "@/utils/constants";
-import { fetchEnergyData } from "@/app/api/deviceStatusAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/app/store";
+import { fetchPodData } from "@/app/store/slice/podDataSlice";
+import { AppDispatch } from "@/app/store";
 const DrawerModal = dynamic(
   () => import("../../components/drawer/DrawerModal")
 );
@@ -20,16 +23,16 @@ const mqttUsername =
 
 const ConsumptionCard = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [serialId, setSerialId] = useState<string>("c2g-57CFB6E1C");
   const [iotData, setIotData] = useState(meterEventDummyData);
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetchEnergyData();
-      setSerialId(response.serial);
-    };
+  const dispatch = useDispatch<AppDispatch>();
 
-    fetchData();
-  }, []);
+  const serial = useSelector(
+    (store: RootState) => store.deviceData.data.serial
+  );
+
+  const contractPower = useSelector(
+    (store: RootState) => store.podData.data.contractPower
+  );
 
   useEffect(() => {
     const clientId = crypto.randomUUID().replace(/-/g, "");
@@ -41,9 +44,8 @@ const ConsumptionCard = () => {
       userName: mqttUsername,
       password: "password",
       onSuccess: function () {
-        client.subscribe(`c2/d/${serialId}`); //serial from chain-2-gate
+        client.subscribe(`c2/d/${serial}`); //serial from chain-2-gate
       },
-      // how to reconnect methods // documentation... how to reco
     });
     client.onMessageArrived = function (message) {
       if (
@@ -52,12 +54,15 @@ const ConsumptionCard = () => {
       ) {
         const messageRecieved = JSON.parse(message.payloadString);
         setIotData(messageRecieved.Chain2Data);
-      }
-      return { iotData: JSON.parse(message.payloadString).Chain2Data };
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
+        return { iotData: JSON.parse(message.payloadString).Chain2Data };
+      } else return { iotData: { message: meterEventDummyData } };
+    };
+
+    if (fetchPodData) {
+      dispatch(fetchPodData(serial));
+    }
+  }, [dispatch, serial]);
   return (
     <>
       <Card className="bg-transparent font-roboto rounded-sm p-4 px-2 !ring-0 !dark:ring-0">
@@ -87,7 +92,10 @@ const ConsumptionCard = () => {
         </div>
         <hr />
         <div className="flex flex-col bg-white rounded-md px-4">
-          <CustomLinearProgress value={iotData?.Payload?.InstantPower} />
+          <CustomLinearProgress
+            contractPower={contractPower}
+            value={iotData?.Payload?.InstantPower ?? 0}
+          />
         </div>
       </Card>
       <DrawerModal

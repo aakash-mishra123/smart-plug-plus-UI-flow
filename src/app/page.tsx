@@ -9,6 +9,9 @@ import FormatDailyUsageData from "@/app/api/quarterlyUsageAPI";
 import { quarterUsageData } from "@/app/types/dailyUsageTypes";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
+import { Button } from "@tremor/react";
+
+const MonthlyView = dynamic(() => import("@/components/tabs/monthlyview"));
 const Navbar = dynamic(() => import("@/components/tabs/Tabs"));
 const Display = dynamic(() => import("@/components/display/display"));
 const InfoCard = dynamic(() => import("@/components/shared/InfoCard"));
@@ -25,7 +28,7 @@ export default function Home() {
   const serialId = useSelector(
     (store: RootState) => store.deviceData.data.serial
   );
-  const [view, setView] = useState<string>("month");
+  const [view, setView] = useState<string>("day");
   const [selectedDate, setselectedDate] = useState<Dayjs>(dayjs().locale("en"));
   const [selectedBarData, setselectedBarData] = useState<quarterUsageData>(
     bargraphInitialState.data
@@ -90,16 +93,40 @@ export default function Home() {
             id: 2,
             value: "Tab2",
             children: (
-              <>
-                <DateSwitcher
-                  selectedDate={selectedDate}
-                  setSelectedDate={setselectedDate}
-                  data={data}
-                  view={view}
-                  setView={setView}
-                />
+              <div>
+                <div className="relative">
+                  <div className="absolute top-4 z-10 right-4 h-16 bg-gray-100 p-1 rounded-lg flex flex-row">
+                    <Button
+                      onClick={() => setView("month")}
+                      className={`text-sm px-4 py-2 rounded-md ${
+                        view === "month"
+                          ? "border-2 border-blue-600 text-blue-700 bg-white"
+                          : "text-gray-900 bg-transparent"
+                      }`}
+                    >
+                      Mese
+                    </Button>
+                    <Button
+                      onClick={() => setView("day")}
+                      className={`text-sm px-4 py-2 rounded-md ${
+                        view === "day"
+                          ? "border-2 border-blue-600 text-blue-700 bg-white"
+                          : "text-gray-900 bg-transparent"
+                      }`}
+                    >
+                      Giorno
+                    </Button>
+                  </div>
+                </div>
                 {view === "day" ? (
                   <>
+                    <DateSwitcher
+                      selectedDate={selectedDate}
+                      setSelectedDate={setselectedDate}
+                      data={data}
+                      view={view}
+                      setView={setView}
+                    />
                     <BarChartHero
                       chartdata={data}
                       selectedBar={selectedBar}
@@ -112,11 +139,9 @@ export default function Home() {
                     />
                   </>
                 ) : (
-                  <>
-                    <h1>Month view</h1>
-                  </>
+                  <MonthlyView />
                 )}
-              </>
+              </div>
             ),
           },
         ]}
