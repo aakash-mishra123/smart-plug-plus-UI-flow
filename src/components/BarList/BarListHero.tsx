@@ -25,7 +25,7 @@ const BarListHero = ({ data }: BarListHeroProps) => {
             <div className="flex flex-row justify-between space-x-2 mb-2">
               <div className="flex gap-4 items-center">
                 <span className="text-sm font-bold">{item?.timeString}</span>
-                {item.peakValue && (
+                {item.peakValue && (Number(item.peakValue) >= 3000) && (
                   <Chip
                     icon={<TbBolt style={{ color: "red" }} />}
                     label="Superamento soglia"
