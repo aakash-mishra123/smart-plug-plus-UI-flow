@@ -90,16 +90,8 @@ const CustomLinearProgress = ({
           />
 
           <Box
-            sx={{
-              position: "absolute",
-              top: "32%",
-              width: "93%",
-              display: "flex",
-              justifyContent: "space-between",
-              transform: "translateY(+35%)",
-              px: "2%",
-              marginLeft: "-14px",
-            }}
+            className="absolute w-[93%] flex justify-between px-[2%] -ml-[14px] 
+  top-[32%] sm:top-[32%] md:top-[32%] lg:top-[45%]"
           >
             <Box
               sx={{
@@ -156,12 +148,12 @@ const CustomLinearProgress = ({
             <Typography fontSize={15} fontWeight="bold">
               |
             </Typography>
-            <Typography fontSize={15} fontWeight="bold">
+            <p className="text-xs xss:text-xs font-bold sm:text-sm md:text-lg">
               0 kw
-            </Typography>
-            <Typography fontSize={15} fontWeight="medium" color="black">
+            </p>
+            <p className="text-xs xss:text-xs sm:text-sm md:text-lg font-medium">
               Inattività
-            </Typography>
+            </p>
           </Box>
           <Box
             sx={{
@@ -172,17 +164,17 @@ const CustomLinearProgress = ({
               flexDirection: "column",
               alignItems: "center",
               fontFamily: "roboto",
-              marginRight: "28%",
+              marginRight: "30%",
             }}
             className="font-roboto"
           >
             <Typography fontSize={14} fontWeight="bold">
               |
             </Typography>
-            <Typography fontSize={15} fontWeight="bold">
+            <p className="text-xs xss:text-xs font-bold sm:text-sm md:text-lg">
               2,5 kw
-            </Typography>
-            <p className="text-xs sm:text-md md:text-xl">
+            </p>
+            <p className="text-xs xss:text-xs sm:text-sm md:text-lg font-medium">
               Soglia del tuo piano
             </p>
           </Box>
@@ -198,12 +190,12 @@ const CustomLinearProgress = ({
             <Typography fontSize={15} fontWeight="bold" marginRight="3%">
               |
             </Typography>
-            <Typography fontSize={15} fontWeight="bold" width="full">
+            <p className="text-xs xss:text-xs font-bold sm:text-sm md:text-lg">
               3 kw
-            </Typography>
-            <Typography fontSize={14} fontWeight="medium" color="black">
+            </p>
+            <p className="text-xs xss:text-xs sm:text-sm md:text-lg font-medium">
               Soglia massima
-            </Typography>
+            </p>
           </Box>
         </Box>
 

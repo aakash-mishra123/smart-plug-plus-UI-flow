@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
 import axios from "axios";
 import { dailyEnergyTypes } from "@/utils/types";
+import { dummyDailyData } from "@/utils/constants";
 // import queryString from "query-string";
 
 const getMonthStartToEnd = (year: number, month: number) => {
@@ -50,7 +51,7 @@ type MonthlyState = {
 };
 
 const initialState: MonthlyState = {
-  data: [],
+  data: dummyDailyData,
   loading: false,
   error: null,
 };

@@ -66,7 +66,7 @@ const ConsumptionCard = () => {
   }, [dispatch]);
   return (
     <>
-      <Card className="bg-transparent font-roboto rounded-sm p-4 px-2 !ring-0 !dark:ring-0">
+      <Card className="bg-transparent font-roboto rounded-sm p-4 px-2 my-0 !ring-0 !dark:ring-0">
         <div className="flex flex-col p-2 justify-between">
           <div className="flex justify-between">
             <Text className="text-xl text-black font-medium">
