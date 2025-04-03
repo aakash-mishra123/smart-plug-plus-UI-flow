@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
-
+"use client"
 import React, { CSSProperties } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
 import {
