@@ -16,6 +16,9 @@ const Navbar = dynamic(() => import("@/components/tabs/Tabs"));
 const Display = dynamic(() => import("@/components/display/display"));
 const InfoCard = dynamic(() => import("@/components/shared/InfoCard"));
 const BarListHero = dynamic(() => import("@/components/BarList/BarListHero"));
+const MonthlyDisplay = dynamic(
+  () => import("@/components/display/MonthlyDisplay")
+);
 const ConsumptionCard = dynamic(
   () => import("@/components/progressBar/ConsumptionCard")
 );
@@ -29,6 +32,8 @@ export default function Home() {
     (store: RootState) => store.deviceData.data.serial
   );
   const [view, setView] = useState<string>("day");
+  const [displayView, setDisplayView] = useState<string>("day");
+
   const [selectedDate, setselectedDate] = useState<Dayjs>(dayjs().locale("en"));
   const [selectedBarData, setselectedBarData] = useState<quarterUsageData>(
     bargraphInitialState.data
@@ -87,7 +92,33 @@ export default function Home() {
           {
             id: 1,
             value: "Tab1",
-            children: <Display />,
+            children: (
+              <div className="relative">
+                <div className="absolute top-4 z-10 right-4 h-16 bg-gray-100 p-1 rounded-lg flex flex-row">
+                  <Button
+                    onClick={() => setDisplayView("month")}
+                    className={`text-sm px-4 py-2 rounded-md ${
+                      displayView === "month"
+                        ? "border-2 border-blue-600 text-blue-700 bg-white"
+                        : "text-gray-900 bg-transparent"
+                    }`}
+                  >
+                    Mese
+                  </Button>
+                  <Button
+                    onClick={() => setDisplayView("day")}
+                    className={`text-sm px-4 py-2 rounded-md ${
+                      displayView === "day"
+                        ? "border-2 border-blue-600 text-blue-700 bg-white"
+                        : "text-gray-900 bg-transparent"
+                    }`}
+                  >
+                    Giorno
+                  </Button>
+                </div>
+                {displayView === "day" ? <Display /> : <MonthlyDisplay />}
+              </div>
+            ),
           },
           {
             id: 2,

@@ -134,16 +134,16 @@ export type MeterEvent = {
 };
 
 export type dailyEnergyTypes = {
-  tarrifBaseEnergy: number[];
-  dayBaseEnergy: number;
+  tariffBaseEnergy: number[];
+  dayBaseEnergy?: number;
   serial?: string;
   date?: string;
   startDateTime?: number;
   formattedDate?: string;
-  totalActualEnergy?: number;
+  totalActEnergy?: number;
   peakPower?: number;
   measureTS?: number;
-
+  numPeaks?: number;
 };
 
 export type PodData = {

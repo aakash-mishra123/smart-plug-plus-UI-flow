@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
+"use client";
 import React, { CSSProperties } from "react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
 import {
@@ -14,6 +14,7 @@ import {
   YAxis,
 } from "recharts";
 import { AxisDomain } from "recharts/types/util/types";
+import { RxLightningBolt } from "react-icons/rx";
 
 import {
   AvailableChartColors,
@@ -25,7 +26,6 @@ import {
 import { useOnWindowResize } from "@/lib/useOnWindowResize";
 import { cx } from "@/lib/utils";
 import { motion } from "framer-motion";
-
 //#region Shape
 function deepEqual<T>(obj1: T, obj2: T): boolean {
   if (obj1 === obj2) return true;
@@ -60,7 +60,7 @@ const renderShape = (
   const { fillOpacity, name } = props;
   let { x, width, y, height } = props;
   const { barColor } = props;
-
+  const { totalActEnergy } = props.payload;
   // Ensure all key dimensions are numbers and fallback if not
   x = typeof x === "number" ? x : 0;
   y = typeof y === "number" ? y : 0;
@@ -103,34 +103,44 @@ const renderShape = (
   const lineCount = Math.floor(height / lineSpacing);
 
   return (
-    <g>
-      <motion.path
-        d={path}
-        initial={{ d: `M${x},${y + height} L${x + width},${y + height} Z` }}
-        animate={{ d: path }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        fillOpacity={computedOpacity}
-        fill={isSelected ? "black" : barColor}
-        whileTap={{ scale: 0.95 }}
-        style={{ cursor: "pointer" }}
-      />
-      {isSelected && (
-        <>
-          {[...Array(lineCount)].map((_, i) => (
-            <line
-              key={i}
-              x1={x}
-              x2={x + width}
-              y1={y + (i + 1) * lineSpacing}
-              y2={y + (i + 1) * lineSpacing}
-              stroke="white"
-              strokeWidth={2}
-              strokeDasharray="5,5"
+    <>
+      <g className="recharts-layer recharts-bar-rectangle">
+        {totalActEnergy > 3000 && (
+          <g transform={`translate(${x + width / 2 - 8}, ${y - 24})`}>
+            <RxLightningBolt
+              className="text-pink-700 text-lg font-bold"
+              fontWeight={500}
             />
-          ))}
-        </>
-      )}
-    </g>
+          </g>
+        )}
+        <motion.path
+          d={path}
+          initial={{ d: `M${x},${y + height} L${x + width},${y + height} Z` }}
+          animate={{ d: path }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          fillOpacity={computedOpacity}
+          fill={isSelected ? "black" : barColor}
+          whileTap={{ scale: 0.95 }}
+          style={{ cursor: "pointer" }}
+        />
+        {isSelected && (
+          <>
+            {[...Array(lineCount)].map((_, i) => (
+              <line
+                key={i}
+                x1={x}
+                x2={x + width}
+                y1={y + (i + 1) * lineSpacing}
+                y2={y + (i + 1) * lineSpacing}
+                stroke="white"
+                strokeWidth={2}
+                strokeDasharray="5,5"
+              />
+            ))}
+          </>
+        )}
+      </g>
+    </>
   );
 };
 
@@ -611,6 +621,8 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   enableAnimation?: boolean;
   animationDuration?: number;
   allowClickableTransitions?: boolean;
+  showSparkPlugs?: boolean;
+  skipXAxisLabels?: boolean;
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
@@ -652,6 +664,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       barColor,
       enableAnimation,
       animationDuration,
+      showSparkPlugs,
+      skipXAxisLabels,
       ...other
     } = props;
     const CustomTooltip = customTooltip;
@@ -748,10 +762,17 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             ) : null}
             <XAxis
               hide={!showXAxis}
-              tick={{
-                transform:
-                  layout !== "vertical" ? "translate(-6, 2)" : undefined,
-              }}
+              tick={
+                skipXAxisLabels === true
+                  ? {
+                      transform:
+                        layout !== "vertical" ? "translate(-6, 2)" : undefined,
+                    }
+                  : {
+                      transform:
+                        layout !== "vertical" ? "translate(-10, 2)" : undefined,
+                    }
+              }
               fill=""
               stroke=""
               className={cx("text-xs ml-4", "#f0f2f6 dark:bg-gray-500", {
@@ -760,7 +781,9 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               tickLine={false}
               axisLine={false}
               minTickGap={tickGap}
-              tickFormatter={(value) => (Number(value) % 2 === 0 ? value : "")} // ✅ Show only even numbers
+              tickFormatter={(value) =>
+                skipXAxisLabels ? (Number(value) % 2 === 0 ? value : "") : value
+              } //flag prop to skipXAxisLabels
               {...(layout !== "vertical"
                 ? {
                     padding: {
@@ -815,8 +838,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 ? {
                     type: "number",
                     domain: yAxisDomain as AxisDomain,
-                    tickFormatter:
-                      type === "percent" ? valueToPercent : valueFormatter,
                     allowDecimals: allowDecimals,
                   }
                 : {
@@ -935,6 +956,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                   fill=""
                   shape={(props: any) => {
                     props.width = barWidth;
+                    if (showSparkPlugs) props.showSparkPlugs = true;
                     props.barColor =
                       selectedBar === props.date ? "black" : barColor;
                     return renderShape(props, activeBar, activeLegend, layout);

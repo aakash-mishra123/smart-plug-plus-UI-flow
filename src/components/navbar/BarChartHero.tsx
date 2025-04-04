@@ -113,6 +113,7 @@ const BarChartHero = ({
               selectedBar={selectedBar}
               enableAnimation={true}
               animationDuration={0.5}
+              skipXAxisLabels={true}
             />
           </motion.div>
           <div id="switch_hours" className="montserrat-custom w-100 pl-4 mt-2">
