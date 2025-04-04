@@ -147,9 +147,22 @@ export type dailyEnergyTypes = {
 };
 
 export type PodData = {
+  pesse: number;
+  dataPlate: string;
   availablePower: number;
+  pod: string;
+  customerCode: string;
+  ttl: string;
+  k: number;
+  messagePosixTimestamp: number;
   contractPower: number;
   meter: string;
+  vendor: string;
+  eventPosixTimestamp: number;
+  startContract: string;
+  eventsCounter: number;
+  gap: number;
+  freezingDay: string;
   serial: string;
-  pod: string;
+  phone: string;
 };

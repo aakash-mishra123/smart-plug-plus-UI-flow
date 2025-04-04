@@ -7,21 +7,22 @@ import { FaCheckCircle } from "react-icons/fa";
 import { IoWarning } from "react-icons/io5";
 import { Metric } from "@tremor/react";
 import { convertToItalicNumber } from "@/utils/methods";
+import { RootState } from "@/app/store";
+import { useSelector } from "react-redux";
 type CustomProgressProps = {
-  contractPower?: number;
   instantPower?: number;
   value: number;
 };
 
-const CustomLinearProgress = ({
-  contractPower,
-  value,
-}: CustomProgressProps) => {
+const CustomLinearProgress = ({ value }: CustomProgressProps) => {
   const bkgColor =
     value < 3000 ? (value < 2500 ? "#37785a" : "#f5b800") : "#ed0528";
 
   const bkgBanner = value < 2500 ? "#f5fff6" : "#fcf1f6";
   const percent = Math.round((value / 3200) * 100);
+  const contractPower = useSelector(
+    (store: RootState) => store.podData.data.contractPower
+  );
 
   return (
     <div className="flex flex-col relative py-2">
@@ -30,7 +31,7 @@ const CustomLinearProgress = ({
           {convertToItalicNumber(value, 1000, 2) ?? "2,3"}
         </Metric>
         <Metric className="text-black text-3xl ">
-          di {(contractPower ?? 0) / 1000}{" "}
+          di {contractPower / 1000}{" "}
         </Metric>
         <p className="text-black text-2xl ">kW</p>
       </div>
@@ -91,7 +92,7 @@ const CustomLinearProgress = ({
 
           <Box
             className="absolute w-[93%] flex justify-between px-[2%] -ml-[14px] 
-  top-[32%] sm:top-[32%] md:top-[32%] lg:top-[45%]"
+  top-[33%] sm:top-[32%] md:top-[32%] lg:top-[32%]"
           >
             <Box
               sx={{
@@ -100,7 +101,7 @@ const CustomLinearProgress = ({
                 backgroundColor: "white",
                 borderRadius: "50%",
                 position: "absolute",
-                left: "7%",
+                left: "6%",
               }}
             />
             <Box
@@ -120,7 +121,7 @@ const CustomLinearProgress = ({
                 backgroundColor: value < 3000 ? "black" : "white",
                 borderRadius: "50%",
                 position: "absolute",
-                right: "5%",
+                right: "4%",
               }}
             />
           </Box>
@@ -221,7 +222,7 @@ const CustomLinearProgress = ({
             <p className={`text-sm text-black`}>
               {" "}
               La potenza attuale della tua Presa Plus rispetta la soglia del tuo
-              piano 👍
+              piano
             </p>
           ) : value < 3000 ? (
             <p className={`text-sm text-[${bkgColor}]`}>

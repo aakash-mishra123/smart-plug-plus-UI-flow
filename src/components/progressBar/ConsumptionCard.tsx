@@ -30,10 +30,6 @@ const ConsumptionCard = () => {
     (store: RootState) => store.deviceData.data.serial
   );
 
-  const contractPower = useSelector(
-    (store: RootState) => store.podData.data.contractPower
-  );
-
   useEffect(() => {
     const clientId = crypto.randomUUID().replace(/-/g, "");
     const client = new Paho.Client(url, clientId);
@@ -93,10 +89,7 @@ const ConsumptionCard = () => {
         </div>
         <hr />
         <div className="flex flex-col bg-white rounded-md px-4">
-          <CustomLinearProgress
-            contractPower={contractPower}
-            value={iotData?.Payload?.InstantPower ?? 0}
-          />
+          <CustomLinearProgress value={iotData?.Payload?.InstantPower ?? 0} />
         </div>
       </Card>
       <DrawerModal
