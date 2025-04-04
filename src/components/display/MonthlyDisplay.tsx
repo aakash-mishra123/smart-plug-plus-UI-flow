@@ -24,7 +24,9 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
 }) => {
   return (
     <Card className="w-full max-w-xs p-4 py-6 montserrat-custom rounded-[16px] !dark:border-none ring-0 !dark:ring-0 bg-[#ecf2f6] flex-col justify-items-left ">
-      <Text className="text-gray-800 font-extrabold text-2xl">{title}</Text>
+      <Text className="text-gray-800 font-black text-md xsm:text-sm xs:text-[14px] sm:text-[16px] md:text-2xl">
+        {title}
+      </Text>
       <p className="text-sm mt-1 text-gray-600">{timeString}</p>
       <div className="flex flex-col gap-2 justify-items-center mt-4">
         <div className="flex-col gap-1 flex text-semibold">

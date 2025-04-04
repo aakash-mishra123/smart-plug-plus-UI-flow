@@ -94,10 +94,10 @@ export default function Home() {
             value: "Tab1",
             children: (
               <div className="relative">
-                <div className="absolute top-4 z-10 right-4 h-16 bg-gray-100 p-1 rounded-lg flex flex-row">
+                <div className="absolute top-8 z-10 right-4 h-12 bg-gray-100 p-1 rounded-lg flex flex-row">
                   <Button
                     onClick={() => setDisplayView("month")}
-                    className={`text-sm px-4 py-2 rounded-md ${
+                    className={`text-sm px-4 py-0 rounded-md ${
                       displayView === "month"
                         ? "border-2 border-blue-600 text-blue-700 bg-white"
                         : "text-gray-900 bg-transparent"
@@ -107,7 +107,7 @@ export default function Home() {
                   </Button>
                   <Button
                     onClick={() => setDisplayView("day")}
-                    className={`text-sm px-4 py-2 rounded-md ${
+                    className={`text-sm px-4 py-0 rounded-md ${
                       displayView === "day"
                         ? "border-2 border-blue-600 text-blue-700 bg-white"
                         : "text-gray-900 bg-transparent"
@@ -126,7 +126,7 @@ export default function Home() {
             children: (
               <div>
                 <div className="relative">
-                  <div className="absolute top-4 z-10 right-4 h-16 bg-gray-100 p-1 rounded-lg flex flex-row">
+                  <div className="absolute top-8 z-10 right-4 h-12 bg-gray-100 p-1 rounded-lg flex flex-row">
                     <Button
                       onClick={() => setView("month")}
                       className={`text-sm px-4 py-2 rounded-md ${
