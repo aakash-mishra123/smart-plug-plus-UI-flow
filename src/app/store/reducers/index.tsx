@@ -1,14 +1,14 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import powerReducer from "../slice/powerSlice";
-import deviceReducer from "../slice/deviceSlice";
+import deviceSlice from "../slice/deviceSlice";
 import monthlyReducer from "../slice/monthlyUsageSlice";
-import podReducer from "../slice/podDataSlice";
+import podSlice from "../slice/podDataSlice";
 
 const rootReducer = combineReducers({
   powerData: powerReducer,
-  deviceData: deviceReducer,
+  deviceData: deviceSlice.reducer,
   monthlyData: monthlyReducer,
-  podData: podReducer,
+  podData: podSlice.reducer,
 });
 
 export default rootReducer;

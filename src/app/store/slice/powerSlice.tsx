@@ -6,7 +6,7 @@ export const fetchQuarterData = createAsyncThunk("", async () => {
 });
 
 const powerSlice = createSlice({
-  name: "data",
+  name: "powerData",
   initialState: { data: dummyBarGraph, loading: false, error: null },
   reducers: {},
 });

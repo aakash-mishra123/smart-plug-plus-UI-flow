@@ -6,10 +6,8 @@ import { Card, Badge, Text } from "@tremor/react/dist";
 import { InfoIcon } from "lucide-react";
 import Paho from "paho-mqtt";
 import { meterEventDummyData } from "@/utils/constants";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
-import { fetchPodData } from "@/app/store/slice/podDataSlice";
-import { AppDispatch } from "@/app/store";
 const DrawerModal = dynamic(
   () => import("../../components/drawer/DrawerModal")
 );
@@ -24,8 +22,6 @@ const mqttUsername =
 const ConsumptionCard = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [iotData, setIotData] = useState(meterEventDummyData);
-  const dispatch = useDispatch<AppDispatch>();
-
   const serial = useSelector(
     (store: RootState) => store.deviceData.data.serial
   );
@@ -55,11 +51,8 @@ const ConsumptionCard = () => {
       } else return { iotData: { message: meterEventDummyData } };
     };
 
-    if (fetchPodData) {
-      dispatch(fetchPodData(serial));
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, []);
   return (
     <>
       <Card className="bg-transparent font-roboto rounded-sm p-4 px-2 my-0 !ring-0 !dark:ring-0">
@@ -89,7 +82,10 @@ const ConsumptionCard = () => {
         </div>
         <hr />
         <div className="flex flex-col bg-white rounded-md px-4">
-          <CustomLinearProgress value={iotData?.Payload?.InstantPower ?? 0} />
+          <CustomLinearProgress
+            serial={serial}
+            value={iotData?.Payload?.InstantPower ?? 0}
+          />
         </div>
       </Card>
       <DrawerModal

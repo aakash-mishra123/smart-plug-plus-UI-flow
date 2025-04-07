@@ -25,7 +25,11 @@ export const fetchDeviceData = createAsyncThunk("", async () => {
 
 const deviceSlice = createSlice({
   name: "device",
-  initialState: { data: initialState, loading: false, error: null },
+  initialState: {
+    data: initialState,
+    loading: false,
+    error: null,
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -43,4 +47,4 @@ const deviceSlice = createSlice({
   },
 });
 
-export default deviceSlice.reducer;
+export default deviceSlice;

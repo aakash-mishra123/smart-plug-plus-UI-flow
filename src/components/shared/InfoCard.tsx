@@ -1,25 +1,27 @@
 "use client";
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Card, Text, Title, Flex } from "@tremor/react/dist";
 import { CiPlug1 } from "react-icons/ci";
 import MeterIcon from "../../../public/assets/meter_Icon.png";
 import { TbCircleFilled } from "react-icons/tb";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchDeviceData } from "@/app/store/slice/deviceSlice";
-import { AppDispatch, RootState } from "@/app/store";
+import { AppDispatch } from "@/app/store";
+import { chain2gatedummy } from "@/utils/constants";
 
 const InfoCard = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const deviceData = useSelector((store: RootState) => store.deviceData.data);
+  const [deviceData, setDeviceData] = useState(chain2gatedummy);
   useEffect(() => {
-    if (fetchDeviceData) {
-      dispatch(fetchDeviceData());
-    }
-
-    return () => {};
+    if (fetchDeviceData)
+      dispatch(fetchDeviceData())
+        .unwrap()
+        .then((res) => setDeviceData(res))
+        .catch((err) => {
+          console.log("ERROR: FETCH DEVICE DATA", err);
+        });
   }, [dispatch]);
-
   return (
     <>
       <div className="bg-[#C81D5E] h-fit p-4 min-w-[100vw]">
@@ -38,7 +40,7 @@ const InfoCard = () => {
                     Numero seriale
                   </Text>
                   <Text className="font-medium">{`${
-                    deviceData?.serial ?? "abcdefg"
+                    deviceData.serial ?? "abcdefg"
                   }`}</Text>
                 </div>
               </Flex>
@@ -48,7 +50,7 @@ const InfoCard = () => {
                 alignItems="center"
                 className="mt-2 gap-1"
               >
-                {deviceData?.online ? (
+                {deviceData.online ? (
                   <TbCircleFilled className="text-blue-600 rounded-full w-3 h-3" />
                 ) : (
                   <TbCircleFilled className="text-red-800 rounded-full w-3 h-3" />
@@ -59,7 +61,7 @@ const InfoCard = () => {
                   </Text>
                   <div className="flex flex-col gap-0">
                     <Text className={` text-sm text-black `}>
-                      {deviceData?.online ? "Connessa" : "Non-connessa"}
+                      {deviceData.online ? "Connessa" : "Non-connessa"}
                     </Text>
                   </div>
                 </div>

@@ -1,28 +1,41 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 import { Box, Typography } from "@mui/material";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoWarning } from "react-icons/io5";
 import { Metric } from "@tremor/react";
 import { convertToItalicNumber } from "@/utils/methods";
-import { RootState } from "@/app/store";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/store";
+import { fetchPodData } from "@/app/store/slice/podDataSlice";
+
 type CustomProgressProps = {
   instantPower?: number;
   value: number;
+  serial: string;
 };
 
-const CustomLinearProgress = ({ value }: CustomProgressProps) => {
+const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
+  const dispatch = useDispatch<AppDispatch>();
   const bkgColor =
     value < 3000 ? (value < 2500 ? "#37785a" : "#f5b800") : "#ed0528";
-
   const bkgBanner = value < 2500 ? "#f5fff6" : "#fcf1f6";
   const percent = Math.round((value / 3200) * 100);
-  const contractPower = useSelector(
-    (store: RootState) => store.podData.data.contractPower
-  );
+  const [contractPower, setContractPower] = useState<number>(3000);
+
+  useEffect(() => {
+    if (fetchPodData) {
+      dispatch(fetchPodData(serial))
+        .unwrap()
+        .then((res) => setContractPower(res.contractPower))
+        .catch((err) => {
+          console.log("ERROR: FETCH DATA ERROR", err);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col relative py-2">

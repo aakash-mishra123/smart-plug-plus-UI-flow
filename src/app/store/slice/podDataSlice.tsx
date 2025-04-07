@@ -45,7 +45,7 @@ export const fetchPodData = createAsyncThunk<PodData, string>(
 );
 
 const podSlice = createSlice({
-  name: "device",
+  name: "podDevice",
   initialState: { data: initialState, loading: false, error: null },
   reducers: {},
   extraReducers: (builder) => {
@@ -64,4 +64,4 @@ const podSlice = createSlice({
   },
 });
 
-export default podSlice.reducer;
+export default podSlice;

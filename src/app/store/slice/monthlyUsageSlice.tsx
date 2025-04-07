@@ -57,7 +57,7 @@ const initialState: MonthlyState = {
 };
 
 const monthlySlice = createSlice({
-  name: "data",
+  name: "monthlyData",
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
