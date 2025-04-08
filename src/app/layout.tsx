@@ -1,9 +1,11 @@
 "use client";
+import { ThemeProvider } from "@mui/material";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Provider } from "react-redux";
 import localFont from "next/font/local";
 import store from "./store";
+import theme from "./providers/Theme";
 
 const robotoFont = localFont({
   src: [
@@ -24,6 +26,33 @@ const robotoFont = localFont({
     },
   ],
   variable: "--font-roboto",
+  display: "swap",
+});
+
+const roobert = localFont({
+  src: [
+    {
+      path: "../../public/fonts/roobertMono/RoobertSemiMonoTRIAL-Medium.otf",
+      weight: "600",
+      style: "medium",
+    },
+    {
+      path: "../../public/fonts/roobertMono/RoobertSemiMono-heavy.otf",
+      weight: "800",
+      style: "bold",
+    },
+    {
+      path: "../../public/fonts/roobertMono/RoobertSemiMonoTRIAL-SemiBold-BF67243fd539b9e.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/roobertMono/RoobertTRIAL-Regular.otf",
+      weight: "500",
+      style: "regular",
+    },
+  ],
+  variable: "--font-roobert",
   display: "swap",
 });
 
@@ -58,9 +87,11 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${robotoFont.variable}antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${robotoFont.variable} ${roobert.variable} antialiased`}
       >
-        <Provider store={store}>{children}</Provider>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>{children}</Provider>
+        </ThemeProvider>
       </body>
     </html>
   );

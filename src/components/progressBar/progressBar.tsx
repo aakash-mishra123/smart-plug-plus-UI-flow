@@ -105,7 +105,7 @@ const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
 
           <Box
             className="absolute w-[93%] flex justify-between px-[2%] -ml-[14px] 
-  top-[33%] sm:top-[32%] md:top-[32%] lg:top-[32%]"
+  top-[34%] sm:top-[32%] md:top-[32%] lg:top-[32%]"
           >
             <Box
               sx={{
@@ -114,7 +114,7 @@ const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
                 backgroundColor: "white",
                 borderRadius: "50%",
                 position: "absolute",
-                left: "6%",
+                left: "8%",
               }}
             />
             <Box
@@ -134,7 +134,7 @@ const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
                 backgroundColor: value < 3000 ? "black" : "white",
                 borderRadius: "50%",
                 position: "absolute",
-                right: "4%",
+                right: "5%",
               }}
             />
           </Box>

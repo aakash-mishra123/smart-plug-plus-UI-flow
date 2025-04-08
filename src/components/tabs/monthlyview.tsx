@@ -1,18 +1,34 @@
 import dayjs from "dayjs";
-//import { fetchData } from "@/app/store/slice/monthlyUsageSlice";
+import { FaArrowRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { Button } from "@tremor/react";
+import { Button, Card } from "@tremor/react";
 import { convertToItalicNumber } from "@/utils/methods";
 import { dummyDailyData } from "@/utils/constants";
 import { motion } from "framer-motion";
 import { BarChart } from "../shared/BarChart";
+import { toTitleCase } from "@/utils/methods";
+import { fetchMonthlyData } from "@/app/store/slice/monthlyUsageSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/app/store";
+//import { dailyEnergyTypes } from "@/utils/types";
+import boltPng from "../../../public/assets/Vector 309.png";
+import Image from "next/image";
+import { dailyEnergyTypes } from "@/utils/types";
+import MonthlyStatsView from "./monthlyStats";
 
 const MonthlyView = () => {
   const [selectedYear, setSelectedYear] = useState<number>(dayjs().year());
   const [selectedMonth, setSelectedMonth] = useState<number>(dayjs().month());
   const [isNextDisabled, setIsNextDisabled] = useState<boolean>(false);
   const [barWidth, setBarWidth] = useState(10); // Default bar width
+  const [monthlyData, setMonthlyData] =
+    useState<dailyEnergyTypes[]>(dummyDailyData);
+
+  const serial = useSelector(
+    (store: RootState) => store.deviceData.data.serial
+  );
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     const updateBarWidth = () => {
@@ -28,11 +44,27 @@ const MonthlyView = () => {
   }, []);
 
   useEffect(() => {
-    const currentYear = dayjs().year();
-    const currentMonth = dayjs().month();
+    const options = {
+      serial: serial ?? "c2g-57CFACECC",
+      month: selectedMonth + 1,
+      year: selectedYear,
+    };
+
     setIsNextDisabled(
-      selectedYear === currentYear && selectedMonth === currentMonth
+      selectedYear === dayjs().year() && selectedMonth === dayjs().month()
     );
+
+    if (fetchMonthlyData) {
+      dispatch(fetchMonthlyData(options))
+        .unwrap()
+        .then((res) => {
+          setMonthlyData(res);
+        })
+        .catch((err) => {
+          console.log("FETCH MONTH DATA ERROR", err);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedYear, selectedMonth]);
 
   const handlePrevious = () => {
@@ -60,17 +92,19 @@ const MonthlyView = () => {
       <div className="flex flex-col gap-0 pt-8 pr-4 pl-4 pb-6 w-100 bg-white">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col gap-0">
-            <p className="text-md font-roboto text-gray-600">Consumo mensile</p>
-            <p className="text-2xl font-bold">
+            <p className="text-sm font-roboto text-gray-600">Consumo mensile</p>
+            <p className="text-2xl font-roobert font-thin tracking-tighter">
               {convertToItalicNumber(1234, 1000, 2)} kWh
             </p>
           </div>
         </div>
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between mt-2">
           <div className="flex flex-col gap-0 mt-2">
-            <p className="font-roboto text-md text-gray-600">Mese</p>
-            <p className="font-roboto text-lg font-bold">
-              {dayjs().month(selectedMonth).format("MMMM")}{" "}
+            <p className="font-roboto xs:text-base sm:text-md text-gray-600">
+              Mese
+            </p>
+            <p className="font-roobert text-lg font-medium">
+              {toTitleCase(dayjs().month(selectedMonth).format("MMMM"))}{" "}
               {dayjs().year(selectedYear).format("YYYY")}
             </p>
           </div>
@@ -99,15 +133,18 @@ const MonthlyView = () => {
         </div>
       </div>
 
+      <MonthlyStatsView monthlyData={monthlyData} />
+
       <motion.div
         key={JSON.stringify(dummyDailyData)} // Ensures re-render when data changes
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
+        className="mt-8"
       >
         <BarChart
-          data={dummyDailyData}
+          data={monthlyData}
           index="date"
           categories={["totalActEnergy"]}
           barWidth={barWidth}
@@ -119,7 +156,7 @@ const MonthlyView = () => {
           colors={["blue"]}
           customWrapperStyle={{
             borderRadius: "0.5rem 0.5rem 0 0",
-            marginRight: "-4px",
+            marginRight: "-10px",
           }}
           tickGap={0}
           startEndOnly={false}
@@ -128,9 +165,32 @@ const MonthlyView = () => {
           enableAnimation={true}
           animationDuration={0.5}
           showSparkPlugs={true}
-          skipXAxisLabels={false}
+          skipXAxisLabels={true}
         />
       </motion.div>
+
+      <Card className="relative p-4 rounded-lg mt-8 bg-[#1f6cf8] h-full w-8/10 mx-4">
+        <div className="flex flex-col gap-2 font-roboto w-full text-white">
+          <p className="font-semibold ">Ehy, lo sapevi?</p>
+          <p className="font-medium text-md ">
+            Nel mese di Marzo hai superato la soglia del consumo per 5 giorni.
+          </p>
+
+          <div className="flex text-white flex-row gap-4 items-center w-full mt-2">
+            <p className="font-medium text-md">
+              Scopri l&apos;offerta che abbiamo pensato per te
+            </p>
+            <FaArrowRight className="font-medium text-white text-md" />
+          </div>
+          <Image
+            className="absolute top-8 right-0 z-40 bg-transparent"
+            src={boltPng}
+            height={100}
+            width={60}
+            alt="bolt_image"
+          />
+        </div>
+      </Card>
     </div>
   );
 };

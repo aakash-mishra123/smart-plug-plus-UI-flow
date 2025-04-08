@@ -61,17 +61,19 @@ const ConsumptionCard = () => {
             <Text className="text-xl text-black font-medium">
               Consumo istantaneo
             </Text>
-            <Badge className="text-black text-lg rounded-lg  bg-green-100 px-2">
+            <Badge className="text-black text-md rounded-lg mb-1 bg-green-100 px-2">
               TEMPO REALE
             </Badge>
           </div>
-          <div className="flex flex-row gap-2 items-end mt-1">
+          <div className="flex flex-row gap-2 items-end mt-1 font-roobert">
             <Text className="text-sm text-gray-600 font-medium mt-0">
               {`${dayjs(iotData?.Ts, "YYYY/MM/DD HH:mm:ss")
                 .set("hour", 9)
                 .set("minute", 30)
                 .format("dddd D MMMM YYYY, [ore] HH:mm")} - `}
-              <strong className="text-black font-bold">Fascia F1</strong>
+              <strong className="text-gray-700 font-roobert tracking-tight">
+                Fascia F1
+              </strong>
             </Text>
 
             <InfoIcon

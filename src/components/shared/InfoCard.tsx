@@ -34,7 +34,7 @@ const InfoCard = () => {
             <Image src={MeterIcon} className="w-20 h-24" alt="meter_icon" />
             <div className="flex flex-col gap-0 text-black">
               <Flex justifyContent="start" alignItems="center" className="mt-2">
-                <CiPlug1 className="font-bold text-xl text-green-800" />
+                <CiPlug1 className="font-bold text-xl text-black" />
                 <div className="text-xs flex flex-col ml-2">
                   <Text className="text-gray-500 text-md font-regular font-roboto">
                     Numero seriale

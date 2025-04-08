@@ -5,7 +5,8 @@ import { TbBolt } from "react-icons/tb";
 import { FaMoneyBills } from "react-icons/fa6";
 import { convertToItalicNumber } from "@/utils/methods";
 import { FaPercentage } from "react-icons/fa";
-
+import { Typography } from "@mui/material";
+import { grey } from "@mui/material/colors";
 // import queryString from "query-string";
 // import dayjs from "dayjs";
 
@@ -24,10 +25,32 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
 }) => {
   return (
     <Card className="w-full max-w-xs p-4 py-6 montserrat-custom rounded-[16px] !dark:border-none ring-0 !dark:ring-0 bg-[#ecf2f6] flex-col justify-items-left ">
-      <Text className="text-gray-800 font-black text-md xsm:text-sm xs:text-[14px] sm:text-[16px] md:text-2xl">
+      <Typography
+        variant="h5"
+        sx={{
+          fontSize: {
+            xsm: "0.5rem", // mobile screen size (xs)
+            xs: "1rem",
+            sm: "1.5rem", // small screens (sm and above)
+            md: "2rem", // medium screens (md and above)
+          },
+          fontWeight: "bold",
+          fontStyle: "brand",
+        }}
+      >
         {title}
-      </Text>
-      <p className="text-sm mt-1 text-gray-600">{timeString}</p>
+      </Typography>
+      <Typography
+        sx={{
+          fontWeight: "thin",
+          fontSize: "12px",
+          lineHeight: "100%",
+          letterSpacing: "0%",
+          color: grey[600],
+        }}
+      >
+        {timeString}
+      </Typography>
       <div className="flex flex-col gap-2 justify-items-center mt-4">
         <div className="flex-col gap-1 flex text-semibold">
           <p className="tex-sm font-thin">Hai consumato</p>

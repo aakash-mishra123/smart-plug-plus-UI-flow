@@ -9,21 +9,31 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
-				xsm: "260px",
-				xsss: "320px",
-				xss: "384px",
-				xs: "540px",
-				sm: "640px",
-				md: "768px",
-				lg: "1024px",
-				xl: "1280px",
-				"2xl": "1536px",
-			},
+        xsm: "260px",
+        xsss: "320px",
+        xss: "384px",
+        xs: "540px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
+      },
+      fontSize: {
+        // Custom font sizes
+        sm: ['0.75rem', { lineHeight: '1rem' }], // 12px
+        base: ['0.875rem', { lineHeight: '1.25rem' }], // 14px
+        md: ['1rem', { lineHeight: '1.5rem' }], // 16px
+        lg: ['1.125rem', { lineHeight: '1.75rem' }], // 18px
+        xl: ['1.25rem', { lineHeight: '1.75rem' }], // 20px
+      },
       fontFamily: {
         monteserrat: ["Monteserrat", "serif"],
         hanken: ["var(--font-hanken)"],
-				copperbt: ["var(--font-copperbt)"],
-				sofiapro: ["var(--font-sofiapro)"]
+        copperbt: ["var(--font-copperbt)"],
+        sofiapro: ["var(--font-sofiapro)"],
+        roboto: ["var(--font-roboto)"],
+        roobert: ["var(--font-roobert)"],
       },
       keyframes: {
         slideUp: {
@@ -85,38 +95,38 @@ const config: Config = {
         },
       },
       backgroundImage: {
-				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-				"gradient-conic":
-					"conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-			},
-			boxShadow: {
-				"3xl": "0px 0px 10px 0px rgba(0,0,0,0.3);",
-			},
-			rotate: {
-				100: "100deg",
-				260: "260deg",
-			},
-		},
-		container: {
-			padding: {
-				DEFAULT: "1rem",
-				sm: "2rem",
-				lg: "4rem",
-				xl: "5rem",
-				"2xl": "6rem",
-			},
-		},
-		borderRadius: {
-			none: "0",
-			sm: "0.125rem",
-			DEFAULT: "0.25rem",
-			md: "0.375rem",
-			lg: "0.5rem",
-			xl: "2rem",
-			"2lg": "1.5rem",
-			"2xl": "3.5rem",
-			full: "9999px",
-		},
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      boxShadow: {
+        "3xl": "0px 0px 10px 0px rgba(0,0,0,0.3);",
+      },
+      rotate: {
+        100: "100deg",
+        260: "260deg",
+      },
+    },
+    container: {
+      padding: {
+        DEFAULT: "1rem",
+        sm: "2rem",
+        lg: "4rem",
+        xl: "5rem",
+        "2xl": "6rem",
+      },
+    },
+    borderRadius: {
+      none: "0",
+      sm: "0.125rem",
+      DEFAULT: "0.25rem",
+      md: "0.375rem",
+      lg: "0.5rem",
+      xl: "2rem",
+      "2lg": "1.5rem",
+      "2xl": "3.5rem",
+      full: "9999px",
+    },
     animation: {
       slideUp: "slideUp 0.4s ease-out",
       slideDown: "slideDown 0.4s ease-out",
@@ -139,8 +149,8 @@ const config: Config = {
         "drawerSlideLeftAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1)",
       drawerSlideRightAndFade: "drawerSlideRightAndFade 150ms ease-in",
     },
-    },
-  }
+  },
+}
 
 // plugins: [require("@tailwindcss/forms")],
 export default config

@@ -98,17 +98,16 @@ const renderShape = (
     L${x + width},${y + height} 
     Z
   `;
-
   const lineSpacing = Math.max(1, Math.floor(height / 10)); // Dynamic spacing based on height with a minimum of 4px
   const lineCount = Math.floor(height / lineSpacing);
 
   return (
     <>
       <g className="recharts-layer recharts-bar-rectangle">
-        {totalActEnergy > 3000 && (
+        {totalActEnergy > 60 && (
           <g transform={`translate(${x + width / 2 - 8}, ${y - 24})`}>
             <RxLightningBolt
-              className="text-pink-700 text-lg font-bold"
+              className="text-pink-700 text-md w-4 h-4 mb-2 font-bold"
               fontWeight={500}
             />
           </g>
