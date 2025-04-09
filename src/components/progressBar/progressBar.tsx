@@ -40,13 +40,32 @@ const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
   return (
     <div className="flex flex-col relative py-2">
       <div className="flex flex-row gap-2 items-end mt-4 mb-4 pl-2">
-        <Metric className={`text-3xl font-bold`} style={{ color: bkgColor }}>
-          {convertToItalicNumber(value, 1000, 2) ?? "2,3"}
-        </Metric>
-        <Metric className="text-black text-3xl ">
+        <div className="flex flex-row gap-0 items-end">
+          {/* <Metric className={`text-3xl font-bold`} style={{ color: bkgColor }}>
+            {convertToItalicNumber(value, 1000, 2) ?? "2,3"}
+          </Metric> */}
+          <span className="flex flex-row items-end -mt-1">
+            <Metric
+              className="text-3xl font-roobert font-bold tracking-tighter"
+              style={{ color: bkgColor }}
+            >
+              {convertToItalicNumber(value, 1000, 2).split(".")[0]}
+            </Metric>
+            <Metric className="font-mono font-bold" style={{ color: bkgColor }}>
+              ,
+            </Metric>
+            <Metric
+              className="text-3xl font-roobert font-bold tracking-tighter"
+              style={{ color: bkgColor }}
+            >
+              {convertToItalicNumber(value, 1000, 2).split(".")[1]}
+            </Metric>
+          </span>
+        </div>
+        <Metric className="text-black text-3xl font-medium ">
           di {contractPower / 1000}{" "}
         </Metric>
-        <p className="text-black text-2xl ">kW</p>
+        <p className="text-black text-lg ">kW</p>
       </div>
       <Box
         sx={{

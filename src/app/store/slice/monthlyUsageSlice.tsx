@@ -66,11 +66,6 @@ export const fetchMonthlyData = createAsyncThunk<
   return formattedResponse;
 });
 
-// type PeakConsumption = {
-//   consumption: number;
-//   date: string | null;
-// };
-
 export type MonthlyState = {
   data: dailyEnergyTypes[];
   loading: boolean;

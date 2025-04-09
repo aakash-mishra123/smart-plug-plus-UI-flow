@@ -33,14 +33,14 @@ const Navbar = ({ tabHeadings, tabChildComponents }: NavbarProps) => (
             key={index}
             value={item.heading}
             onTabClick={item.onTabClick}
-            className="text-black text-md w-1/2 pb-4"
+            className="text-black text-sm xsss:text-base sm:text-md w-1/2 pb-4"
           >
             {item.title}
           </TabsTrigger>
         );
       })}
     </TabsList>
-    <div className="mt-0 mb-32">
+    <div className="mt-0 mb-32 sm:text-base">
       {tabChildComponents.map((item: TabContentComponents) => {
         return (
           <TabsContent key={item.id} value={item.value}>

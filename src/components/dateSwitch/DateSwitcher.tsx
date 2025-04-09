@@ -37,16 +37,35 @@ const DateSwitcher = ({
           <p className="text-md font-roboto text-gray-600">
             Consumo giornaliero
           </p>
-          <p className="text-2xl font-bold">
-            {convertToItalicNumber(data?.totalEnergyConsumed ?? 0, 1000, 2)} kWh
-          </p>
+          <span className="flex flex-row items-end -mt-1">
+            <p className="text-3xl font-roobert font-bold tracking-tighter">
+              {
+                convertToItalicNumber(
+                  data?.totalEnergyConsumed ?? 0,
+                  1000,
+                  2
+                ).split(".")[0]
+              }
+            </p>
+            <p className="font-mono font-extrabold">,</p>
+            <p className="text-3xl font-roobert font-bold tracking-tighter">
+              {
+                convertToItalicNumber(
+                  data?.totalEnergyConsumed ?? 0,
+                  1000,
+                  2
+                ).split(".")[1]
+              }
+            </p>
+            <p className="text-md ml-1 font-roobert font-thin">kWh</p>
+          </span>
         </div>
       </div>
       <div className="flex flex-row justify-between w-full pt-2 mb-4 bg-white font-roboto">
         <div className="flex flex-col gap-0 items-left">
-          <span className="text-gray-400 text-sm font-bold">Giorno</span>
+          <span className="text-gray-400 text-base font-semibold">Giorno</span>
 
-          <span className="text-sm md:text-md font-semibold">
+          <span className="text-sm xss:text-base md:text-md ">
             {selectedDate.locale("it").format("dddd D MMMM YYYY")}
           </span>
         </div>
@@ -75,24 +94,43 @@ const DateSwitcher = ({
       </div>
       <div
         id="total_consumption_stats"
-        className="flex font-roboto flex-row justify-between w-full gap-4 pb-2 bg-white border-b-2 border-gray-300"
+        className="flex font-roboto flex-row justify-between w-full gap-4 pb-2 bg-white border-b-2 border-gray-300 items-center"
       >
-        <p className="text-sm sm:text-md md:text-lg text-gray-800">
+        <p className="text-sm font-medium xss:text-base md:text-lg text-gray-800">
           Media di consumo giornaliero
         </p>
-        <p className="text-md font-bold">
-          {convertToItalicNumber(data?.averageConsumption ?? 0, 100, 2)} Wh
-        </p>
+        <span className="flex flex-row items-end -mt-1">
+          <p className="text-base md:text-md font-roobert tracking-tighter">
+            {
+              convertToItalicNumber(
+                data?.averageConsumption ?? 0,
+                1000,
+                2
+              ).split(".")[0]
+            }
+          </p>
+          <p className="font-mono font-extrabold ">,</p>
+          <p className="text-base md:text-md font-roobert tracking-tighter -ml-0">
+            {
+              convertToItalicNumber(
+                data?.averageConsumption ?? 0,
+                1000,
+                2
+              ).split(".")[1]
+            }{" "}
+            kWh
+          </p>
+        </span>
       </div>
       <div
         id="peak_consumption_stats"
         className="flex montserrat-custom items-center flex-row gap-8 justify-between w-full bg-white pt-2 "
       >
         <div className="flex flex-col gap-0">
-          <p className="text-sm sm:text-md md:text-lg text-gray-800">
+          <p className="text-sm font-medium xss:text-base md:text-md text-gray-800">
             Orario di consumo massimo giornalerio
           </p>
-          <p className="text-sm text-gray-500 font-light">
+          <p className="text-sm md:text-base text-gray-500 font-light">
             Orario {data?.peakConsumption.timeString}
           </p>
         </div>

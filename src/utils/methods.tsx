@@ -3,7 +3,7 @@ export const convertToItalicNumber = (
   divisor: number,
   decimalValues: number
 ) => {
-  return (number / divisor).toFixed(decimalValues).toString().replace(".", ",");
+  return (number / divisor).toFixed(decimalValues).toString();
 };
 export const toTitleCase = (str: string) => {
   return str

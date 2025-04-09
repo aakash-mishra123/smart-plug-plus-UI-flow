@@ -92,21 +92,26 @@ const MonthlyView = () => {
       <div className="flex flex-col gap-0 pt-8 pr-4 pl-4 pb-6 w-100 bg-white">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col gap-0">
-            <p className="text-sm font-roboto text-gray-600">Consumo mensile</p>
-            <p className="text-2xl font-roobert font-thin tracking-tighter">
-              {convertToItalicNumber(1234, 1000, 2)} kWh
-            </p>
+            <p className="text-md font-roboto text-gray-600">Consumo mensile</p>
+            <span className="flex flex-row items-end -mt-1">
+              <p className="text-3xl font-roobert font-bold tracking-tighter">
+                {convertToItalicNumber(1234, 1000, 2).split(".")[0]}
+              </p>
+              <p className="font-mono font-extrabold">,</p>
+              <p className="text-3xl font-roobert font-bold tracking-tighter">
+                {convertToItalicNumber(1234, 1000, 2).split(".")[1]}
+              </p>
+              <p className="text-md ml-1 font-roobert font-thin">kWh</p>
+            </span>
           </div>
         </div>
         <div className="flex flex-row justify-between mt-2">
           <div className="flex flex-col gap-0 mt-2">
-            <p className="font-roboto xs:text-base sm:text-md text-gray-600">
-              Mese
-            </p>
-            <p className="font-roobert text-lg font-medium">
+            <p className="text-gray-500 text-sm font-medium">Mese</p>
+            <span className="text-sm xss:text-base md:text-md -mt-1">
               {toTitleCase(dayjs().month(selectedMonth).format("MMMM"))}{" "}
               {dayjs().year(selectedYear).format("YYYY")}
-            </p>
+            </span>
           </div>
 
           <div className={`flex items-center gap-2 mt-1 mr-1`}>
