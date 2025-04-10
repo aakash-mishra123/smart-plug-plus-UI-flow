@@ -34,7 +34,7 @@ const DateSwitcher = ({
     <div className="flex flex-col gap-0 pt-8 pr-4 pl-4 pb-6 w-100 bg-white">
       <div className="flex flex-row justify-between">
         <div className="flex flex-col gap-0">
-          <p className="text-md font-roboto text-gray-600">
+          <p className="xsm:text-[14px] md:text-md text-base font-medium font-roobert text-[#667790]">
             Consumo giornaliero
           </p>
           <span className="flex flex-row items-end -mt-1">
@@ -63,7 +63,7 @@ const DateSwitcher = ({
       </div>
       <div className="flex flex-row justify-between w-full pt-2 mb-4 bg-white font-roboto">
         <div className="flex flex-col gap-0 items-left">
-          <span className="text-gray-400 text-base font-semibold">Giorno</span>
+          <span className="text-gray-500 text-sm font-medium">Giorno</span>
 
           <span className="text-sm xss:text-base md:text-md ">
             {selectedDate.locale("it").format("dddd D MMMM YYYY")}
@@ -75,7 +75,7 @@ const DateSwitcher = ({
             size="xs"
             icon={ChevronLeftIcon}
             onClick={handlePrevious}
-            className="text-pink-700 p-2 rounded-md cursor-not-allowed bg-gray-300"
+            className="text-[#C2185B] p-2 rounded-[4px] cursor-not-allowed bg-[#F7F8FB]"
           />
 
           <Button
@@ -83,9 +83,9 @@ const DateSwitcher = ({
             size="xs"
             icon={ChevronRightIcon}
             onClick={handleNext}
-            className={`text-pink-700 p-2 rounded-md cursor-not-allowed ${
+            className={`text-pink-700 p-2 rounded-[4px] cursor-not-allowed ${
               isNextDisabled
-                ? "opacity-50 bg-gray-600 text-gray-800"
+                ? "opacity-50 bg-[#C2CDDD] text-[#667790]"
                 : "bg-gray-300"
             }`}
             disabled={isNextDisabled}
@@ -135,7 +135,7 @@ const DateSwitcher = ({
           </p>
         </div>
 
-        <p className="text-md w-18 font-extrabold">
+        <p className="text-base w-16 md:w-18 -md:ml-0 font-semibold font-roobert">
           {data?.peakConsumption.value} Wh
         </p>
       </div>

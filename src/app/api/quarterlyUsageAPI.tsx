@@ -16,7 +16,6 @@ const QUARTER_USAGE_URL = "v1/energy/quarter";
 
 /**
  * Fetches power usage data by 15 minute intervals based on the provided slug and options.
- *
  * @param {Object} props - The function parameters.
  * @param {string} props.slug - The unique identifier for fetching usage data.
  * @param {Object} [props.options={}] - Optional parameters for the API request.

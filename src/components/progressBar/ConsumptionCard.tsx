@@ -8,6 +8,8 @@ import Paho from "paho-mqtt";
 import { meterEventDummyData } from "@/utils/constants";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
+import { toTitleCase } from "@/utils/methods";
+
 const DrawerModal = dynamic(
   () => import("../../components/drawer/DrawerModal")
 );
@@ -58,19 +60,21 @@ const ConsumptionCard = () => {
       <Card className="bg-transparent font-roboto rounded-sm p-4 px-2 my-0 !ring-0 !dark:ring-0">
         <div className="flex flex-col p-2 justify-between">
           <div className="flex justify-between">
-            <Text className="text-xl text-black font-medium">
+            <p className="text-xl text-black font-roobert font-medium">
               Consumo istantaneo
-            </Text>
+            </p>
             <Badge className="text-black text-md rounded-lg mb-1 ring-green-500 ring-1 bg-[#f5fff6] px-2">
               TEMPO REALE
             </Badge>
           </div>
           <div className="flex flex-row gap-2 items-end mt-1 font-roobert">
-            <Text className="text-sm text-gray-600 font-medium mt-0">
-              {`${dayjs(iotData?.Ts, "YYYY/MM/DD HH:mm:ss")
-                .set("hour", 9)
-                .set("minute", 30)
-                .format("dddd D MMMM YYYY, [ore] HH:mm")} - `}
+            <Text className="text-sm text-black font-medium mt-0">
+              {`${toTitleCase(
+                dayjs(iotData?.Ts, "YYYY/MM/DD HH:mm:ss")
+                  .set("hour", 9)
+                  .set("minute", 30)
+                  .format("dddd D MMMM YYYY, [ore] HH:mm")
+              )} - `}
               <strong className="text-gray-700 font-roobert tracking-tight">
                 Fascia F1
               </strong>
@@ -83,7 +87,7 @@ const ConsumptionCard = () => {
           </div>
         </div>
         <hr />
-        <div className="flex flex-col bg-white rounded-md px-4">
+        <div className="flex flex-col rounded-md px-4">
           <CustomLinearProgress
             serial={serial}
             value={iotData?.Payload?.InstantPower ?? 0}

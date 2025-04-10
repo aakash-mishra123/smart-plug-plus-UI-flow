@@ -4,7 +4,6 @@ import { FaEuroSign } from "react-icons/fa";
 import { TbBolt } from "react-icons/tb";
 import { FaMoneyBills } from "react-icons/fa6";
 import { convertToItalicNumber } from "@/utils/methods";
-import { FaPercentage } from "react-icons/fa";
 import { Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 // import queryString from "query-string";
@@ -36,7 +35,9 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
           },
           fontWeight: "bold",
           fontStyle: "brand",
+          wordSpacing: "2px",
         }}
+        className="tracing-wider"
       >
         {title}
       </Typography>
@@ -48,6 +49,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
           letterSpacing: "0%",
           color: grey[600],
         }}
+        className="tracing-wider"
       >
         {timeString}
       </Typography>
@@ -93,7 +95,6 @@ const MonthlyDisplay = () => {
         <div className="flex flex-row gap-1 items-baseline text-[#397a5c] ">
           <div className="flex flex-row gap-0 items-baseline">
             <Text className="text-3xl font-black ">{"-41%"}</Text>
-            <FaPercentage className="text-2xl font-black" />
           </div>
           <p className="text-xl font-bold ">kWh</p>
         </div>
@@ -106,7 +107,7 @@ const MonthlyDisplay = () => {
           unit="kWh"
         />
         <ConsumptionDisplay
-          title="Lo Scorso mese"
+          title="Lo scorso mese"
           value={361100}
           timeString="dal 01/02/25 al 28/02/25"
           unit="kW"

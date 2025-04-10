@@ -31,6 +31,7 @@ export default function Home() {
   const serialId = useSelector(
     (store: RootState) => store.deviceData.data.serial
   );
+
   const [view, setView] = useState<string>("day");
   const [displayView, setDisplayView] = useState<string>("day");
 
@@ -94,23 +95,23 @@ export default function Home() {
             value: "Tab1",
             children: (
               <div className="relative">
-                <div className="absolute top-8 z-10 right-4 h-12 bg-gray-100 p-1 rounded-lg flex flex-row">
+                <div className="absolute top-10 z-10 right-4 h-8 bg-[#F7F8FB] p-1 rounded-lg flex flex-row gap-1">
                   <Button
                     onClick={() => setDisplayView("month")}
-                    className={`text-sm px-4 py-0 rounded-md ${
+                    className={`text-sm px-2 py-0 rounded-[4px] ${
                       displayView === "month"
                         ? "border-2 border-blue-600 text-blue-700 bg-white"
-                        : "text-gray-900 bg-transparent"
+                        : "text-gray-900 bg-transparent border-none"
                     }`}
                   >
                     Mese
                   </Button>
                   <Button
                     onClick={() => setDisplayView("day")}
-                    className={`text-sm px-4 py-0 rounded-md ${
+                    className={`text-sm px-2 py-0 rounded-[4px] ${
                       displayView === "day"
                         ? "border-2 border-blue-600 text-blue-700 bg-white"
-                        : "text-gray-900 bg-transparent"
+                        : "text-gray-900 bg-transparent border-none"
                     }`}
                   >
                     Giorno
@@ -126,23 +127,23 @@ export default function Home() {
             children: (
               <div>
                 <div className="relative">
-                  <div className="absolute top-8 z-10 right-4 h-12 bg-gray-100 p-1 rounded-lg flex flex-row">
+                  <div className="absolute top-10 z-10 right-4 h-8 bg-[#F7F8FB] p-1 rounded-lg flex flex-row gap-1">
                     <Button
                       onClick={() => setView("month")}
-                      className={`text-sm px-4 py-2 rounded-md ${
+                      className={`text-sm px-2 py-0 rounded-[4px] ${
                         view === "month"
                           ? "border-2 border-blue-600 text-blue-700 bg-white"
-                          : "text-gray-900 bg-transparent"
+                          : "text-gray-900 bg-transparent border-none"
                       }`}
                     >
                       Mese
                     </Button>
                     <Button
                       onClick={() => setView("day")}
-                      className={`text-sm px-4 py-2 rounded-md ${
+                      className={`text-sm px-2 py-2 rounded-[4px] ${
                         view === "day"
                           ? "border-2 border-blue-600 text-blue-700 bg-white"
-                          : "text-gray-900 bg-transparent"
+                          : "text-gray-900 bg-transparent border-none"
                       }`}
                     >
                       Giorno

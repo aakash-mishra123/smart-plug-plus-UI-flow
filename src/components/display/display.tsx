@@ -1,16 +1,17 @@
 import React from "react";
-import { Card, Text } from "@tremor/react";
+import dayjs from "dayjs";
+import queryString from "query-string";
+import { Card } from "@tremor/react";
+import { Typography } from "@mui/material";
 import { FaEuroSign } from "react-icons/fa";
 import { TbBolt } from "react-icons/tb";
 import { FaMoneyBills } from "react-icons/fa6";
 import { convertToItalicNumber } from "@/utils/methods";
-import { FaPercentage } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
+import { Metric } from "@tremor/react";
+import { grey } from "@mui/material/colors";
 import FormatDailyUsageData from "@/app/api/quarterlyUsageAPI";
-import queryString from "query-string";
-import dayjs from "dayjs";
-//import { fetchData, resetData } from "@/app/store/redux/slice/powerSlice";
 interface ConsumptionDisplayProps {
   title: string;
   value: number;
@@ -26,11 +27,40 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
 }) => {
   return (
     <Card className="w-full max-w-xs p-4 py-6 montserrat-custom rounded-xl !dark:border-none ring-0 !dark:ring-0 bg-[#ecf2f6] flex-col justify-items-left ">
-      <Text className="text-gray-800 font-black text-2xl">{title}</Text>
-      <p className="text-sm mt-1 text-gray-600">{`dalle ${
+      <Typography
+        variant="h5"
+        sx={{
+          fontSize: {
+            xsm: "0.5rem", // mobile screen size (xs)
+            xs: "1rem",
+            sm: "1.5rem", // small screens (sm and above)
+            md: "2rem", // medium screens (md and above)
+          },
+          fontWeight: "bold",
+          fontStyle: "brand",
+          wordSpacing: "2px",
+        }}
+        className="tracing-wider"
+      >
+        {title}
+      </Typography>
+      {/* <p className="text-sm mt-1 text-gray-600">{`dalle ${
         timeString.split("-")[0]
       } alle 
-      ${timeString.split("-")[1]}`}</p>
+      ${timeString.split("-")[1]}`}</p> */}
+      <Typography
+        sx={{
+          fontWeight: "thin",
+          fontSize: "12px",
+          lineHeight: "100%",
+          letterSpacing: "0%",
+          color: grey[600],
+        }}
+        className="tracing-wider"
+      >
+        {`dalle ${timeString.split("-")[0]} alle 
+      ${timeString.split("-")[1]}`}
+      </Typography>
       <div className="flex flex-col gap-2 justify-items-center mt-4">
         <div className="flex-col gap-1 flex text-semibold">
           <p className="tex-sm font-thin">Hai consumato</p>
@@ -92,15 +122,20 @@ const Display = () => {
   return (
     <div className="flex flex-col gap-4 bg-white px-4">
       <div className="flex flex-col gap-0 pt-8 px-2">
-        <p className="font-bold montserrat-custom text-gray-700">
+        <p className="xsm:text-[14px] md:text-md text-base font-medium font-roobert text-[#667790]">
           Andamento consumo
         </p>
         <div className="flex flex-row gap-1 items-baseline text-[#397a5c] ">
           <div className="flex flex-row gap-0 items-baseline">
-            <Text className="text-3xl font-black ">{difference ?? 0}</Text>
-            <FaPercentage className="text-2xl font-black" />
+            <Metric
+              className="text-xll font-black font-roobert"
+              style={{ color: "#37785a" }}
+            >
+              {difference ?? 0}%
+            </Metric>
+            {/* <FaPercentage className="text-2xl font-black" /> */}
           </div>
-          <p className="text-xl font-bold ">kWh</p>
+          <p className="text-xl font-medium ">kWh</p>
         </div>
       </div>
       <div className="w-full text-black flex flex-row gap-4 justify-between pb-4">

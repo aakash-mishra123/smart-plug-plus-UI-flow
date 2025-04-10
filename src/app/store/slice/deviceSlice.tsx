@@ -3,7 +3,7 @@ import axios from "axios";
 
 const initialState = {
   online: true,
-  serial: "c2g-57CFACECC",
+  serial: "c2g-57CFB6E1C",
   id: "0366d483-3b26-4c0e-96de-ef4e5cd9f230",
 };
 
@@ -38,7 +38,10 @@ const deviceSlice = createSlice({
       })
       .addCase(fetchDeviceData.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.data = {
+          ...state.data, // Preserve existing fields in state.data
+          ...action.payload, // Overwrite with fields from action.payload
+        };
       })
       .addCase(fetchDeviceData.rejected, (state) => {
         state.loading = false;

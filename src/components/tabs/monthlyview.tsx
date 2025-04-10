@@ -45,7 +45,7 @@ const MonthlyView = () => {
 
   useEffect(() => {
     const options = {
-      serial: serial ?? "c2g-57CFACECC",
+      serial: serial,
       month: selectedMonth + 1,
       year: selectedYear,
     };
@@ -92,7 +92,9 @@ const MonthlyView = () => {
       <div className="flex flex-col gap-0 pt-8 pr-4 pl-4 pb-6 w-100 bg-white">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col gap-0">
-            <p className="text-md font-roboto text-gray-600">Consumo mensile</p>
+            <p className="xsm:text-[14px] md:text-md text-base font-medium font-roobert text-[#667790]">
+              Consumo mensile
+            </p>
             <span className="flex flex-row items-end -mt-1">
               <p className="text-3xl font-roobert font-bold tracking-tighter">
                 {convertToItalicNumber(1234, 1000, 2).split(".")[0]}
@@ -106,7 +108,7 @@ const MonthlyView = () => {
           </div>
         </div>
         <div className="flex flex-row justify-between mt-2">
-          <div className="flex flex-col gap-0 mt-2">
+          <div className="flex flex-col gap-1 mt-2">
             <p className="text-gray-500 text-sm font-medium">Mese</p>
             <span className="text-sm xss:text-base md:text-md -mt-1">
               {toTitleCase(dayjs().month(selectedMonth).format("MMMM"))}{" "}
@@ -120,7 +122,7 @@ const MonthlyView = () => {
               size="xs"
               icon={ChevronLeftIcon}
               onClick={handlePrevious}
-              className="text-pink-700 p-2 rounded-md cursor-not-allowed bg-gray-300"
+              className="text-[#C2185B] p-2 rounded-[4px] cursor-not-allowed bg-[#F7F8FB]"
             />
 
             <Button
@@ -128,11 +130,12 @@ const MonthlyView = () => {
               size="xs"
               icon={ChevronRightIcon}
               onClick={handleNext}
-              className={`text-pink-700 p-2 rounded-md  ${
+              className={`text-pink-700 p-2 rounded-[4px] cursor-not-allowed ${
                 isNextDisabled
-                  ? "bg-gray-400 cursor-not-allowed"
+                  ? "opacity-50 bg-[#C2CDDD] text-[#667790]"
                   : "bg-gray-300"
               }`}
+              disabled={isNextDisabled}
             />
           </div>
         </div>

@@ -26,6 +26,7 @@ const config: Config = {
         md: ['1rem', { lineHeight: '1.5rem' }], // 16px
         lg: ['1.125rem', { lineHeight: '1.75rem' }], // 18px
         xl: ['1.25rem', { lineHeight: '1.75rem' }], // 20px
+        xll: ['2rem', { lineHeight: '2.25rem' }],
       },
       fontFamily: {
         monteserrat: ["Monteserrat", "serif"],

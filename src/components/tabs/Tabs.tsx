@@ -33,7 +33,7 @@ const Navbar = ({ tabHeadings, tabChildComponents }: NavbarProps) => (
             key={index}
             value={item.heading}
             onTabClick={item.onTabClick}
-            className="text-black text-sm xsss:text-base sm:text-md w-1/2 pb-4"
+            className="text-black text-sm xsss:text-base font-thin sm:text-md w-1/2 pb-4"
           >
             {item.title}
           </TabsTrigger>

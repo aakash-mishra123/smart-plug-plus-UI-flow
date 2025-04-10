@@ -59,8 +59,7 @@ const renderShape = (
 ) => {
   const { fillOpacity, name } = props;
   let { x, width, y, height } = props;
-  const { barColor } = props;
-  const { totalActEnergy } = props.payload;
+  const { barColor, numPeaks } = props;
   // Ensure all key dimensions are numbers and fallback if not
   x = typeof x === "number" ? x : 0;
   y = typeof y === "number" ? y : 0;
@@ -104,7 +103,7 @@ const renderShape = (
   return (
     <>
       <g className="recharts-layer recharts-bar-rectangle">
-        {totalActEnergy > 60 && (
+        {numPeaks > 0 && (
           <g transform={`translate(${x + width / 2 - 8}, ${y - 24})`}>
             <RxLightningBolt
               className="text-pink-700 text-md w-4 h-4 mb-2 font-bold"
@@ -958,6 +957,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                     if (showSparkPlugs) props.showSparkPlugs = true;
                     props.barColor =
                       selectedBar === props.date ? "black" : barColor;
+                    props.numPeaks = props.payload.numpeaks;
                     return renderShape(props, activeBar, activeLegend, layout);
                   }}
                   color="#c71c5d"
