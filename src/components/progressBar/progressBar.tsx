@@ -38,7 +38,7 @@ const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col relative px-2 py-2 bg-transparent">
+    <div className="flex flex-col relative bg-transparent">
       <div className="bg-white rounded-[6px] p-2 ">
         <div className="flex flex-row gap-2 items-end mt-4 mb-4">
           <div className="flex flex-row gap-0 items-end">

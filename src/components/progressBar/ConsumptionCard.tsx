@@ -86,8 +86,7 @@ const ConsumptionCard = () => {
             />
           </div>
         </div>
-        <hr />
-        <div className="flex flex-col rounded-md px-4">
+        <div className="flex flex-col rounded-md px-2">
           <CustomLinearProgress
             serial={serial}
             value={iotData?.Payload?.InstantPower ?? 0}
