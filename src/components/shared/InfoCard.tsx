@@ -38,11 +38,11 @@ const InfoCard = () => {
                   className="font-thin text-black"
                   style={{ fontSize: "16px" }}
                 />
-                <div className="text-xs flex flex-col ml-2">
-                  <p className="text-[#667790] font-roboto text-xs">
+                <div className="text-sm flex flex-col ml-2">
+                  <p className="text-[#667790] font-roboto text-base ">
                     Numero seriale
                   </p>
-                  <Text className="text-sm font-thin ">{`${
+                  <Text className="text-md font-thin font-roboto ">{`${
                     deviceData.serial ?? "abcdefg"
                   }`}</Text>
                 </div>
@@ -59,11 +59,11 @@ const InfoCard = () => {
                   <TbCircleFilled className="text-red-800 rounded-full w-3 h-3" />
                 )}
                 <div className="flex flex-col gap-1 text-xs ml-1">
-                  <p className="text-[#667790] font-roboto text-xs">
+                  <p className="text-[#667790] font-roboto text-base">
                     Stato connessione
                   </p>
                   <p
-                    className={` font-thin text-sm text-black font-roboto -mt-1`}
+                    className={` font-thin text-md text-black font-roboto -mt-1`}
                   >
                     {deviceData.online ? "Connessa" : "Non-connessa"}
                   </p>

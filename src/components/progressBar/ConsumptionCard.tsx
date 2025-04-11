@@ -9,7 +9,7 @@ import { meterEventDummyData } from "@/utils/constants";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/lib";
 import { toTitleCase } from "@/utils/methods";
-
+import { mqttOptions } from "@/utils/constants";
 const DrawerModal = dynamic(
   () => import("../../components/drawer/DrawerModal")
 );
@@ -17,9 +17,8 @@ const CustomLinearProgress = dynamic(
   () => import("../progressBar/progressBar")
 );
 
-const url = "wss://d008824835nrpjnf3rj9q-ats.iot.eu-west-1.amazonaws.com/mqtt";
-const mqttUsername =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZFByZXNhRm9ybWlkYWJpbGUiOiIwMzY2ZDQ4My0zYjI2LTRjMGUtOTZkZS1lZjRlNWNkOWYyMzAiLCJpc3MiOiJBUFAiLCJleHAiOjE3NDE2ODg5OTR9.Bste60xcPzeVwDwSC54xr8XuoXhc2qB7AhC-9M9G6ZfrWkZd8qGMfYiVqomk3DR37_-XlagqoDgvNjrSf2eDXAzkrXQH8ZVnJXz08aDhZjouZYMN_nv4QKo3eNek20mO9MsSjLNmn1MfPqKWYLwPMOCFo4O62LCs2mESexUAaSYPI-FWowtwWuWyOI_fs_7OQvGvKXyzhRNt9EBz1FzBvs5I1QSFXTyzm8pz8nyOPNiRbtSDrLcFiiS422Jv6P-SmD0rTxlbxfvZPYHosAEmq217Xg0SMp715kKrbxBAu6Y3wiRTWwnn92JXjJ_n3uH5oNHv9nCErcfBBKiGt81NnQ";
+const url = mqttOptions.url;
+const mqttUsername = mqttOptions.username;
 
 const ConsumptionCard = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -67,7 +66,7 @@ const ConsumptionCard = () => {
               TEMPO REALE
             </Badge>
           </div>
-          <div className="flex flex-row gap-2 items-end mt-1 font-roobert">
+          <div className="flex flex-row gap-2 items-center mt-1 font-roobert">
             <Text className="text-base md:text-xl text-black font-medium mt-0">
               {`${toTitleCase(
                 dayjs(iotData?.Ts, "YYYY/MM/DD HH:mm:ss").format(
@@ -80,12 +79,12 @@ const ConsumptionCard = () => {
             </Text>
 
             <InfoIcon
-              className="font-bold text-[#D3135A] text-sm w-4 h-4"
+              className="font-bold text-[#D3135A] text-sm xsm:text-md w-4 h-4"
               onClick={() => setIsModalOpen(() => true)}
             />
           </div>
         </div>
-        <div className="flex flex-col rounded-md px-2">
+        <div className="flex flex-col rounded-md px-2 mt-2">
           <CustomLinearProgress
             serial={serial}
             value={iotData?.Payload?.InstantPower ?? 0}

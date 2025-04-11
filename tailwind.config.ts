@@ -21,8 +21,10 @@ const config: Config = {
       },
       fontSize: {
         // Custom font sizes
-        xs: ['0.50rem', { lineHeight: '140%' }], // 8px
-        sm: ['0.75rem', { lineHeight: '140%' }], // 12px
+        xss: ['0.35rem', { lineHeight: '100%' }], //
+        xs: ['0.50rem', { lineHeight: '100%' }], // 8px
+        xsm: ['0.625rem', { lineHeight: '100%' }],
+        sm: ['0.75rem', { lineHeight: '120%' }], // 12px
         base: ['0.875rem', { lineHeight: '140%' }], // 14px
         md: ['1rem', { lineHeight: '140%' }], // 16px
         lg: ['1.125rem', { lineHeight: '140%' }], // 18px

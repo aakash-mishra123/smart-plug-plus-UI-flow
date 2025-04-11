@@ -167,13 +167,13 @@ const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
                 left: {
                   xsm: "52%",
                   xsss: "52%",
-                  xss: "51.5%",
-                  xs: "51%",
-                  sm: "51%",
-                  md: "51%",
-                  lg: "50.5%",
-                  xl: "50.5%",
-                  "2xl": "50%",
+                  xss: "48%",
+                  xs: "48%",
+                  sm: "47%",
+                  md: "47%",
+                  lg: "47%",
+                  xl: "46%",
+                  "2xl": "46%",
                 },
               }}
             />
@@ -189,11 +189,11 @@ const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
                   xsm: "78%",
                   xsss: "78%",
                   xss: "78%",
-                  xs: "78%",
-                  sm: "80%",
-                  md: "80%",
-                  lg: "80%",
-                  xl: "80%",
+                  xs: "80%",
+                  sm: "81%",
+                  md: "81%",
+                  lg: "81%",
+                  xl: "82%",
                 },
               }}
             />
@@ -236,8 +236,10 @@ const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
               <Typography fontSize={15} fontWeight="bold">
                 |
               </Typography>
-              <p className="text-xs font-bold sm:text-sm md:text-lg">0 kw</p>
-              <p className="text-xs xsm:text-sm font-medium w-28 sm:w-full sm:text-md ">
+              <p className="text-xs xsm:text-sm font-bold sm:text-sm md:text-lg">
+                0 kw
+              </p>
+              <p className="text-xss xsm:text-xsm mt-1 xs:text-xs sm:w-full sm:text-base ">
                 Inattività
               </p>
             </Box>
@@ -247,15 +249,15 @@ const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
               sx={{
                 position: "absolute",
                 left: {
-                  xsm: "52%",
-                  xsss: "52%",
-                  xss: "51.5%",
-                  xs: "51%",
-                  sm: "51%",
-                  md: "51%",
-                  lg: "50.5%",
-                  xl: "50.5%",
-                  "2xl": "50%",
+                  xsm: "43%",
+                  xsss: "43%",
+                  xss: "43%",
+                  xs: "48%",
+                  sm: "48%",
+                  md: "48%",
+                  lg: "48%",
+                  xl: "48%",
+                  "2xl": "48%",
                 },
                 transform: "translateX(-50%)",
                 display: "flex",
@@ -267,8 +269,10 @@ const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
               <Typography fontSize={14} fontWeight="bold">
                 |
               </Typography>
-              <p className="text-xs font-bold sm:text-sm md:text-lg">2,5 kw</p>
-              <p className="text-xs xsm:text-sm font-medium w-28 sm:w-full sm:text-md ">
+              <p className="text-xs xsm:text-sm font-bold sm:text-sm md:text-lg">
+                2,5 kw
+              </p>
+              <p className="text-xsm xsm:px-2 xs:text-xs sm:text-md font-medium mt-1">
                 Soglia del tuo piano
               </p>
             </Box>
@@ -298,8 +302,10 @@ const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
               <Typography fontSize={15} fontWeight="bold">
                 |
               </Typography>
-              <p className="text-xs font-bold sm:text-sm md:text-lg">3 kw</p>
-              <p className="text-xs xsm:text-sm font-medium w-28 sm:w-full sm:text-md">
+              <p className="text-xs xsm:text-sm font-bold sm:text-sm md:text-lg">
+                3 kw
+              </p>
+              <p className="text-xss xsm:text-xsm mt-1 xs:text-xs w-28 sm:w-full sm:text-md">
                 Soglia massima
               </p>
             </Box>
@@ -325,18 +331,18 @@ const CustomLinearProgress = ({ value, serial }: CustomProgressProps) => {
           />
         )}
         {value < 2500 ? (
-          <p className={`text-xs xsss:text-sm text-black`}>
+          <p className={`text-xs xsss:text-sm xsm:text-md text-black`}>
             {" "}
             La potenza attuale della tua Presa Plus rispetta la soglia del tuo
             piano 👍
           </p>
         ) : value < 3000 ? (
-          <p className={`text-sm xsss:text-sm text-[${bkgColor}]`}>
+          <p className={`text-sm xsss:text-sm xsm:text-md text-[${bkgColor}]`}>
             {" "}
             Stai raggiungendo il limite di utilizzo.
           </p>
         ) : value < 3100 ? (
-          <p className={` text-xs xsss:text-sm text-[${bkgColor}]`}>
+          <p className={` text-xs xsss:text-sm xsm:text-md text-[${bkgColor}]`}>
             {" "}
             <b>Hai superato il limite di utilizzo.</b> Riduci il consumo di
             energia elettrica per evitare l’interruzione della fornitura.
