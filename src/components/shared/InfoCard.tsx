@@ -6,8 +6,8 @@ import PowerOutlinedIcon from "@mui/icons-material/PowerOutlined";
 import MeterIcon from "../../../public/assets/meter_Icon.png";
 import { TbCircleFilled } from "react-icons/tb";
 import { useEffect, useState } from "react";
-import { fetchDeviceData } from "@/app/store/slice/deviceSlice";
-import { AppDispatch } from "@/app/store";
+import { fetchDeviceData } from "@/app/lib/deviceSlice";
+import { AppDispatch } from "@/app/lib";
 import { chain2gatedummy } from "@/utils/constants";
 
 const InfoCard = () => {
@@ -39,10 +39,10 @@ const InfoCard = () => {
                   style={{ fontSize: "16px" }}
                 />
                 <div className="text-xs flex flex-col ml-2">
-                  <p className="text-[#667790] font-roboto text-sm">
+                  <p className="text-[#667790] font-roboto text-xs">
                     Numero seriale
                   </p>
-                  <Text className="text-xs font-thin ">{`${
+                  <Text className="text-sm font-thin ">{`${
                     deviceData.serial ?? "abcdefg"
                   }`}</Text>
                 </div>
@@ -58,11 +58,13 @@ const InfoCard = () => {
                 ) : (
                   <TbCircleFilled className="text-red-800 rounded-full w-3 h-3" />
                 )}
-                <div className="flex flex-col gap-0 text-xs ml-1">
-                  <p className="text-[#667790] font-roboto font-thin ">
+                <div className="flex flex-col gap-1 text-xs ml-1">
+                  <p className="text-[#667790] font-roboto text-xs">
                     Stato connessione
                   </p>
-                  <p className={` text-md text-black font-light -mt-1`}>
+                  <p
+                    className={` font-thin text-sm text-black font-roboto -mt-1`}
+                  >
                     {deviceData.online ? "Connessa" : "Non-connessa"}
                   </p>
                 </div>

@@ -459,7 +459,7 @@ export const meterEventDummyData = {
     EventType: 2,
     EventPosixTimestamp: 1742920993,
     EventsCounter: 49427,
-    InstantPower: 177,
+    InstantPower: 0,
     ProdInstantPower: 0,
     Gap: 300,
   },

@@ -9,24 +9,25 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
-        xsm: "260px",
-        xsss: "320px",
-        xss: "384px",
-        xs: "540px",
-        sm: "640px",
-        md: "768px",
-        lg: "1024px",
-        xl: "1280px",
-        "2xl": "1536px",
+        xsm: "260px",  //fs-12px
+        xsss: "320px",  //fs-12px
+        xss: "384px",  //fs-12px
+        xs: "540px",  //fs-14px
+        sm: "640px",  //fs-14px
+        md: "768px",  //fs-16px
+        lg: "1024px", //fs-16px
+        xl: "1280px", //fs-16px
+        "2xl": "1536px",  //fs-18px
       },
       fontSize: {
         // Custom font sizes
-        sm: ['0.75rem', { lineHeight: 'rem' }], // 12px
-        base: ['0.875rem', { lineHeight: '1.25rem' }], // 14px
-        md: ['1rem', { lineHeight: '1.5rem' }], // 16px
-        lg: ['1.125rem', { lineHeight: '1.75rem' }], // 18px
-        xl: ['1.25rem', { lineHeight: '1.75rem' }], // 20px
-        xll: ['2rem', { lineHeight: '2.25rem' }],
+        xs: ['0.50rem', { lineHeight: '140%' }], // 8px
+        sm: ['0.75rem', { lineHeight: '140%' }], // 12px
+        base: ['0.875rem', { lineHeight: '140%' }], // 14px
+        md: ['1rem', { lineHeight: '140%' }], // 16px
+        lg: ['1.125rem', { lineHeight: '140%' }], // 18px
+        xl: ['1.25rem', { lineHeight: '140%' }], // 20px
+        xll: ['2rem', { lineHeight: '140%' }],
       },
       fontFamily: {
         monteserrat: ["Monteserrat", "serif"],

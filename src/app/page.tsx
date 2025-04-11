@@ -8,7 +8,7 @@ import DateSwitcher from "@/components/dateSwitch/DateSwitcher";
 import FormatDailyUsageData from "@/app/api/quarterlyUsageAPI";
 import { quarterUsageData } from "@/app/types/dailyUsageTypes";
 import { useSelector } from "react-redux";
-import { RootState } from "./store";
+import { RootState } from "./lib";
 import { Button } from "@tremor/react";
 
 const MonthlyView = dynamic(() => import("@/components/tabs/monthlyview"));

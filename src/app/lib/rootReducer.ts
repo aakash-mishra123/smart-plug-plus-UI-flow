@@ -1,8 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import powerReducer from "../slice/powerSlice";
-import deviceSlice from "../slice/deviceSlice";
-import monthlyReducer from "../slice/monthlyUsageSlice";
-import podSlice from "../slice/podDataSlice";
+import powerReducer from "./powerSlice";
+import deviceSlice from "./deviceSlice";
+import monthlyReducer from "./monthlyUsageSlice";
+import podSlice from "./podDataSlice";
 
 const rootReducer = combineReducers({
   powerData: powerReducer,

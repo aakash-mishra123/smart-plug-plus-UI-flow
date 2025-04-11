@@ -8,9 +8,9 @@ import { dummyDailyData } from "@/utils/constants";
 import { motion } from "framer-motion";
 import { BarChart } from "../shared/BarChart";
 import { toTitleCase } from "@/utils/methods";
-import { fetchMonthlyData } from "@/app/store/slice/monthlyUsageSlice";
+import { fetchMonthlyData } from "@/app/lib/monthlyUsageSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/app/store";
+import { AppDispatch, RootState } from "@/app/lib";
 //import { dailyEnergyTypes } from "@/utils/types";
 import boltPng from "../../../public/assets/Vector 309.png";
 import Image from "next/image";
@@ -116,7 +116,7 @@ const MonthlyView = () => {
             </span>
           </div>
 
-          <div className={`flex items-center gap-2 mt-1 mr-1`}>
+          <div className={`flex items-center gap-4 mt-1 mr-1`}>
             <Button
               variant="light"
               size="xs"

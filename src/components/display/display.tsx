@@ -8,7 +8,7 @@ import { TbBolt } from "react-icons/tb";
 import { FaMoneyBills } from "react-icons/fa6";
 import { convertToItalicNumber } from "@/utils/methods";
 import { useSelector } from "react-redux";
-import { RootState } from "@/app/store";
+import { RootState } from "@/app/lib";
 import { Metric } from "@tremor/react";
 import { grey } from "@mui/material/colors";
 import FormatDailyUsageData from "@/app/api/quarterlyUsageAPI";
@@ -26,7 +26,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
   unit,
 }) => {
   return (
-    <Card className="w-full max-w-xs p-4 py-6 montserrat-custom rounded-xl !dark:border-none ring-0 !dark:ring-0 bg-[#ecf2f6] flex-col justify-items-left ">
+    <Card className="w-full max-w-xs p-4 py-6 montserrat-custom rounded-[6px] !dark:border-none ring-0 !dark:ring-0 bg-[#f1f7fb] flex-col justify-items-left ">
       <Typography
         variant="h5"
         sx={{
@@ -40,7 +40,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
           fontStyle: "brand",
           wordSpacing: "2px",
         }}
-        className="tracing-wider"
+        className="tracing-wider font-roobert"
       >
         {title}
       </Typography>
@@ -56,7 +56,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
           letterSpacing: "0%",
           color: grey[600],
         }}
-        className="tracing-wider"
+        className="tracing-wider font-roobert"
       >
         {`dalle ${timeString.split("-")[0]} alle 
       ${timeString.split("-")[1]}`}
@@ -140,13 +140,13 @@ const Display = () => {
       </div>
       <div className="w-full text-black flex flex-row gap-4 justify-between pb-4">
         <ConsumptionDisplay
-          title="Ieri"
+          title="Oggi"
           value={prevDay}
           timeString="00:00 - 24:00"
           unit="kW"
         />
         <ConsumptionDisplay
-          title="Oggi"
+          title="Ieri"
           value={currDayConsumption}
           timeString={`00:00 - ${
             prevDayConsumption?.peakConsumption?.timeString.split("-")[1]
