@@ -30,7 +30,7 @@ const MonthlyStatsView = ({ monthlyData }: monthlyStatsProps) => {
     <>
       <div
         id="total_consumption_stats"
-        className="flex font-roboto flex-row justify-between w-full gap-4 pb-2 px-4 bg-white border-b-2 border-gray-300"
+        className="flex font-roboto flex-row justify-between w-full gap-4 pb-4 px-4 bg-white border-b-2 border-gray-300"
       >
         <p className="text-sm font-medium xss:text-base md:text-lg text-gray-800">
           Media di consumo mensile
@@ -56,7 +56,7 @@ const MonthlyStatsView = ({ monthlyData }: monthlyStatsProps) => {
       </div>
       <div
         id="peak_consumption_stats"
-        className="flex montserrat-custom items-center flex-row justify-between px-4  w-full bg-white pt-2 "
+        className="flex montserrat-custom items-center flex-row justify-between px-4 w-full bg-white pt-4 "
       >
         <div className="flex flex-col gap-0 w-3/5">
           <p className="text-sm font-medium xss:text-base md:text-md text-gray-800">

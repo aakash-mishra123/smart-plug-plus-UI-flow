@@ -94,7 +94,7 @@ const DateSwitcher = ({
       </div>
       <div
         id="total_consumption_stats"
-        className="flex font-roboto flex-row justify-between w-full gap-4 pb-2 bg-white border-b-2 border-gray-300 items-center"
+        className="flex font-roboto flex-row justify-between w-full gap-4 pb-2 mb-1 bg-white border-b-2 border-gray-300 items-center"
       >
         <p className="text-sm font-medium xss:text-base md:text-lg text-gray-800">
           Media di consumo giornaliero
@@ -124,7 +124,7 @@ const DateSwitcher = ({
       </div>
       <div
         id="peak_consumption_stats"
-        className="flex montserrat-custom items-center flex-row gap-8 justify-between w-full bg-white pt-2 "
+        className="flex montserrat-custom items-center flex-row gap-8 justify-between w-full bg-white pt-2 mt-1 "
       >
         <div className="flex flex-col gap-0">
           <p className="text-sm font-medium xss:text-base md:text-md text-gray-800">
