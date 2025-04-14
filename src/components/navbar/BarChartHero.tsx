@@ -119,7 +119,7 @@ const BarChartHero = ({
           <div id="switch_hours" className="montserrat-custom w-100 pl-4 mt-2">
             <div className="flex flex-row justify-between">
               <div className="flex flex-col gap-1">
-                <div className="text-gray-600 text-xs">Ora della giornata</div>
+                <div className="text-gray-600 text-sm">Ora della giornata</div>
                 <h2 className="text-md text-black font-semibold">
                   {selectedBarData.timestring}
                 </h2>

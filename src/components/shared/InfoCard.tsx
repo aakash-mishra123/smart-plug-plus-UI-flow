@@ -8,8 +8,6 @@ import { TbCircleFilled } from "react-icons/tb";
 import { RootState } from "@/app/redux";
 
 const InfoCard = () => {
-  // const dispatch = useDispatch<AppDispatch>();
-  // const [deviceData, setDeviceData] = useState(chain2gatedummy);
   const serialId = useSelector(
     (store: RootState) => store.deviceData.data.serial
   );
@@ -37,7 +35,7 @@ const InfoCard = () => {
                     Numero seriale
                   </p>
                   <Text className="text-md font-thin font-roboto ">{`${
-                    serialId ?? "abcdefg"
+                    serialId ?? ""
                   }`}</Text>
                 </div>
               </Flex>

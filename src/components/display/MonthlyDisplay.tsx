@@ -24,7 +24,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
 }) => {
   const billCost = ((value / 1000) * 0.2).toFixed(2);
   return (
-    <Card className="w-full max-w-xs p-4 py-6 montserrat-custom rounded-[6px] !dark:border-none ring-0 !dark:ring-0 bg-[#F7F8FB] flex-col justify-items-left ">
+    <Card className="w-full max-w-xs p-4 montserrat-custom rounded-[6px] !dark:border-none ring-0 !dark:ring-0 bg-[#F7F8FB] flex-col justify-items-left ">
       <Typography
         variant="h5"
         sx={{
@@ -135,7 +135,7 @@ const MonthlyDisplay = () => {
           <p className="text-xl font-bold ">kWh</p>
         </div>
       </div>
-      <div className="w-full text-black flex flex-row gap-4 justify-between pb-4">
+      <div className="w-full text-black flex flex-row gap-4 justify-between ">
         <ConsumptionDisplay
           title="Questo mese"
           value={212400}
@@ -149,7 +149,7 @@ const MonthlyDisplay = () => {
           unit="kW"
         />
       </div>
-      <div className="rounded-lg border-2 mt-0 p-4 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black font-roboto items-center">
+      <div className="rounded-[4px] border-2 px-4 py-2 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black font-roboto items-center">
         <p className={`text-xs xsss:text-sm xsm:text-md text-black`}>
           Lo sapevi che questo mese hai consumato il{" "}
           <b>

@@ -40,7 +40,7 @@ const Navbar = ({ tabHeadings, tabChildComponents }: NavbarProps) => (
         );
       })}
     </TabsList>
-    <div className="mt-0 mb-32 sm:text-base">
+    <div className="mt-0 mb-12 sm:text-base">
       {tabChildComponents.map((item: TabContentComponents) => {
         return (
           <TabsContent key={item.id} value={item.value}>

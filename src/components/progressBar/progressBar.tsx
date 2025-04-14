@@ -192,8 +192,8 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
               display: "flex",
               justifyContent: "space-between",
               width: "100%",
-              marginTop: "2px",
-              marginBottom: "16px",
+              marginTop: "8px",
+              marginBottom: "8px",
               position: "relative",
               zIndex: 2,
             }}
@@ -226,7 +226,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
               <p className="text-xs xsm:text-sm font-bold sm:text-sm md:text-lg">
                 0 kw
               </p>
-              <p className="text-xss xsm:text-xsm mt-1 xs:text-xs sm:w-full sm:text-base ">
+              <p className="text-xsm xsm:text-xsm mt-1 xs:text-xs sm:w-full font-medium sm:text-base ">
                 Inattività
               </p>
             </Box>
@@ -292,7 +292,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
               <p className="text-xs xsm:text-sm font-bold sm:text-sm md:text-lg">
                 3 kw
               </p>
-              <p className="text-xss xsm:text-xsm mt-1 xs:text-xs w-28 sm:w-full sm:text-md">
+              <p className="text-xss xsm:text-xsm mt-1 font-medium xs:text-xs w-28 sm:w-full sm:text-md">
                 Soglia massima
               </p>
             </Box>

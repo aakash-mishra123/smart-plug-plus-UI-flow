@@ -27,7 +27,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
 }) => {
   const billCost = ((value / 1000) * 0.2).toFixed(2);
   return (
-    <Card className="w-full max-w-xs p-4 py-6 montserrat-custom rounded-[6px] !dark:border-none ring-0 !dark:ring-0 bg-[#F7F8FB] flex-col justify-items-left ">
+    <Card className="w-full max-w-xs p-4  montserrat-custom rounded-[6px] !dark:border-none ring-0 !dark:ring-0 bg-[#F7F8FB] flex-col justify-items-left ">
       <Typography
         variant="h5"
         sx={{
@@ -67,7 +67,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
 
             <div className="flex flex-row gap-0 items-center">
               <Metric
-                className="text-md sm:text-lg font-bold font-roobert"
+                className="text-md xsm:text-xl sm:text-2xl font-bold font-roobert"
                 style={{ color: "black" }}
               >
                 {convertToItalicNumber(value, 1000, 2).split(".")[0] ?? "0"}
@@ -79,7 +79,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
                 ,
               </Metric>
               <Metric
-                className="text-md sm:text-lg font-bold font-roobert -mr-1"
+                className="text-md xsm:text-xl sm:text-2xl font-bold font-roobert -mr-1"
                 style={{ color: "black" }}
               >
                 {convertToItalicNumber(value, 1000, 2).split(".")[1] ?? "0"}{" "}
@@ -96,7 +96,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
             <div className="flex flex-row gap-2 items-baseline">
               <div className="flex flex-row gap-0 items-center">
                 <Metric
-                  className="text-md sm:text-lg font-bold font-roobert"
+                  className="md:text-sm xsm:text-xl sm:text-2xl font-bold font-roobert"
                   style={{ color: "black" }}
                 >
                   {billCost.split(".")[0]}
@@ -108,7 +108,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
                   ,
                 </Metric>
                 <Metric
-                  className="text-md sm:text-lg font-bold font-roobert -mr-1"
+                  className="md:text-sm xsm:text-xl sm:text-2xl font-bold font-roobert -mr-1"
                   style={{ color: "black" }}
                 >
                   {billCost.split(".")[1]}

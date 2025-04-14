@@ -17,8 +17,8 @@ const CustomLinearProgress = dynamic(
   () => import("../progressBar/progressBar")
 );
 
-const url = mqttOptions.url;
-const mqttUsername = mqttOptions.username;
+// const url = mqttOptions.url;
+// const mqttUsername = mqttOptions.username;
 
 const ConsumptionCard = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -26,32 +26,31 @@ const ConsumptionCard = () => {
   const serial = useSelector(
     (store: RootState) => store.deviceData.data.serial
   );
-
   useEffect(() => {
     const clientId = crypto.randomUUID().replace(/-/g, "");
-    const client = new Paho.Client(url, clientId);
-    client.connect({
-      useSSL: true,
-      timeout: 3,
-      mqttVersion: 4,
-      userName: mqttUsername,
-      password: "password",
-      onSuccess: function () {
-        client.subscribe(`c2/d/${serial}`); //serial from chain-2-gate
-      },
-    });
-    client.onMessageArrived = function (message) {
-      if (
-        JSON.parse(message.payloadString).Chain2Data?.type === "CF21" ||
-        "CF51"
-      ) {
-        const messageRecieved = JSON.parse(message.payloadString);
-        setIotData(messageRecieved.Chain2Data);
-
-        return { iotData: JSON.parse(message.payloadString).Chain2Data };
-      } else return { iotData: { message: meterEventDummyData } };
-    };
-
+    setTimeout(() => {
+      const client = new Paho.Client(mqttOptions.url, clientId);
+      client.connect({
+        useSSL: true,
+        timeout: 3,
+        mqttVersion: 4,
+        userName: mqttOptions.username,
+        password: "password",
+        onSuccess: function () {
+          client.subscribe(`c2/d/${serial}`); //serial from chain-2-gate
+        },
+      });
+      client.onMessageArrived = function (message) {
+        if (
+          JSON.parse(message.payloadString).Chain2Data?.type === "CF21" ||
+          "CF51"
+        ) {
+          const messageRecieved = JSON.parse(message.payloadString);
+          setIotData(messageRecieved.Chain2Data);
+          return { iotData: JSON.parse(message.payloadString).Chain2Data };
+        } else return { iotData: { message: meterEventDummyData } };
+      };
+    }, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
