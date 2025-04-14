@@ -1,7 +1,7 @@
 import { EnergyDataProp } from "@/utils/types";
 
 export type FetchQuarterlyUsageDataProps = {
-  slug?: string;
+  slug?: string | undefined;
   options?: object;
 };
 
@@ -34,7 +34,7 @@ export type quarterUsageData = {
 export type totalDailyUsageType = {
   date: string;
   totalEnergyConsumed: number | undefined;
-  averageConsumption: number | undefined;
+  averageConsumption: number;
   peakConsumption: { value: number; timeString: string };
   data: quarterUsageData[];
 };

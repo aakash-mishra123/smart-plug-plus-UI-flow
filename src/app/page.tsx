@@ -5,11 +5,13 @@ import dayjs, { Dayjs } from "dayjs";
 import queryString from "query-string";
 import BarChartHero from "@/components/navbar/BarChartHero";
 import DateSwitcher from "@/components/dateSwitch/DateSwitcher";
-import FormatDailyUsageData from "@/app/api/quarterlyUsageAPI";
 import { quarterUsageData } from "@/app/types/dailyUsageTypes";
-import { useSelector } from "react-redux";
-import { RootState } from "./lib";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "./redux";
 import { Button } from "@tremor/react";
+import { fetchDeviceData } from "./redux/deviceSlice";
+import { fetchQuarterData as refetch } from "./redux/powerSlice";
+import { dummyBarGraph } from "@/utils/constants";
 
 const MonthlyView = dynamic(() => import("@/components/tabs/monthlyview"));
 const Navbar = dynamic(() => import("@/components/tabs/Tabs"));
@@ -24,9 +26,14 @@ const ConsumptionCard = dynamic(
 );
 
 export default function Home() {
-  const bargraphInitialState = useSelector(
-    (store: RootState) => store.powerData
-  );
+  const dispatch = useDispatch<AppDispatch>();
+  const powerData = useSelector((store: RootState) => store.powerData.data);
+
+  useEffect(() => {
+    if (fetchDeviceData) {
+      dispatch(fetchDeviceData());
+    }
+  }, [dispatch]);
 
   const serialId = useSelector(
     (store: RootState) => store.deviceData.data.serial
@@ -37,7 +44,7 @@ export default function Home() {
 
   const [selectedDate, setselectedDate] = useState<Dayjs>(dayjs().locale("en"));
   const [selectedBarData, setselectedBarData] = useState<quarterUsageData>(
-    bargraphInitialState.data
+    dummyBarGraph.data[0]
   );
   const [selectedBar, setselectedbar] = useState<string>("0");
 
@@ -49,30 +56,31 @@ export default function Home() {
     [selectedDate, serialId]
   ); // Recompute only when selectedDate changes
 
-  const { data, refetch } = FormatDailyUsageData({
-    slug: queryString.stringify(options),
-  });
-
   useEffect(() => {
-    if (refetch) {
-      refetch({
-        slug: queryString.stringify(options),
-      });
-    }
-
-    if (data && data?.data && data?.data.length > 0) {
-      const lastIndex = data.data
-        .map((obj, index) => (Object.keys(obj).length > 0 ? index : -1))
-        .filter((index) => index != -1)
-        .pop();
-
-      setselectedbar(String(lastIndex ? lastIndex : 0));
-      setselectedBarData(data?.data[lastIndex ?? 0]);
+    if (options.date && serialId) {
+      dispatch(
+        refetch({
+          slug: queryString.stringify(options),
+          options,
+        })
+      );
     }
 
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options.date, selectedDate, refetch]);
+
+  useEffect(() => {
+    if (powerData && powerData.data?.length > 0) {
+      const lastIndex = powerData.data
+        .map((obj, index) => (Object.keys(obj).length > 0 ? index : -1))
+        .filter((index) => index !== -1)
+        .pop();
+
+      setselectedbar(String(lastIndex ?? 0));
+      setselectedBarData(powerData.data[lastIndex ?? powerData.data.length]);
+    }
+  }, [powerData]);
 
   return (
     <div className="bg-[#edf1f5] no-scrollbar">
@@ -155,20 +163,18 @@ export default function Home() {
                     <DateSwitcher
                       selectedDate={selectedDate}
                       setSelectedDate={setselectedDate}
-                      data={data}
+                      data={powerData}
                       view={view}
                       setView={setView}
                     />
                     <BarChartHero
-                      chartdata={data}
+                      chartdata={powerData}
                       selectedBar={selectedBar}
                       setselectedbar={setselectedbar}
                       setselectedbardata={setselectedBarData}
                       selectedBarData={selectedBarData}
                     />
-                    <BarListHero
-                      data={selectedBarData ?? bargraphInitialState.data}
-                    />
+                    <BarListHero data={selectedBarData ?? []} />
                   </>
                 ) : (
                   <MonthlyView />

@@ -3,25 +3,28 @@ import axios from "axios";
 
 const initialState = {
   online: true,
-  serial: "c2g-57CFB6E1C",
+  serial: "c2G-XXXXX",
   id: "0366d483-3b26-4c0e-96de-ef4e5cd9f230",
 };
 
 const authToken = process.env.NEXT_PUBLIC_DEVICE_AUTH_TOKEN;
 
-export const fetchDeviceData = createAsyncThunk("", async () => {
-  const BASE_URL =
-    "https://y7u224bky4.execute-api.eu-west-1.amazonaws.com/uat/v1/energy/chain-to-gate";
+export const fetchDeviceData = createAsyncThunk(
+  "device/fetchStatus",
+  async () => {
+    const BASE_URL =
+      "https://y7u224bky4.execute-api.eu-west-1.amazonaws.com/uat/v1/energy/chain-to-gate";
 
-  const response = await axios.get(BASE_URL, {
-    headers: {
-      Accept: "application/json",
-      "Content-type": "application/json",
-      Authorization: `Bearer ${authToken}`,
-    },
-  });
-  return response.data[0];
-});
+    const response = await axios.get(BASE_URL, {
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return response.data[0];
+  }
+);
 
 const deviceSlice = createSlice({
   name: "device",

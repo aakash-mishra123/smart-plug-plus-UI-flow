@@ -3,9 +3,9 @@ import { useState, useEffect, useCallback } from "react";
 import {
   FetchQuarterlyUsageDataProps,
   QuarterlyAPIResponseType,
-  quarterUsageData,
   ResultDataType,
   totalDailyUsageType,
+  dividedDataReturnType,
 } from "../types/dailyUsageTypes";
 import { EnergyDataProp } from "@/utils/types";
 import dayjs from "dayjs";
@@ -34,7 +34,6 @@ const FetchUsageByIntervals = ({
     async ({ slug, options = {} }: FetchQuarterlyUsageDataProps) => {
       try {
         const url = `${BASE_URL}/${QUARTER_USAGE_URL}?${slug}`;
-
         const response = await axios.get(url, {
           params: options,
           headers: {
@@ -92,16 +91,15 @@ const FormatDailyUsageData = ({
     };
   }
 
-  const peakConsumption = { value: 0, timeString: "" };
-
   function divideIntoFourGroups(
     data: {
       date: string;
       usage: number;
       timestamp: number;
     }[]
-  ) {
+  ): dividedDataReturnType {
     const groupedData = [];
+    const peakConsumption = { value: 0, timeString: "" };
     for (let i = 0; i < 24; i++) {
       const chunk = data.slice(i * 4, i * 4 + 4); // Get 4 elements per group
 
@@ -166,7 +164,7 @@ const FormatDailyUsageData = ({
       groupedData.push({});
     }
 
-    return groupedData;
+    return { peakConsumption, dividedIntervalsData: groupedData };
   }
   const chartData = data?.data.map((item: EnergyDataProp) => ({
     date: item.formattedDate,
@@ -175,7 +173,7 @@ const FormatDailyUsageData = ({
     value: item.currQuartActEnergy || 0,
   }));
 
-  const dividedIntervalsData: quarterUsageData[] =
+  const { peakConsumption, dividedIntervalsData }: dividedDataReturnType =
     divideIntoFourGroups(chartData);
 
   const averageConsumption = data?.totalEnergyConsumed
