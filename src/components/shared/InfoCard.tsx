@@ -1,27 +1,21 @@
 "use client";
 import Image from "next/image";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Card, Text, Title, Flex } from "@tremor/react/dist";
 import PowerOutlinedIcon from "@mui/icons-material/PowerOutlined";
 import MeterIcon from "../../../public/assets/meter_Icon.png";
 import { TbCircleFilled } from "react-icons/tb";
-import { useEffect, useState } from "react";
-import { fetchDeviceData } from "@/app/lib/deviceSlice";
-import { AppDispatch } from "@/app/lib";
-import { chain2gatedummy } from "@/utils/constants";
+import { RootState } from "@/app/redux";
 
 const InfoCard = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const [deviceData, setDeviceData] = useState(chain2gatedummy);
-  useEffect(() => {
-    if (fetchDeviceData)
-      dispatch(fetchDeviceData())
-        .unwrap()
-        .then((res) => setDeviceData(res))
-        .catch((err) => {
-          console.log("ERROR: FETCH DEVICE DATA", err);
-        });
-  }, [dispatch]);
+  // const dispatch = useDispatch<AppDispatch>();
+  // const [deviceData, setDeviceData] = useState(chain2gatedummy);
+  const serialId = useSelector(
+    (store: RootState) => store.deviceData.data.serial
+  );
+  const status = useSelector(
+    (store: RootState) => store.deviceData.data.online
+  );
   return (
     <>
       <div className="bg-[#C81D5E] h-fit p-4 min-w-[100vw] ring-none dark:ring-none">
@@ -43,7 +37,7 @@ const InfoCard = () => {
                     Numero seriale
                   </p>
                   <Text className="text-md font-thin font-roboto ">{`${
-                    deviceData.serial ?? "abcdefg"
+                    serialId ?? "abcdefg"
                   }`}</Text>
                 </div>
               </Flex>
@@ -53,7 +47,7 @@ const InfoCard = () => {
                 alignItems="center"
                 className="mt-2 gap-1 ml-1"
               >
-                {deviceData.online ? (
+                {status ? (
                   <TbCircleFilled className="text-blue-600 rounded-full w-3 h-3" />
                 ) : (
                   <TbCircleFilled className="text-red-800 rounded-full w-3 h-3" />
@@ -65,7 +59,7 @@ const InfoCard = () => {
                   <p
                     className={` font-thin text-md text-black font-roboto -mt-1`}
                   >
-                    {deviceData.online ? "Connessa" : "Non-connessa"}
+                    {status ? "Connessa" : "Non-connessa"}
                   </p>
                 </div>
               </Flex>

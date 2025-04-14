@@ -44,3 +44,25 @@ export type ResultDataType = {
   loading: boolean;
   refetch?: (params: FetchQuarterlyUsageDataProps) => void;
 };
+
+type peakConsumptionType = {
+  value: number;
+  timeString: string;
+};
+
+export type dividedDataReturnType = {
+  peakConsumption: peakConsumptionType;
+  dividedIntervalsData: quarterUsageData[];
+};
+
+export type UsageFetchResponse = {
+  data: {
+    date: string;
+    totalEnergyConsumed: number;
+    averageConsumption: number;
+    peakConsumption: { value: number; timeString: string };
+    data: EnergyDataProp[];
+  } | null;
+  error: string | false | null;
+  loading: boolean;
+};

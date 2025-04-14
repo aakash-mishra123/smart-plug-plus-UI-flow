@@ -7,7 +7,7 @@ import { InfoIcon } from "lucide-react";
 import Paho from "paho-mqtt";
 import { meterEventDummyData } from "@/utils/constants";
 import { useSelector } from "react-redux";
-import { RootState } from "@/app/lib";
+import { RootState } from "@/app/redux";
 import { toTitleCase } from "@/utils/methods";
 import { mqttOptions } from "@/utils/constants";
 const DrawerModal = dynamic(

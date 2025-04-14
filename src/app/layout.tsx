@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Provider } from "react-redux";
 import localFont from "next/font/local";
-import store from "./lib";
+import store from "./redux";
 import theme from "./providers/Theme";
 
 const robotoFont = localFont({
