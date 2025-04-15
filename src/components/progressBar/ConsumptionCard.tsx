@@ -17,8 +17,6 @@ const CustomLinearProgress = dynamic(
   () => import("../progressBar/progressBar")
 );
 
-// const url = mqttOptions.url;
-// const mqttUsername = mqttOptions.username;
 
 const ConsumptionCard = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
