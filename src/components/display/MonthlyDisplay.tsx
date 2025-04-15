@@ -150,7 +150,7 @@ const MonthlyDisplay = () => {
   const totalUsage = monthlyUsage.reduce((sum, item) => sum + (item.totalActEnergy ?? 0), 0);
 
   return (
-    <div className="flex flex-col gap-4 bg-white px-4">
+    <div className="flex flex-col gap-4 bg-white px-4 py-4">
       <div className="flex flex-col gap-0 pt-8 px-2">
         <p className="xsm:text-[14px] md:text-md text-base font-medium font-roobert text-[#667790]">
           Andamento consumo

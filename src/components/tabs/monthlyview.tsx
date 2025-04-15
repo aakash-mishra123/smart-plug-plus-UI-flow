@@ -89,7 +89,7 @@ const MonthlyView = () => {
 
   return (
     <div className="flex flex-col bg-white">
-      <div className="flex flex-col gap-0 pt-8 pr-4 pl-4 pb-6 w-100 bg-white">
+      <div className="flex flex-col gap-0 pt-4 pr-4 pl-4 pb-6 w-100 bg-white">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col gap-0">
             <p className="xsm:text-[14px] md:text-md text-base font-medium font-roobert text-[#667790]">
@@ -149,7 +149,7 @@ const MonthlyView = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3 }}
-        className="mt-8"
+        className="mt-4"
       >
         <BarChart
           data={monthlyData}
@@ -177,10 +177,10 @@ const MonthlyView = () => {
         />
       </motion.div>
 
-      <Card className="relative p-4 rounded-lg mt-8 bg-[#1f6cf8] h-full w-8/10 mx-4">
+      <Card className="relative p-4 rounded-lg mt-2 bg-[#1f6cf8] h-full w-8/10 mx-4">
         <div className="flex flex-col gap-2 font-roboto w-full text-white">
-          <p className="font-semibold ">Ehy, lo sapevi?</p>
-          <p className="font-medium text-md ">
+          <p className="font-semibold">Ehy, lo sapevi?</p>
+          <p className="font-medium xsm:text-sm md:text-md ">
             Nel mese di Marzo hai superato la soglia del consumo per 5 giorni.
           </p>
 
@@ -191,7 +191,7 @@ const MonthlyView = () => {
             <FaArrowRight className="font-medium text-white text-md" />
           </div>
           <Image
-            className="absolute top-8 right-0 z-40 bg-transparent"
+            className="absolute top-4 right-0 z-40 bg-transparent"
             src={boltPng}
             height={100}
             width={60}
