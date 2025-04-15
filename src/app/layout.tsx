@@ -1,11 +1,9 @@
 "use client";
-import { ThemeProvider } from "@mui/material";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Provider } from "react-redux";
 import localFont from "next/font/local";
 import store from "./redux";
-import theme from "./providers/Theme";
 
 const robotoFont = localFont({
   src: [
@@ -89,9 +87,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${robotoFont.variable} ${roobert.variable} antialiased`}
       >
-        <ThemeProvider theme={theme}>
           <Provider store={store}>{children}</Provider>
-        </ThemeProvider>
       </body>
     </html>
   );

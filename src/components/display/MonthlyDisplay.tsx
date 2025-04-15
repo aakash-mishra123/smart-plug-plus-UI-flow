@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Metric, Text } from "@tremor/react";
 import { FaEuroSign } from "react-icons/fa";
 import { TbBolt } from "react-icons/tb";
@@ -6,8 +6,10 @@ import { FaMoneyBills } from "react-icons/fa6";
 import { convertToItalicNumber } from "@/utils/methods";
 import { Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
-// import queryString from "query-string";
-// import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/app/redux";
+import dayjs from "dayjs";
+import { fetchMonthlyData } from "@/app/redux/monthlyUsageSlice";
 
 interface ConsumptionDisplayProps {
   title: string;
@@ -49,7 +51,9 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
           lineHeight: "100%",
           letterSpacing: "0%",
           color: grey[600],
+          marginTop: "5px",
         }}
+        style={{ lineHeight: "14px"}}
         className="tracing-wider"
       >
         {timeString}
@@ -61,7 +65,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
             <TbBolt className="text-[#D3135A] font-bold text-md" />
             <div className="flex flex-row gap-0 items-center">
               <Metric
-                className="text-sm xss:text-lg sm:text-xl font-bold font-roobert"
+                className="text-md xsm:text-xl sm:text-2xl font-bold font-roobert"
                 style={{ color: "black" }}
               >
                 {convertToItalicNumber(value, 1000, 2).split(".")[0] ?? "0"}
@@ -73,7 +77,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
                 ,
               </Metric>
               <Metric
-                className="text-sm xss:text-lg sm:text-xl font-bold font-roobert -mr-1"
+                className="text-md xsm:text-xl sm:text-2xl font-bold font-roobert -mr-1"
                 style={{ color: "black" }}
               >
                 {convertToItalicNumber(value, 1000, 2).split(".")[1] ?? "0"}{" "}
@@ -84,13 +88,13 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
         </div>
 
         <div className="flex-col gap-0 flex text-semibold">
-          <p className="text-sm xss:text-base font-semibold">Hai speso*</p>
+          <p className="text-sm xss:text-base font-semibold tracking-wider">Hai speso*</p>
           <div className="flex flex-row gap-2 items-center">
             <FaMoneyBills className="text-[#D3135A] font-bold text-md mt-1" />
             <div className="flex flex-row gap-2 items-baseline">
               <div className="flex flex-row gap-0 items-center">
                 <Metric
-                  className="text-sm xss:text-lg sm:text-xl font-bold font-roobert"
+                  className="text-md xsm:text-xl sm:text-2xl font-bold font-roobert"
                   style={{ color: "black" }}
                 >
                   {billCost.split(".")[0]}
@@ -102,7 +106,7 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
                   ,
                 </Metric>
                 <Metric
-                  className="text-sm xss:text-lg sm:text-xl font-bold font-roobert -mr-1"
+                  className="text-md xsm:text-xl sm:text-2xl font-bold font-roobert -mr-1"
                   style={{ color: "black" }}
                 >
                   {billCost.split(".")[1]}
@@ -118,19 +122,42 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
 };
 
 const MonthlyDisplay = () => {
-  //   const serialId = useSelector(
-  //     (store: RootState) => store.deviceData.data.serial
-  //   );
+  const dispatch = useDispatch<AppDispatch>();
+  const [currentMonthData, ] = useState(useSelector((store: RootState) => store.monthlyData.data));
+  const totalCurrentMonthUsage = currentMonthData.reduce((sum, item) => sum + (item.totalActEnergy ?? 0), 0);
+  const serial = useSelector((store: RootState) => store.deviceData.data.serial)
+
+
+  useEffect(() => {
+    dispatch(fetchMonthlyData({
+      serial: serial,
+      month: dayjs().month() - 1,
+      year: dayjs().year(),
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[dispatch])
+
+  const monthlyUsage = useSelector((store: RootState) => store.monthlyData.data);
+  const currentMonthLastIndex = currentMonthData
+  .map((obj, index) => (Object.keys(obj).length > 0 ? index : -1))
+  .filter((index) => index !== -1)
+  .length -1;
+
+  const previousMonthLastIndex = monthlyUsage
+  .map((obj, index) => (Object.keys(obj).length > 0 ? index : -1))
+  .filter((index) => index !== -1)
+  .length -1;
+  const totalUsage = monthlyUsage.reduce((sum, item) => sum + (item.totalActEnergy ?? 0), 0);
 
   return (
     <div className="flex flex-col gap-4 bg-white px-4">
       <div className="flex flex-col gap-0 pt-8 px-2">
-        <p className="font-bold montserrat-custom text-gray-700">
+        <p className="xsm:text-[14px] md:text-md text-base font-medium font-roobert text-[#667790]">
           Andamento consumo
         </p>
         <div className="flex flex-row gap-1 items-baseline text-[#397a5c] ">
           <div className="flex flex-row gap-0 items-baseline">
-            <Text className="text-3xl font-black ">{"-41"}</Text>
+            <Text className="text-3xl font-black ">{Math.round((totalCurrentMonthUsage - totalUsage) / 1000).toFixed(0)}</Text>
           </div>
           <p className="text-xl font-bold ">kWh</p>
         </div>
@@ -138,15 +165,15 @@ const MonthlyDisplay = () => {
       <div className="w-full text-black flex flex-row gap-4 justify-between ">
         <ConsumptionDisplay
           title="Questo mese"
-          value={212400}
-          timeString="dal 01/03/25 al 17/03/25"
+          timeString={`dal ${dayjs(currentMonthData[0].formattedDate).format("DD/MM/YYYY")} al ${dayjs(currentMonthData[currentMonthLastIndex].formattedDate).format("DD/MM/YYYY")}`}
+          value={totalCurrentMonthUsage}
           unit="kWh"
         />
         <ConsumptionDisplay
           title="Lo scorso mese"
-          value={361100}
-          timeString="dal 01/02/25 al 28/02/25"
-          unit="kW"
+          value={totalUsage}
+          timeString={`dal ${dayjs(monthlyUsage[0].formattedDate).format("DD/MM/YYYY")} al ${dayjs(monthlyUsage[previousMonthLastIndex].formattedDate).format("DD/MM/YYYY")}`}
+          unit="kWh"
         />
       </div>
       <div className="rounded-[4px] border-2 px-4 py-2 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black font-roboto items-center">

@@ -108,8 +108,8 @@ const MonthlyView = () => {
           </div>
         </div>
         <div className="flex flex-row justify-between mt-2">
-          <div className="flex flex-col gap-1 mt-2">
-            <p className="text-gray-500 text-sm font-medium">Mese</p>
+          <div className="flex flex-col gap-1">
+            <p className="text-gray-500 text-md font-medium">Mese</p>
             <span className="text-sm xss:text-base md:text-md -mt-1">
               {toTitleCase(dayjs().month(selectedMonth).format("MMMM"))}{" "}
               {dayjs().year(selectedYear).format("YYYY")}
@@ -144,7 +144,7 @@ const MonthlyView = () => {
       <MonthlyStatsView monthlyData={monthlyData} />
 
       <motion.div
-        key={JSON.stringify(dummyDailyData)} // Ensures re-render when data changes
+        key={JSON.stringify(monthlyData)} // Ensures re-render when data changes
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

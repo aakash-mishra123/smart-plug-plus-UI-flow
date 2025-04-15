@@ -13,10 +13,12 @@ const MonthlyStatsView = ({ monthlyData }: monthlyStatsProps) => {
       (sum, item) => sum + (item.totalActEnergy ?? 0),
       0 // Initialize sum as 0
     ) / monthlyData.length;
+
   const peakConsumption = {
     consumption: 0,
     date: "",
   };
+  
   monthlyData.forEach((item) => {
     if (
       item.totalActEnergy &&

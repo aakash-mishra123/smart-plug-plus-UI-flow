@@ -106,19 +106,19 @@ export default function Home() {
                 <div className="absolute top-10 z-10 right-4 h-8 bg-[#F7F8FB] p-1 rounded-lg flex flex-row gap-1">
                   <Button
                     onClick={() => setDisplayView("month")}
-                    className={`text-sm px-2 py-0 rounded-[4px] ${
+                    className={`text-md h-8 font-medium rounded-[4px] ${
                       displayView === "month"
-                        ? "border-2 border-blue-600 text-blue-700 bg-white"
-                        : "text-gray-900 bg-transparent border-none"
+                        ? "border-2 border-[#0047CC] text-[#0047CC] bg-white"
+                        : "text-gray-900 bg-transparent border-none tracking-wider"
                     }`}
                   >
                     Mese
                   </Button>
                   <Button
                     onClick={() => setDisplayView("day")}
-                    className={`text-sm px-2 py-0 rounded-[4px] ${
+                    className={`text-md font-medium h-8 rounded-[4px] ${
                       displayView === "day"
-                        ? "border-2 border-blue-600 text-blue-700 bg-white"
+                        ? "border-2 border-[#0047CC] text-[#0047CC] bg-white"
                         : "text-gray-900 bg-transparent border-none"
                     }`}
                   >
@@ -138,9 +138,9 @@ export default function Home() {
                   <div className="absolute top-10 z-10 right-4 h-8 bg-[#F7F8FB] p-1 rounded-lg flex flex-row gap-1">
                     <Button
                       onClick={() => setView("month")}
-                      className={`text-sm px-2 py-0 rounded-[4px] ${
+                      className={`text-md h-8 rounded-[4px] ${
                         view === "month"
-                          ? "border-2 border-blue-600 text-blue-700 bg-white"
+                          ? "border-2 border-blue-600 font-medium text-blue-700 bg-white"
                           : "text-gray-900 bg-transparent border-none"
                       }`}
                     >
@@ -148,9 +148,9 @@ export default function Home() {
                     </Button>
                     <Button
                       onClick={() => setView("day")}
-                      className={`text-sm px-2 py-2 rounded-[4px] ${
+                      className={`text-md h-8 rounded-[4px] ${
                         view === "day"
-                          ? "border-2 border-blue-600 text-blue-700 bg-white"
+                          ? "border-2 border-blue-600 font-medium text-blue-700 bg-white"
                           : "text-gray-900 bg-transparent border-none"
                       }`}
                     >

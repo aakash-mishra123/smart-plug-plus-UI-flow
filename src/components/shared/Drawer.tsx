@@ -75,7 +75,7 @@ const DrawerContent = React.forwardRef<
           id="drawer_content"
           ref={forwardedRef}
           className={cx(
-            "fixed bottom-0 z-50 !w-[100vw] max-w-lg h-fit overflow-y-auto rounded-t-xl border border-gray-200 bg-white pt-4 pb-2 px-4 shadow-lg",
+            "fixed bottom-0 z-50 !w-[100vw] max-w-lg h-fit overflow-y-auto rounded-t-[12px] border border-gray-200 bg-white pt-4 pb-0 px-4 shadow-lg",
             "data-[state=closed]:animate-slideDown data-[state=open]:animate-slideUp",
             focusRing,
             className
@@ -96,7 +96,7 @@ const DrawerHeader = React.forwardRef<
   return (
     <div
       ref={ref}
-      className="flex items-start justify-between gap-x-4 border-b border-gray-200 pb-2"
+      className="flex items-start justify-between gap-x-4 border-b border-gray-200 "
       {...props}
     >
       <div className={cx("mt-1 flex flex-col gap-y-1", className)}>
@@ -139,7 +139,7 @@ const DrawerBody = React.forwardRef<
   HTMLDivElement,
   React.ComponentPropsWithoutRef<"div">
 >(({ className, ...props }, ref) => {
-  return <div ref={ref} className={cx("flex-1 py-4", className)} {...props} />;
+  return <div ref={ref} className={cx("flex-1", className)} {...props} />;
 });
 DrawerBody.displayName = "Drawer.Body";
 
@@ -165,7 +165,7 @@ const DrawerFooter = ({
   return (
     <div
       className={cx(
-        "flex flex-col-reverse border-t border-gray-200 pt-4 sm:flex-row sm:justify-end sm:space-x-2",
+        "flex flex-col-reverse border-t border-gray-200  sm:flex-row sm:justify-end sm:space-x-2",
         className
       )}
       {...props}

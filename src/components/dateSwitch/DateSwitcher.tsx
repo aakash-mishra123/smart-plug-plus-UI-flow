@@ -63,7 +63,7 @@ const DateSwitcher = ({
       </div>
       <div className="flex flex-row justify-between w-full pt-2 mb-4 bg-white font-roboto">
         <div className="flex flex-col gap-0 items-left">
-          <span className="text-gray-500 text-sm font-medium">Giorno</span>
+          <span className="text-gray-500 text-md font-medium">Giorno</span>
 
           <span className="text-sm xss:text-base md:text-md ">
             {selectedDate.locale("it").format("dddd D MMMM YYYY")}

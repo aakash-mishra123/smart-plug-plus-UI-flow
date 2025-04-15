@@ -72,7 +72,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
             value={value ?? 0}
             valueBuffer={80}
             sx={{
-              height: 28,
+              height: 24,
               borderRadius: 20,
               overflow: "hidden",
               "& .MuiBoxRoot": {
@@ -118,11 +118,10 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
           <Box
             className="absolute w-full"
             sx={{
-              top: "-18px",
+              top: "-20px",
               zIndex: 1,
             }}
           >
-            {/* 0 kW Dot */}
             <Box
               sx={{
                 width: 5,
@@ -143,7 +142,6 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
                 },
               }}
             />
-            {/* 2.5 kW Dot */}
             <Box
               sx={{
                 width: 5,
@@ -164,7 +162,6 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
                 },
               }}
             />
-            {/* 3 kW Dot */}
             <Box
               sx={{
                 width: 5,
