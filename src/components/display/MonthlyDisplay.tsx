@@ -25,6 +25,10 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
   unit,
 }) => {
   const billCost = ((value / 1000) * 0.2).toFixed(2);
+  const dalString = timeString.split("al")[1];
+  const alString = timeString.split('al')[2];
+  
+  console.log('timestring', dalString, alString);
   return (
     <Card className="w-full max-w-xs p-4 montserrat-custom rounded-[6px] !dark:border-none ring-0 !dark:ring-0 bg-[#F7F8FB] flex-col justify-items-left ">
       <Typography
@@ -44,6 +48,9 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
       >
         {title}
       </Typography>
+      <div className="flex flex-col gap-0 xs:flex-row xs:gap-1">
+
+   
       <Typography
         sx={{
           fontWeight: "thin",
@@ -56,8 +63,23 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
         style={{ lineHeight: "14px"}}
         className="tracing-wider"
       >
-        {timeString}
+        {`dal ${dalString}`}
       </Typography>
+      <Typography
+        sx={{
+          fontWeight: "thin",
+          fontSize: "12px",
+          lineHeight: "100%",
+          letterSpacing: "0%",
+          color: grey[600],
+          marginTop: "5px",
+        }}
+        style={{ lineHeight: "14px"}}
+        className="tracing-wider"
+      >
+        {`al ${alString}`}
+      </Typography>
+      </div>
       <div className="flex flex-col gap-2 justify-items-center mt-4">
         <div className="flex-col gap-1 flex text-semibold">
           <p className="text-sm xss:text-base font-semibold">Hai consumato</p>

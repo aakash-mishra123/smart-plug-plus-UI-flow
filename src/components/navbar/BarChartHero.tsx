@@ -126,13 +126,13 @@ const BarChartHero = ({
               </div>
 
               <div id="switch_arrows" className="flex flex-row gap-2 *:mr-4 ">
-                <div className="flex items-center gap-2 mt-1">
+                <div className="flex items-center gap-4 mt-1">
                   <Button
                     variant="light"
                     size="xs"
                     icon={ChevronLeftIcon}
                     onClick={handlePrevClick}
-                    className="text-pink-700 p-2 rounded-md bg-gray-300"
+                    className="text-pink-700 p-2 rounded-md bg-[#F7F8FB]"
                     disabled={selectedBar === chartdata.data[0]?.date}
                   />
 
@@ -149,7 +149,7 @@ const BarChartHero = ({
                           ) + 1
                         ] ?? {}
                       ).length === 0
-                        ? "opacity-50 cursor-not-allowed bg-gray-500 text-gray-800"
+                        ? "opacity-50 cursor-not-allowed bg-[#C2CDDD] text-[#667790]"
                         : "bg-gray-300"
                     }`}
                     disabled={
