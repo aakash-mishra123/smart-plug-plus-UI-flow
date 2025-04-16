@@ -1,8 +1,9 @@
 import React from "react";
 import dayjs from "dayjs";
 import queryString from "query-string";
+import { useState } from "react";
 import { Card } from "@tremor/react";
-import { Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import { FaEuroSign } from "react-icons/fa";
 import { TbBolt } from "react-icons/tb";
 import { FaMoneyBills } from "react-icons/fa6";
@@ -12,6 +13,7 @@ import { RootState } from "@/app/redux";
 import { Metric } from "@tremor/react";
 import { grey } from "@mui/material/colors";
 import FormatDailyUsageData from "@/app/api/quarterlyUsageAPI";
+
 interface ConsumptionDisplayProps {
   title: string;
   value: number;
@@ -128,19 +130,22 @@ const Display = () => {
     (store: RootState) => store.deviceData.data.serial
   );
 
-  const { data: currentDayConsumption } = FormatDailyUsageData({
+
+  const { data: currentDayConsumption, loading: showLoader } = FormatDailyUsageData({
     slug: queryString.stringify({
       date: dayjs().format("YYYY-MM-DD"),
       serial: serialId,
     }),
   });
 
-  const { data: prevDayConsumption } = FormatDailyUsageData({
-    slug: queryString.stringify({
+  const { data: prevDayConsumption, loading: showLoader2 } = FormatDailyUsageData({
+
+    slug : queryString.stringify({
       date: dayjs().subtract(1, "day").format("YYYY-MM-DD"),
       serial: serialId,
     }),
-  });
+  }
+  );
 
   const prevDay = prevDayConsumption.totalEnergyConsumed ?? 0;
   const currDayConsumption = currentDayConsumption.totalEnergyConsumed ?? 0;
@@ -150,9 +155,9 @@ const Display = () => {
     currentDayConsumption.totalEnergyConsumed > 0 &&
     prevDayConsumption.totalEnergyConsumed &&
     prevDayConsumption.totalEnergyConsumed > 0
-  ) {
+  ) 
     difference = Math.round((currDayConsumption - prevDay) / 100);
-  }
+
   return (
     <div className="flex flex-col gap-4 bg-white px-4 mb-1">
       <div className="flex flex-col gap-0 pt-8 px-2">
@@ -171,24 +176,38 @@ const Display = () => {
           </div>
           <p className="text-xl font-medium ">kWh</p>
         </div>
-      </div>
-      <div className="w-full text-black flex flex-row gap-4 justify-between">
-        <ConsumptionDisplay
-          title="Oggi"
-          value={prevDay}
-          timeString="00 - 24:00"
-          unit="kW"
+      
+      {
+        (showLoader || showLoader2 || !currentDayConsumption || !prevDayConsumption ) ? 
+        <div className="h-40 w-full flex items-center justify-center text-pink-800">
+        <CircularProgress 
+           sx={{
+            color: '#D3135A', // Custom hex color
+            thickness: 6, // Make it bolder (default is 3.6)
+          }}
         />
-        <ConsumptionDisplay
-          title="Ieri"
-          value={currDayConsumption}
-          timeString={`00 - ${
-            prevDayConsumption?.peakConsumption?.timeString.split("-")[1]
-          }`}
-          unit="kW"
-        />
-      </div>
-      <div className="rounded-[4px] border-2 px-4 py-2 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black font-roboto items-center">
+          </div>
+        : 
+        (
+          <> 
+          <div className="w-full text-black flex flex-row gap-4 justify-between">
+
+          <ConsumptionDisplay
+            title="Oggi"
+            value={prevDay}
+            timeString="00 - 24:00"
+            unit="kW"
+          />
+          <ConsumptionDisplay
+            title="Ieri"
+            value={currDayConsumption}
+            timeString={`00 - ${
+              prevDayConsumption?.peakConsumption?.timeString.split("-")[1]
+            }`}
+            unit="kW"
+          />
+        </div>
+        <div className="rounded-[4px] border-2 px-4 py-2 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black font-roboto items-center">
         <p className={`text-xs xsss:text-sm xsm:text-md text-black`}>
           Lo sapevi che questo mese hai consumato il{" "}
           <b>
@@ -197,6 +216,12 @@ const Display = () => {
           rispetto a ieri? 🎉
         </p>
       </div>
+        </>
+        )
+      }
+      </div>
+     
+      
 
       <hr className="text-gray-600 text-md" />
 

@@ -180,12 +180,12 @@ const MonthlyView = () => {
       <Card className="relative p-4 rounded-lg mt-2 bg-[#1f6cf8] h-full w-8/10 mx-4">
         <div className="flex flex-col gap-2 font-roboto w-full text-white">
           <p className="font-semibold">Ehy, lo sapevi?</p>
-          <p className="font-medium xsm:text-sm md:text-md ">
+          <p className="font-medium xsm:text-sm sm:text-base md:text-md ">
             Nel mese di Marzo hai superato la soglia del consumo per 5 giorni.
           </p>
 
           <div className="flex text-white flex-row gap-4 items-center w-full mt-2">
-            <p className="font-medium text-md">
+            <p className="font-medium xsm:text-sm sm:text-base md:text-md ">
               Scopri l&apos;offerta che abbiamo pensato per te
             </p>
             <FaArrowRight className="font-medium text-white text-md" />

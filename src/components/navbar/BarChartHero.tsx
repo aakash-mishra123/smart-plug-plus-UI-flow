@@ -81,7 +81,7 @@ const BarChartHero = ({
     <div className="relative bg-white">
       <div
         ref={containerRef}
-        className="overflow-x-auto h-full pt-8 !bg-white"
+        className="overflow-x-auto h-full !bg-white"
         style={{ scrollbarWidth: "thin" }}
       >
         <div style={{ width: `300px`, minWidth: "100%" }}>

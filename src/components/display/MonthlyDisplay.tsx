@@ -4,7 +4,7 @@ import { FaEuroSign } from "react-icons/fa";
 import { TbBolt } from "react-icons/tb";
 import { FaMoneyBills } from "react-icons/fa6";
 import { convertToItalicNumber } from "@/utils/methods";
-import { Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/redux";
@@ -27,8 +27,6 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
   const billCost = ((value / 1000) * 0.2).toFixed(2);
   const dalString = timeString.split("al")[1];
   const alString = timeString.split('al')[2];
-  
-  console.log('timestring', dalString, alString);
   return (
     <Card className="w-full max-w-xs p-4 montserrat-custom rounded-[6px] !dark:border-none ring-0 !dark:ring-0 bg-[#F7F8FB] flex-col justify-items-left ">
       <Typography
@@ -148,14 +146,16 @@ const MonthlyDisplay = () => {
   const [currentMonthData, ] = useState(useSelector((store: RootState) => store.monthlyData.data));
   const totalCurrentMonthUsage = currentMonthData.reduce((sum, item) => sum + (item.totalActEnergy ?? 0), 0);
   const serial = useSelector((store: RootState) => store.deviceData.data.serial)
-
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     dispatch(fetchMonthlyData({
       serial: serial,
       month: dayjs().month() - 1,
       year: dayjs().year(),
-    }));
+    }))
+    .unwrap()
+    .then(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[dispatch])
 
@@ -184,30 +184,46 @@ const MonthlyDisplay = () => {
           <p className="text-xl font-bold ">kWh</p>
         </div>
       </div>
-      <div className="w-full text-black flex flex-row gap-4 justify-between ">
-        <ConsumptionDisplay
-          title="Questo mese"
-          timeString={`dal ${dayjs(currentMonthData[0].formattedDate).format("DD/MM/YYYY")} al ${dayjs(currentMonthData[currentMonthLastIndex].formattedDate).format("DD/MM/YYYY")}`}
-          value={totalCurrentMonthUsage}
-          unit="kWh"
-        />
-        <ConsumptionDisplay
-          title="Lo scorso mese"
-          value={totalUsage}
-          timeString={`dal ${dayjs(monthlyUsage[0].formattedDate).format("DD/MM/YYYY")} al ${dayjs(monthlyUsage[previousMonthLastIndex].formattedDate).format("DD/MM/YYYY")}`}
-          unit="kWh"
-        />
-      </div>
-      <div className="rounded-[4px] border-2 px-4 py-2 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black font-roboto items-center">
-        <p className={`text-xs xsss:text-sm xsm:text-md text-black`}>
-          Lo sapevi che questo mese hai consumato il{" "}
-          <b>
-            {Math.abs(41)} % {41 < 0 ? "in meno" : "in più"}
-          </b>{" "}
-          rispetto allo scorso mese? 🎉
-        </p>
-      </div>
-
+      {
+        loading ? (
+           <div className="h-40 w-full flex items-center justify-center text-pink-800">
+                  <CircularProgress 
+                     sx={{
+                      color: '#D3135A', // Custom hex color
+                      thickness: 6, // Make it bolder (default is 3.6)
+                    }}
+                  />
+                    </div>
+        ) : (
+          <>
+        
+          <div className="w-full text-black flex flex-row gap-4 justify-between ">
+          <ConsumptionDisplay
+            title="Questo mese"
+            timeString={`dal ${dayjs(currentMonthData[0].formattedDate).format("DD/MM/YYYY")} al ${dayjs(currentMonthData[currentMonthLastIndex].formattedDate).format("DD/MM/YYYY")}`}
+            value={totalCurrentMonthUsage}
+            unit="kWh"
+          />
+          <ConsumptionDisplay
+            title="Lo scorso mese"
+            value={totalUsage}
+            timeString={`dal ${dayjs(monthlyUsage[0].formattedDate).format("DD/MM/YYYY")} al ${dayjs(monthlyUsage[previousMonthLastIndex].formattedDate).format("DD/MM/YYYY")}`}
+            unit="kWh"
+          />
+        </div>
+        <div className="rounded-[4px] border-2 px-4 py-2 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black font-roboto items-center">
+          <p className={`text-xs xsss:text-sm xsm:text-md text-black`}>
+            Lo sapevi che questo mese hai consumato il{" "}
+            <b>
+              {Math.abs(41)} % {41 < 0 ? "in meno" : "in più"}
+            </b>{" "}
+            rispetto allo scorso mese? 🎉
+          </p>
+        </div>
+        </>
+        )
+      }
+     
       <hr className="text-gray-600 text-md" />
 
       <p className="text-[#59697e] montserrat-custom text-xs xsss:text-sm xsm:text-md font-bold mx-2 mt-1">
