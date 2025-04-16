@@ -7,7 +7,6 @@ import { dummyDailyData } from "@/utils/constants";
 
 const getMonthStartToEnd = (year: number, month: number) => {
   const targetMonth = dayjs(`${year}-${month}-01`);
-
   const firstDate = targetMonth.startOf("month").format("YYYY-MM-DD");
   const lastDate = targetMonth.endOf("month").format("YYYY-MM-DD");
 
