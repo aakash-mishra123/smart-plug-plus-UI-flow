@@ -14,7 +14,7 @@ import axios from "axios";
 import queryString from "query-string";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const AUTH_TOKEN = process.env.NEXT_PUBLIC_AUTH_TOKEN;
+const AUTH_TOKEN = process.env.NEXT_PUBLIC_DEVICE_AUTH_TOKEN;
 const QUARTER_USAGE_URL = "v1/energy/quarter";
 
 /**
