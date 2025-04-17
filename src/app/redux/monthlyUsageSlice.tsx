@@ -26,7 +26,7 @@ export const fetchMonthlyData = createAsyncThunk<
   "monthlyUsage/fetchPower",
   async ({ serial = "c2g-57CFACECC", year, month }) => {
     const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-    const authToken = process.env.NEXT_PUBLIC_DEVICE_AUTH_TOKEN;
+    const authToken = localStorage.getItem('DEVICE_AUTH_TOKEN');
     const { firstDate, lastDate } = getMonthStartToEnd(year, month);
 
     const options = {

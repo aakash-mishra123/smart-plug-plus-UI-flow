@@ -34,16 +34,22 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (fetchDeviceData) {
-      dispatch(fetchDeviceData()).unwrap().then(() => setLoading(false));
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+
+    if (token) {
+      localStorage.setItem('DEVICE_AUTH_TOKEN', token);
+      dispatch(fetchDeviceData(token)).unwrap().then(() => setLoading(false));
     }
+
+    return (() => { })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   const serialId = useSelector(
     (store: RootState) => store.deviceData.data.serial
-  );
-  const status = useSelector((store: RootState) => store.deviceData.data.online);
-
+  ); //device serialId from redux store
+  const status = useSelector((store: RootState) => store.deviceData.data.online); //deviceStatus online/offline indicator
   const [view, setView] = useState<string>("day");  //totalDailyConsumption switcher state
   const [displayView, setDisplayView] = useState<string>("day");  //totalMonthlyConsumption switcher state
   const [selectedDate, setselectedDate] = useState<Dayjs>(dayjs().locale("en"));  //active date barchart switche state

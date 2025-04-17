@@ -31,6 +31,7 @@ interface PowerData {
   averageConsumption?: number;
   peakConsumption?: number;
   peakTime?: string;
+  authToken?: string;
 }
 
 interface QuarterlyData {

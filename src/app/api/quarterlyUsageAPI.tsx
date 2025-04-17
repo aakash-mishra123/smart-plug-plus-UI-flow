@@ -11,7 +11,7 @@ import { EnergyDataProp } from "@/utils/types";
 import dayjs from "dayjs";
 import axios from "axios";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const AUTH_TOKEN = process.env.NEXT_PUBLIC_DEVICE_AUTH_TOKEN;
+const AUTH_TOKEN = localStorage.getItem('DEVICE_AUTH_TOKEN');
 const QUARTER_USAGE_URL = "v1/energy/quarter";
 
 /**
@@ -146,9 +146,9 @@ const FormatDailyUsageData = ({
         const timestring = `Dalle ore ${dayjs
           .unix(chunk[0].timestamp)
           .format("HH:mm")} - alle ore ${dayjs
-          .unix(chunk[0].timestamp)
-          .add(60, "minute")
-          .format("HH:mm")}`;
+            .unix(chunk[0].timestamp)
+            .add(60, "minute")
+            .format("HH:mm")}`;
 
         groupedData.push({
           date: String(i),

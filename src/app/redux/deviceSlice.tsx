@@ -7,11 +7,9 @@ const initialState = {
   id: "0366d483-3b26-4c0e-96de-ef4e5cd9f230",
 };
 
-const authToken = process.env.NEXT_PUBLIC_DEVICE_AUTH_TOKEN;
-
 export const fetchDeviceData = createAsyncThunk(
   "device/fetchStatus",
-  async () => {
+  async (authToken: string) => {
     const BASE_URL =
       "https://y7u224bky4.execute-api.eu-west-1.amazonaws.com/uat/v1/energy/chain-to-gate";
 
@@ -22,7 +20,8 @@ export const fetchDeviceData = createAsyncThunk(
         Authorization: `Bearer ${authToken}`,
       },
     });
-    return response.data[0];
+
+    return { ...response.data[0], authToken };
   }
 );
 
@@ -30,10 +29,15 @@ const deviceSlice = createSlice({
   name: "device",
   initialState: {
     data: initialState,
+    authToken: "",
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    setAuthToken: (state, action) => {
+      state.authToken = action.payload.token;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchDeviceData.pending, (state) => {
@@ -52,5 +56,5 @@ const deviceSlice = createSlice({
       });
   },
 });
-
+export const { setAuthToken } = deviceSlice.actions;
 export default deviceSlice;

@@ -3,6 +3,7 @@ import { EnergyDataProp } from "@/utils/types";
 export type FetchQuarterlyUsageDataProps = {
   slug?: string | undefined;
   options?: object;
+  authToken?: string;
 };
 
 export type QuarterlyAPIResponseType = {

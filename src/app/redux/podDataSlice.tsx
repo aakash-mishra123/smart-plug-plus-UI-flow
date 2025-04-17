@@ -23,9 +23,7 @@ const initialState = {
   phone: "0717450110",
 };
 
-const authToken = process.env.NEXT_PUBLIC_DEVICE_AUTH_TOKEN;
-
-export const fetchPodData = createAsyncThunk<PodData, string>(
+export const fetchPodData = createAsyncThunk<PodData, { serial: string }>(
   "electric/fetchDevice",
   async (serial) => {
     const BASE_URL =
@@ -33,6 +31,8 @@ export const fetchPodData = createAsyncThunk<PodData, string>(
 
     const slug = `serial=${serial}`;
     const url = `${BASE_URL}?${slug}`;
+    const authToken = localStorage.getItem('DEVICE_AUTH_TOKEN');
+
     const response = await axios.get(url, {
       headers: {
         accept: "application/json",
@@ -40,7 +40,7 @@ export const fetchPodData = createAsyncThunk<PodData, string>(
         Authorization: `Bearer ${authToken}`,
       },
     });
-    return response.data[0];
+    return { ...response.data[0], authToken };
   }
 );
 

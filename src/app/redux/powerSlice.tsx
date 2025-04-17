@@ -14,7 +14,6 @@ import axios from "axios";
 import queryString from "query-string";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const AUTH_TOKEN = process.env.NEXT_PUBLIC_DEVICE_AUTH_TOKEN;
 const QUARTER_USAGE_URL = "v1/energy/quarter";
 
 /**
@@ -30,13 +29,14 @@ const FetchUsageByIntervals = async ({
   options = {},
 }: FetchQuarterlyUsageDataProps): Promise<UsageFetchResponse> => {
   const url = `${BASE_URL}/${QUARTER_USAGE_URL}?${slug}`;
+  const authToken = localStorage.getItem('DEVICE_AUTH_TOKEN');
   try {
     const response = await axios.get(url, {
       params: options,
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${AUTH_TOKEN}`,
+        Authorization: `Bearer ${authToken}`,
       },
     });
 
@@ -61,10 +61,10 @@ const FetchUsageByIntervals = async ({
 export const fetchQuarterData = createAsyncThunk<
   ResultDataType,
   FetchQuarterlyUsageDataProps
->("dailyUsage/fetchPower", async ({ options }) => {
+>("dailyUsage/fetchPower", async ({ options, authToken }) => {
   const { data, error, loading } = await FetchUsageByIntervals({
     slug: queryString.stringify(options ?? {}),
-    options,
+    authToken,
   });
 
   if (!data || error) {

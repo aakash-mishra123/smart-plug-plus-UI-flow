@@ -4,7 +4,6 @@ import "./globals.css";
 import { Provider } from "react-redux";
 import localFont from "next/font/local";
 import store from "./redux";
-
 const robotoFont = localFont({
   src: [
     {
@@ -87,7 +86,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${robotoFont.variable} ${roobert.variable} antialiased`}
       >
-          <Provider store={store}>{children}</Provider>
+        <Provider store={store}>{children}</Provider>
       </body>
     </html>
   );
