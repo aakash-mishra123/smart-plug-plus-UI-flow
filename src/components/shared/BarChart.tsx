@@ -57,7 +57,7 @@ const renderShape = (
   layout: string,
   customStyle?: any
 ) => {
-  const { fillOpacity, name } = props;
+  const { fillOpacity, name, showDottedLines } = props;
   let { x, width, y, height } = props;
   const { barColor, numPeaks } = props;
   // Ensure all key dimensions are numbers and fallback if not
@@ -135,6 +135,18 @@ const renderShape = (
                 strokeDasharray="5,5"
               />
             ))}
+            {
+              showDottedLines &&
+              <line
+                x1={x + width / 2}
+                x2={x + width / 2}
+                y1={0}
+                y2={y} // Define this based on your chart layout
+                stroke="black"
+                strokeWidth={1}
+                strokeDasharray="4,4"
+              />
+            }
           </>
         )}
       </g>
@@ -187,7 +199,7 @@ const LegendItem = ({
           // text color
           "text-gray-700 dark:text-gray-300",
           hasOnValueChange &&
-            "group-hover:text-gray-900 dark:group-hover:text-gray-50",
+          "group-hover:text-gray-900 dark:group-hover:text-gray-50",
           activeLegend && activeLegend !== name ? "opacity-40" : "opacity-100"
         )}
       >
@@ -597,7 +609,6 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   minValue?: number;
   maxValue?: number;
   allowDecimals?: boolean;
-  handleBarClick?: (date: string) => void;
   barColor?: string;
   onValueChange?: (value: BarChartEventProps) => void;
   enableLegendSlider?: boolean;
@@ -621,6 +632,7 @@ interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
   allowClickableTransitions?: boolean;
   showSparkPlugs?: boolean;
   skipXAxisLabels?: boolean;
+  showDottedLines?: boolean;
 }
 
 const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
@@ -644,8 +656,8 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       maxValue,
       allowDecimals = true,
       className,
+      showDottedLines,
       onValueChange,
-      handleBarClick,
       enableLegendSlider = false,
       barCategoryGap,
       tickGap = 5,
@@ -688,7 +700,6 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
     }
     function onBarClick(data: any, _: any, event: React.MouseEvent) {
       event.stopPropagation();
-      if (handleBarClick) handleBarClick(data?.date);
       if (!onValueChange) return;
       if (deepEqual(activeBar, { ...data.payload, value: data.value })) {
         setActiveLegend(undefined);
@@ -735,10 +746,10 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             onClick={
               hasOnValueChange && (activeLegend || activeBar)
                 ? () => {
-                    setActiveBar(undefined);
-                    setActiveLegend(undefined);
-                    onValueChange?.(null);
-                  }
+                  setActiveBar(undefined);
+                  setActiveLegend(undefined);
+                  onValueChange?.(null);
+                }
                 : undefined
             }
             margin={{
@@ -763,17 +774,17 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               tick={
                 skipXAxisLabels === true
                   ? {
-                      transform:
-                        layout !== "vertical" ? "translate(-6, 2)" : undefined,
-                    }
+                    transform:
+                      layout !== "vertical" ? "translate(-6, 2)" : undefined,
+                  }
                   : {
-                      transform:
-                        layout !== "vertical" ? "translate(-10, 2)" : undefined,
-                    }
+                    transform:
+                      layout !== "vertical" ? "translate(-10, 2)" : undefined,
+                  }
               }
               fill=""
-              stroke=""
-              className={cx("text-xs ml-4", "#f0f2f6 dark:bg-gray-500", {
+              stroke="#f4f6f9"
+              className={cx("text-xs ml-4", "#f4f6f9 dark:bg-[#f4f6f9]", {
                 "mt-4": layout !== "vertical",
               })}
               tickLine={false}
@@ -784,23 +795,23 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               } //flag prop to skipXAxisLabels
               {...(layout !== "vertical"
                 ? {
-                    padding: {
-                      left: paddingValue,
-                      right: paddingValue,
-                    },
-                    dataKey: index,
-                    interval: startEndOnly ? "preserveStartEnd" : intervalType,
-                    ticks: startEndOnly
-                      ? [data[0][index], data[data.length - 1][index]]
-                      : undefined,
-                  }
+                  padding: {
+                    left: paddingValue,
+                    right: paddingValue,
+                  },
+                  dataKey: index,
+                  interval: startEndOnly ? "preserveStartEnd" : intervalType,
+                  ticks: startEndOnly
+                    ? [data[0][index], data[data.length - 1][index]]
+                    : undefined,
+                }
                 : {
-                    type: "number",
-                    domain: yAxisDomain as AxisDomain,
-                    tickFormatter:
-                      type === "percent" ? valueToPercent : valueFormatter,
-                    allowDecimals: allowDecimals,
-                  })}
+                  type: "number",
+                  domain: yAxisDomain as AxisDomain,
+                  tickFormatter:
+                    type === "percent" ? valueToPercent : valueFormatter,
+                  allowDecimals: allowDecimals,
+                })}
             >
               {xAxisLabel && (
                 <Label
@@ -834,18 +845,18 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               }}
               {...(layout !== "vertical"
                 ? {
-                    type: "number",
-                    domain: yAxisDomain as AxisDomain,
-                    allowDecimals: allowDecimals,
-                  }
+                  type: "number",
+                  domain: yAxisDomain as AxisDomain,
+                  allowDecimals: allowDecimals,
+                }
                 : {
-                    dataKey: index,
-                    ticks: startEndOnly
-                      ? [data[0][index], data[data.length - 1][index]]
-                      : undefined,
-                    type: "category",
-                    interval: "equidistantPreserveStart",
-                  })}
+                  dataKey: index,
+                  ticks: startEndOnly
+                    ? [data[0][index], data[data.length - 1][index]]
+                    : undefined,
+                  type: "category",
+                  interval: "equidistantPreserveStart",
+                })}
             >
               {yAxisLabel && (
                 <Label
@@ -872,15 +883,15 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               content={({ active, payload, label }) => {
                 const cleanPayload: TooltipProps["payload"] = payload
                   ? payload.map((item: any) => ({
-                      category: item.dataKey,
-                      value: item.value,
-                      index: item.payload[index],
-                      color: categoryColors.get(
-                        item.dataKey
-                      ) as AvailableChartColorsKeys,
-                      type: item.type,
-                      payload: item.payload,
-                    }))
+                    category: item.dataKey,
+                    value: item.value,
+                    index: item.payload[index],
+                    color: categoryColors.get(
+                      item.dataKey
+                    ) as AvailableChartColorsKeys,
+                    type: item.type,
+                    payload: item.payload,
+                  }))
                   : [];
 
                 if (
@@ -923,7 +934,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                     activeLegend,
                     hasOnValueChange
                       ? (clickedLegendItem: string) =>
-                          onCategoryClick(clickedLegendItem)
+                        onCategoryClick(clickedLegendItem)
                       : undefined,
                     enableLegendSlider,
                     legendPosition,
@@ -955,6 +966,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                   shape={(props: any) => {
                     props.width = barWidth;
                     if (showSparkPlugs) props.showSparkPlugs = true;
+                    props.showDottedLines = showDottedLines;
                     props.barColor =
                       selectedBar === props.date ? "black" : barColor;
                     props.numPeaks = props.payload.numpeaks;

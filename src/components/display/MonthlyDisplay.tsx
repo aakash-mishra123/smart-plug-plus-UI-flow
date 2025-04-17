@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/redux";
 import dayjs from "dayjs";
 import { fetchMonthlyData } from "@/app/redux/monthlyUsageSlice";
+import { dummyDailyData } from "@/utils/constants";
+import { dailyEnergyTypes } from "@/utils/types";
 
 interface ConsumptionDisplayProps {
   title: string;
@@ -48,35 +50,35 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
       </Typography>
       <div className="flex flex-col gap-0 xs:flex-row xs:gap-1">
 
-   
-      <Typography
-        sx={{
-          fontWeight: "thin",
-          fontSize: "12px",
-          lineHeight: "100%",
-          letterSpacing: "0%",
-          color: grey[600],
-          marginTop: "5px",
-        }}
-        style={{ lineHeight: "14px"}}
-        className="tracing-wider"
-      >
-        {`dal ${dalString}`}
-      </Typography>
-      <Typography
-        sx={{
-          fontWeight: "thin",
-          fontSize: "12px",
-          lineHeight: "100%",
-          letterSpacing: "0%",
-          color: grey[600],
-          marginTop: "5px",
-        }}
-        style={{ lineHeight: "14px"}}
-        className="tracing-wider"
-      >
-        {`al ${alString}`}
-      </Typography>
+
+        <Typography
+          sx={{
+            fontWeight: "thin",
+            fontSize: "12px",
+            lineHeight: "100%",
+            letterSpacing: "0%",
+            color: grey[600],
+            marginTop: "5px",
+          }}
+          style={{ lineHeight: "14px" }}
+          className="tracing-wider"
+        >
+          {`dal ${dalString}`}
+        </Typography>
+        <Typography
+          sx={{
+            fontWeight: "thin",
+            fontSize: "12px",
+            lineHeight: "100%",
+            letterSpacing: "0%",
+            color: grey[600],
+            marginTop: "5px",
+          }}
+          style={{ lineHeight: "14px" }}
+          className="tracing-wider"
+        >
+          {`al ${alString}`}
+        </Typography>
       </div>
       <div className="flex flex-col gap-2 justify-items-center mt-4">
         <div className="flex-col gap-1 flex text-semibold">
@@ -143,33 +145,48 @@ const ConsumptionDisplay: React.FC<ConsumptionDisplayProps> = ({
 
 const MonthlyDisplay = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [currentMonthData, ] = useState(useSelector((store: RootState) => store.monthlyData.data));
-  const totalCurrentMonthUsage = currentMonthData.reduce((sum, item) => sum + (item.totalActEnergy ?? 0), 0);
-  const serial = useSelector((store: RootState) => store.deviceData.data.serial)
   const [loading, setLoading] = useState<boolean>(true);
+  const serial = useSelector((store: RootState) => store.deviceData.data.serial)
+  const [currentMonthData, setCurrentMonthData] = useState<dailyEnergyTypes[]>(dummyDailyData);
+  const [previousMonthData, setPreviousMonthData] = useState<dailyEnergyTypes[]>(dummyDailyData);
 
   useEffect(() => {
-    dispatch(fetchMonthlyData({
+    dispatch(fetchMonthlyData({ //data for current month usage
+      serial: serial,
+      month: dayjs().month(),
+      year: dayjs().year(),
+    }))
+      .unwrap()
+      .then((res) => {
+        setCurrentMonthData(res);
+      });
+
+
+    dispatch(fetchMonthlyData({   //fetch data for previous month usage
       serial: serial,
       month: dayjs().month() - 1,
       year: dayjs().year(),
-    }))
-    .unwrap()
-    .then(() => setLoading(false));
+    })).unwrap()
+      .then((res) => {
+        setPreviousMonthData(res);
+        setLoading(false);
+      });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[dispatch])
+  }, [dispatch])
 
-  const monthlyUsage = useSelector((store: RootState) => store.monthlyData.data);
   const currentMonthLastIndex = currentMonthData
-  .map((obj, index) => (Object.keys(obj).length > 0 ? index : -1))
-  .filter((index) => index !== -1)
-  .length -1;
+    .map((obj, index) => (Object.keys(obj).length > 0 ? index : -1))
+    .filter((index) => index !== -1)
+    .length - 1;
 
-  const previousMonthLastIndex = monthlyUsage
-  .map((obj, index) => (Object.keys(obj).length > 0 ? index : -1))
-  .filter((index) => index !== -1)
-  .length -1;
-  const totalUsage = monthlyUsage.reduce((sum, item) => sum + (item.totalActEnergy ?? 0), 0);
+  const previousMonthLastIndex = previousMonthData
+    .map((obj, index) => (Object.keys(obj).length > 0 ? index : -1))
+    .filter((index) => index !== -1)
+    .length - 1;
+
+  const currentMonthUsage = currentMonthData.reduce((sum, item) => sum + (item.totalActEnergy ?? 0), 0);
+  const previousMonthUsage = previousMonthData.reduce((sum, item) => sum + (item.totalActEnergy ?? 0), 0);
 
   return (
     <div className="flex flex-col gap-4 bg-white px-4 py-4">
@@ -179,51 +196,50 @@ const MonthlyDisplay = () => {
         </p>
         <div className="flex flex-row gap-1 items-baseline text-[#397a5c] ">
           <div className="flex flex-row gap-0 items-baseline">
-            <Text className="text-3xl font-black ">{Math.round((totalCurrentMonthUsage - totalUsage) / 1000).toFixed(0)}</Text>
+            <Text className="text-3xl font-black ">{Math.round((previousMonthUsage - currentMonthUsage) / 1000).toFixed(0)}</Text>
           </div>
           <p className="text-xl font-bold ">kWh</p>
         </div>
       </div>
       {
         loading ? (
-           <div className="h-40 w-full flex items-center justify-center text-pink-800">
-                  <CircularProgress 
-                     sx={{
-                      color: '#D3135A', // Custom hex color
-                      thickness: 6, // Make it bolder (default is 3.6)
-                    }}
-                  />
-                    </div>
+          <div className="h-40 w-full flex items-center justify-center text-pink-800">
+            <CircularProgress
+              sx={{
+                color: '#D3135A', // Custom hex color
+                thickness: 6, // Make it bolder (default is 3.6)
+              }}
+            />
+          </div>
         ) : (
           <>
-        
-          <div className="w-full text-black flex flex-row gap-4 justify-between ">
-          <ConsumptionDisplay
-            title="Questo mese"
-            timeString={`dal ${dayjs(currentMonthData[0].formattedDate).format("DD/MM/YYYY")} al ${dayjs(currentMonthData[currentMonthLastIndex].formattedDate).format("DD/MM/YYYY")}`}
-            value={totalCurrentMonthUsage}
-            unit="kWh"
-          />
-          <ConsumptionDisplay
-            title="Lo scorso mese"
-            value={totalUsage}
-            timeString={`dal ${dayjs(monthlyUsage[0].formattedDate).format("DD/MM/YYYY")} al ${dayjs(monthlyUsage[previousMonthLastIndex].formattedDate).format("DD/MM/YYYY")}`}
-            unit="kWh"
-          />
-        </div>
-        <div className="rounded-[4px] border-2 px-4 py-2 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black font-roboto items-center">
-          <p className={`text-xs xsss:text-sm xsm:text-md text-black`}>
-            Lo sapevi che questo mese hai consumato il{" "}
-            <b>
-              {Math.abs(41)} % {41 < 0 ? "in meno" : "in più"}
-            </b>{" "}
-            rispetto allo scorso mese? 🎉
-          </p>
-        </div>
-        </>
+            <div className="w-full text-black flex flex-row gap-4 justify-between ">
+              <ConsumptionDisplay
+                title="Questo mese"
+                timeString={`dal ${dayjs(currentMonthData[0].formattedDate).format("DD/MM/YYYY")} al ${dayjs(currentMonthData[currentMonthLastIndex].formattedDate).format("DD/MM/YYYY")}`}
+                value={currentMonthUsage}
+                unit="kWh"
+              />
+              <ConsumptionDisplay
+                title="Lo scorso mese"
+                value={previousMonthUsage}
+                timeString={`dal ${dayjs(previousMonthData[0].formattedDate).format("DD/MM/YYYY")} al ${dayjs(previousMonthData[previousMonthLastIndex].formattedDate).format("DD/MM/YYYY")}`}
+                unit="kWh"
+              />
+            </div>
+            <div className="rounded-[4px] border-2 px-4 py-2 flex flex-row gap-2 border-[#01855d] bg-[#f5fff6] text-black font-roboto items-center">
+              <p className={`text-xs xsss:text-sm xsm:text-md text-black`}>
+                Lo sapevi che questo mese hai consumato il{" "}
+                <b>
+                  {Math.abs(41)} % {41 < 0 ? "in meno" : "in più"}
+                </b>{" "}
+                rispetto allo scorso mese? 🎉
+              </p>
+            </div>
+          </>
         )
       }
-     
+
       <hr className="text-gray-600 text-md" />
 
       <p className="text-[#59697e] montserrat-custom text-xs xsss:text-sm xsm:text-md font-bold mx-2 mt-1">

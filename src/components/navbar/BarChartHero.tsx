@@ -40,20 +40,6 @@ const BarChartHero = ({
     return () => window.removeEventListener("resize", updateBarWidth); // Cleanup
   }, []);
 
-  // ✅ Ensure selectedBar updates correctly on bar click
-  const handleBarClick = useCallback(
-    (date: string) => {
-      const newSelectedBarIndex = chartdata?.data.findIndex(
-        (bar) => bar.date === date
-      );
-      if (newSelectedBarIndex !== -1) {
-        setselectedbar(date);
-        setselectedbardata(chartdata?.data[newSelectedBarIndex]);
-      }
-    },
-    [chartdata, setselectedbar, setselectedbardata]
-  );
-
   // ✅ Fix: Ensure dependencies include `chartdata` and `setselectedbar`
   const handlePrevClick = useCallback(() => {
     const currentIndex = chartdata.data.findIndex(
@@ -100,7 +86,6 @@ const BarChartHero = ({
               showLegend={false}
               showTooltip={false}
               barColor={"#c71c5d"}
-              handleBarClick={handleBarClick}
               layout="horizontal"
               colors={["blue"]}
               customWrapperStyle={{
@@ -114,6 +99,7 @@ const BarChartHero = ({
               enableAnimation={true}
               animationDuration={0.5}
               skipXAxisLabels={true}
+              showDottedLines={true}
             />
           </motion.div>
           <div id="switch_hours" className="montserrat-custom w-100 pl-4 mt-2">
@@ -141,23 +127,22 @@ const BarChartHero = ({
                     size="xs"
                     icon={ChevronRightIcon}
                     onClick={handleNextClick}
-                    className={`text-pink-700 rounded-md p-2 ${
-                      Object.keys(
-                        chartdata.data[
-                          chartdata.data.findIndex(
-                            (bar) => bar.date === selectedBar
-                          ) + 1
-                        ] ?? {}
-                      ).length === 0
-                        ? "opacity-50 cursor-not-allowed bg-[#C2CDDD] text-[#667790]"
-                        : "bg-gray-300"
-                    }`}
+                    className={`text-pink-700 rounded-md p-2 ${Object.keys(
+                      chartdata.data[
+                      chartdata.data.findIndex(
+                        (bar) => bar.date === selectedBar
+                      ) + 1
+                      ] ?? {}
+                    ).length === 0
+                      ? "opacity-50 cursor-not-allowed bg-[#C2CDDD] text-[#667790]"
+                      : "bg-gray-300"
+                      }`}
                     disabled={
                       Object.keys(
                         chartdata.data[
-                          chartdata.data.findIndex(
-                            (bar) => bar.date === selectedBar
-                          ) + 1
+                        chartdata.data.findIndex(
+                          (bar) => bar.date === selectedBar
+                        ) + 1
                         ] ?? {}
                       ).length === 0
                     }

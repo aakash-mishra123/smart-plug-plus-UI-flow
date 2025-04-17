@@ -159,7 +159,10 @@ const Display = () => {
 
   return (
     <div className="flex flex-col gap-4 bg-white px-4 mb-1">
-      <div className="flex flex-col gap-0 pt-8 px-2">
+      <div className="flex flex-col gap-4 pt-8 px-2">
+        <div className="flex flex-col gap-0">
+
+      
         <p className="xsm:text-[14px] md:text-md text-base font-medium font-roobert text-[#667790]">
           Andamento consumo
         </p>
@@ -174,6 +177,7 @@ const Display = () => {
             {/* <FaPercentage className="text-2xl font-black" /> */}
           </div>
           <p className="text-xl font-medium ">kWh</p>
+        </div>
         </div>
       
       {
@@ -219,8 +223,6 @@ const Display = () => {
         )
       }
       </div>
-     
-      
 
       <hr className="text-gray-600 text-md" />
 

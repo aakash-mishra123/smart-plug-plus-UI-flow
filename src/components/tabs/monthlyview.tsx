@@ -107,7 +107,7 @@ const MonthlyView = () => {
             </span>
           </div>
         </div>
-        <div className="flex flex-row justify-between mt-2">
+        <div className="flex flex-row justify-between mt-4">
           <div className="flex flex-col gap-1">
             <p className="text-gray-500 text-md font-medium">Mese</p>
             <span className="text-sm xss:text-base md:text-md -mt-1">
@@ -130,11 +130,10 @@ const MonthlyView = () => {
               size="xs"
               icon={ChevronRightIcon}
               onClick={handleNext}
-              className={`text-pink-700 p-2 rounded-[4px] cursor-not-allowed ${
-                isNextDisabled
-                  ? "opacity-50 bg-[#C2CDDD] text-[#667790]"
-                  : "bg-gray-300"
-              }`}
+              className={`text-pink-700 p-2 rounded-[4px] cursor-not-allowed ${isNextDisabled
+                ? "opacity-50 bg-[#C2CDDD] text-[#667790]"
+                : "bg-gray-300"
+                }`}
               disabled={isNextDisabled}
             />
           </div>
@@ -159,7 +158,6 @@ const MonthlyView = () => {
           showLegend={false}
           showTooltip={false}
           barColor={"#c71c5d"}
-          handleBarClick={() => {}}
           layout="horizontal"
           colors={["blue"]}
           customWrapperStyle={{
@@ -174,6 +172,7 @@ const MonthlyView = () => {
           animationDuration={0.5}
           showSparkPlugs={true}
           skipXAxisLabels={true}
+          showDottedLines={false}
         />
       </motion.div>
 
@@ -181,7 +180,7 @@ const MonthlyView = () => {
         <div className="flex flex-col gap-2 font-roboto w-full text-white">
           <p className="font-semibold">Ehy, lo sapevi?</p>
           <p className="font-medium xsm:text-sm sm:text-base md:text-md ">
-            Nel mese di Marzo hai superato la soglia del consumo per 5 giorni.
+            Nel mese di Marzo hai <b>superato la soglia </b> del consumo per <b>5 giorni </b>.
           </p>
 
           <div className="flex text-white flex-row gap-4 items-center w-full mt-2">
@@ -191,10 +190,8 @@ const MonthlyView = () => {
             <FaArrowRight className="font-medium text-white text-md" />
           </div>
           <Image
-            className="absolute top-4 right-0 z-40 bg-transparent"
+            className="absolute top-4 h-20 w-30 md:h-80 md:w-30 right-0 z-40 bg-transparent"
             src={boltPng}
-            height={100}
-            width={60}
             alt="bolt_image"
           />
         </div>

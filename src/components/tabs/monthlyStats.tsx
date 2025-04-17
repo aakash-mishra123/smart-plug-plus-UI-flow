@@ -32,7 +32,7 @@ const MonthlyStatsView = ({ monthlyData }: monthlyStatsProps) => {
     <>
       <div
         id="total_consumption_stats"
-        className="flex font-roboto flex-row justify-between w-full gap-4 pb-4 px-4 bg-white border-b-2 border-gray-300"
+        className="flex font-roboto flex-row justify-between w-full gap-4 pb-4 px-4 bg-white border-b-[1px] border-[#C2CDDD]"
       >
         <p className="text-sm font-medium xss:text-base md:text-lg text-gray-800">
           Media di consumo mensile
@@ -65,7 +65,7 @@ const MonthlyStatsView = ({ monthlyData }: monthlyStatsProps) => {
             Orario di consumo massimo mensile
           </p>
           <p className="text-sm text-gray-500 font-light font-roboto">
-            Orario {dayjs(peakConsumption.date).format("D MMMM YYYY")}
+            {dayjs(peakConsumption.date).format("D MMMM YYYY")}
           </p>
         </div>
 

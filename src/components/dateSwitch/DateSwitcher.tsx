@@ -63,7 +63,7 @@ const DateSwitcher = ({
       </div>
       <div className="flex flex-row justify-between w-full pt-2 mb-4 bg-white font-roboto">
         <div className="flex flex-col gap-0 items-left">
-          <span className="text-gray-500 text-md font-medium">Giorno</span>
+          <span className="text-[#667790] text-sm font-medium">Giorno</span>
 
           <span className="text-sm xss:text-base md:text-md ">
             {selectedDate.locale("it").format("dddd D MMMM YYYY")}
@@ -83,11 +83,10 @@ const DateSwitcher = ({
             size="xs"
             icon={ChevronRightIcon}
             onClick={handleNext}
-            className={`text-pink-700 p-2 rounded-[4px] cursor-not-allowed ${
-              isNextDisabled
-                ? "opacity-50 bg-[#C2CDDD] text-[#667790]"
-                : "bg-gray-300"
-            }`}
+            className={`text-pink-700 p-2 rounded-[4px] cursor-not-allowed ${isNextDisabled
+              ? "opacity-50 bg-[#C2CDDD] text-[#667790]"
+              : "bg-gray-300"
+              }`}
             disabled={isNextDisabled}
           />
         </div>
@@ -96,7 +95,7 @@ const DateSwitcher = ({
         id="total_consumption_stats"
         className="flex font-roboto flex-row justify-between w-full gap-4 pb-2 mb-1 bg-white border-b-2 border-gray-300 items-center"
       >
-        <p className="text-sm font-medium xss:text-base md:text-lg text-gray-800">
+        <p className="text-sm font-medium xss:text-base md:text-lg text-black">
           Media di consumo giornaliero
         </p>
         <span className="flex flex-row items-end -mt-1">
@@ -127,7 +126,7 @@ const DateSwitcher = ({
         className="flex montserrat-custom items-center flex-row gap-8 justify-between w-full bg-white pt-2 mt-1 "
       >
         <div className="flex flex-col gap-0">
-          <p className="text-sm font-medium xss:text-base md:text-md text-gray-800">
+          <p className="text-sm font-medium xss:text-base md:text-md text-black">
             Orario di consumo massimo giornalerio
           </p>
           <p className="text-sm md:text-base text-gray-500 font-light">
