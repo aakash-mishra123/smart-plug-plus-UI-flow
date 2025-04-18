@@ -764,7 +764,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
           >
             {showGridLines ? (
               <CartesianGrid
-                className={cx("#f0f2f6 stroke-1 dark:#f0f2f6")}
+                className={cx(" #f0f2f6 stroke-1 dark:#f0f2f6")}
                 horizontal={layout !== "vertical"}
                 vertical={layout === "vertical"}
               />
@@ -775,16 +775,16 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 skipXAxisLabels === true
                   ? {
                     transform:
-                      layout !== "vertical" ? "translate(-6, 2)" : undefined,
+                      layout !== "vertical" ? "translate(-2, 2)" : undefined,
                   }
                   : {
                     transform:
-                      layout !== "vertical" ? "translate(-10, 2)" : undefined,
+                      layout !== "vertical" ? "translate(-2, 2)" : undefined,
                   }
               }
               fill=""
-              stroke="#f4f6f9"
-              className={cx("text-xs ml-4", "#f4f6f9 dark:bg-[#f4f6f9]", {
+              stroke="#5D6D86"
+              className={cx("text-xs ml-4", "text-[#5D6D86] ml-4 dark:text-[#5D6D86]", {
                 "mt-4": layout !== "vertical",
               })}
               tickLine={false}
@@ -817,7 +817,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
                 <Label
                   position="insideBottom"
                   offset={-20}
-                  className="fill-gray-800 text-sm font-medium dark:fill-gray-200"
+                  className="text-gray-800 text-sm font-medium dark:text-gray-800"
                 >
                   {xAxisLabel}
                 </Label>
