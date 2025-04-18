@@ -7,6 +7,7 @@ import { Metric } from "@tremor/react";
 import { convertToItalicNumber } from "@/utils/methods";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/redux";
+import { useRouter } from "next/navigation";
 
 type CustomProgressProps = {
   instantPower?: number;
@@ -23,6 +24,7 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
   const contractPower = useSelector(
     (store: RootState) => store.podData.data.contractPower
   );
+  const router = useRouter();
 
   return (
     <div className="flex flex-col relative bg-transparent">
@@ -300,6 +302,8 @@ const CustomLinearProgress = ({ value }: CustomProgressProps) => {
       <div
         className={`rounded-[4px] border-2 mt-4 px-4 py-2 flex flex-row gap-4 bg-white text-black font-roboto items-center`}
         style={{ borderColor: bkgColor, background: bkgBanner }}
+
+        onClick={() => router.push('/tempo')}
       >
         {value < 2500 ? (
           <FaCheckCircle

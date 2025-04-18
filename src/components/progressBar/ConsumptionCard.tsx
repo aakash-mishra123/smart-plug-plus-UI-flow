@@ -30,10 +30,10 @@ const ConsumptionCard = () => {
       const client = new Paho.Client(mqttOptions.url, clientId);
       client.connect({
         useSSL: true,
-        timeout: 3,
+        timeout: 10,
         mqttVersion: 4,
         userName: mqttOptions.username,
-        password: "password",
+        password: "",
         onSuccess: function () {
           client.subscribe(`c2/d/${serial}`); //serial from chain-2-gate
         },

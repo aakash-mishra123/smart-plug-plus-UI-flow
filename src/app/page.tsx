@@ -13,7 +13,6 @@ import { fetchDeviceData } from "./redux/deviceSlice";
 import { fetchQuarterData as refetch } from "./redux/powerSlice";
 import { dummyBarGraph } from "@/utils/constants";
 import MeterIcon from "../../public/assets/Bg.png"; //Static pic images
-
 const MonthlyView = dynamic(() => import("@/components/tabs/monthlyview"));   //Monthly view Barchart 
 const Navbar = dynamic(() => import("@/components/tabs/Tabs"));   //Display Tabs switcher on click
 const Display = dynamic(() => import("@/components/display/display"));  //Daily consumption view tab
@@ -31,11 +30,11 @@ const DateSwitcher = dynamic(() => import("@/components/dateSwitch/DateSwitcher"
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const powerData = useSelector((store: RootState) => store.powerData.data);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const token = params.get('token');
+    const token = params.get('token') ?? process.env.NEXT_PUBLIC_DEVICE_AUTH_TOKEN;
 
     if (token) {
       localStorage.setItem('DEVICE_AUTH_TOKEN', token);
