@@ -106,7 +106,7 @@ const BarChartHero = ({
             <div className="flex flex-row justify-between">
               <div className="flex flex-col gap-1">
                 <div className="text-gray-600 text-sm">Ora della giornata</div>
-                <h2 className="text-md text-black font-semibold">
+                <h2 className="text-sm md:text-md text-black font-semibold">
                   {selectedBarData.timestring}
                 </h2>
               </div>
@@ -135,7 +135,7 @@ const BarChartHero = ({
                       ] ?? {}
                     ).length === 0
                       ? "opacity-50 cursor-not-allowed bg-[#C2CDDD] text-[#667790]"
-                      : "bg-gray-300"
+                      : "bg-[#F7F8FB]"
                       }`}
                     disabled={
                       Object.keys(

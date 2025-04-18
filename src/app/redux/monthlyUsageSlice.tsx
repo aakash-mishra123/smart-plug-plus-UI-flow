@@ -3,7 +3,6 @@ import dayjs from "dayjs";
 import axios from "axios";
 import { dailyEnergyTypes } from "@/utils/types";
 import { dummyDailyData } from "@/utils/constants";
-// import queryString from "query-string";
 
 const getMonthStartToEnd = (year: number, month: number) => {
   const targetMonth = dayjs(`${year}-${month}-01`);

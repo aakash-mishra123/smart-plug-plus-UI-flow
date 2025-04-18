@@ -85,7 +85,7 @@ const DateSwitcher = ({
             onClick={handleNext}
             className={`text-pink-700 p-2 rounded-[4px] cursor-not-allowed ${isNextDisabled
               ? "opacity-50 bg-[#C2CDDD] text-[#667790]"
-              : "bg-gray-300"
+              : "bg-[#F7F8FB]"
               }`}
             disabled={isNextDisabled}
           />

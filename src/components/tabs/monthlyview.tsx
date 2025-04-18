@@ -29,7 +29,7 @@ const MonthlyView = () => {
     (store: RootState) => store.deviceData.data.serial
   );
   const dispatch = useDispatch<AppDispatch>();
-
+  const totalMonthlyConsumption = monthlyData.reduce((sum, item) => sum + (item.totalActEnergy ?? 0), 0);
   useEffect(() => {
     const updateBarWidth = () => {
       const windowWidth = window.innerWidth;
@@ -97,11 +97,11 @@ const MonthlyView = () => {
             </p>
             <span className="flex flex-row items-end -mt-1">
               <p className="text-3xl font-roobert font-bold tracking-tighter">
-                {convertToItalicNumber(1234, 1000, 2).split(".")[0]}
+                {convertToItalicNumber(totalMonthlyConsumption, 1000, 2).split(".")[0]}
               </p>
               <p className="font-mono font-extrabold">,</p>
               <p className="text-3xl font-roobert font-bold tracking-tighter">
-                {convertToItalicNumber(1234, 1000, 2).split(".")[1]}
+                {convertToItalicNumber(totalMonthlyConsumption, 1000, 2).split(".")[1]}
               </p>
               <p className="text-md ml-1 font-roobert font-thin">kWh</p>
             </span>
@@ -132,7 +132,7 @@ const MonthlyView = () => {
               onClick={handleNext}
               className={`text-pink-700 p-2 rounded-[4px] cursor-not-allowed ${isNextDisabled
                 ? "opacity-50 bg-[#C2CDDD] text-[#667790]"
-                : "bg-gray-300"
+                : "bg-[#F7F8FB]"
                 }`}
               disabled={isNextDisabled}
             />

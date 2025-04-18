@@ -25,32 +25,33 @@ const ConsumptionCard = () => {
     (store: RootState) => store.deviceData.data.serial
   );
   useEffect(() => {
-    const clientId = crypto.randomUUID().replace(/-/g, "");
-    setTimeout(() => {
-      const client = new Paho.Client(mqttOptions.url, clientId);
-      client.connect({
-        useSSL: true,
-        timeout: 10,
-        mqttVersion: 4,
-        userName: mqttOptions.username,
-        password: "",
-        onSuccess: function () {
-          client.subscribe(`c2/d/${serial}`); //serial from chain-2-gate
-        },
-      });
-      client.onMessageArrived = function (message) {
-        if (
-          JSON.parse(message.payloadString).Chain2Data?.type === "CF21" ||
-          "CF51"
-        ) {
-          const messageRecieved = JSON.parse(message.payloadString);
-          setIotData(messageRecieved.Chain2Data);
-          return { iotData: JSON.parse(message.payloadString).Chain2Data };
-        } else return { iotData: { message: meterEventDummyData } };
-      };
-    }, 0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (typeof window !== "undefined" && serial) {
+      const clientId = crypto.randomUUID().replace(/-/g, "");
+      setTimeout(() => {
+        const client = new Paho.Client(mqttOptions.url, clientId);
+        client.connect({
+          useSSL: true,
+          timeout: 10,
+          mqttVersion: 4,
+          userName: mqttOptions.username,
+          password: "",
+          onSuccess: function () {
+            client.subscribe(`c2/d/${serial}`); //serial from chain-2-gate
+          },
+        });
+        client.onMessageArrived = function (message) {
+          if (
+            JSON.parse(message.payloadString).Chain2Data?.type === "CF21" ||
+            "CF51"
+          ) {
+            const messageRecieved = JSON.parse(message.payloadString).Chain2Data;
+            setIotData(messageRecieved);
+            return { iotData: JSON.parse(message.payloadString).Chain2Data };
+          } else return { iotData: { message: meterEventDummyData } };
+        };
+      }, 0);
+    }
+  }, [serial]);
   return (
     <>
       <Card className="bg-transparent font-roboto rounded-sm p-4 px-2 my-0 !ring-0 !dark:ring-0">
