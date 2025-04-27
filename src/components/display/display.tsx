@@ -193,7 +193,6 @@ const Display = () => {
             (
               <>
                 <div className="w-full text-black flex flex-row gap-4 justify-between">
-
                   <ConsumptionDisplay
                     title="Oggi"
                     value={currDayConsumption}
